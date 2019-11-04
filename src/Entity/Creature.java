@@ -4,6 +4,6 @@ public abstract class Creature extends Entity {
     int health;
     public Creature(double x, double y) {
         super(x, y);
-        int health = 2;
+        int health = 1;
     }
 }
