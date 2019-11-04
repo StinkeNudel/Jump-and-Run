@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Letter extends Entity {
-    private BufferedImage image; //= ImageLoader.loadImage("");
+    private BufferedImage image = ImageLoader.loadImage("/noodle.jpg");
 
     private Game game;
 
