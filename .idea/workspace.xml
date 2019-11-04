@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49b7abdd-742d-4dba-898a-7b51f6da23db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/res/noodle.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Letter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Letter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Worlds/MenuWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worlds/MenuWorld.java" afterDir="false" />
@@ -14,8 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="Adv-Jump-and-Run" />
@@ -25,8 +23,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Entity/Letter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+            <state relative-caret-position="238">
+              <caret line="34" column="22" lean-forward="true" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -34,8 +32,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Worlds/MenuWorld.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+            <state relative-caret-position="136">
+              <caret line="13" column="26" lean-forward="true" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -123,6 +121,11 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dokumente und Daten\judith\Documents\workspace\Jump-and-Run\res" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -166,16 +169,16 @@
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966443" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24966443" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Terminal" weight="0.3286119" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -238,15 +241,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/Letter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        <state relative-caret-position="238">
+          <caret line="34" column="22" lean-forward="true" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Worlds/MenuWorld.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="16" column="18" lean-forward="true" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        <state relative-caret-position="136">
+          <caret line="13" column="26" lean-forward="true" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
         </state>
       </provider>
     </entry>

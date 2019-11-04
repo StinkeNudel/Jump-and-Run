@@ -10,7 +10,7 @@ public class Letter extends Entity {
     private BufferedImage image = ImageLoader.loadImage("/noodle.jpg");
 
     private Game game;
-
+    int howToFly = 0;
     public Letter(Game game, double x, double y) {
         super(x, y);
         this.game = game;
@@ -25,25 +25,25 @@ public class Letter extends Entity {
     }
 
     public void move() {
-        int howToFly = 0;
+
         switch (howToFly) {
             case 0:
                 x = x - 1;
-                if (x == game.width - 50) {
+                if (x == game.width - 700) {
                     howToFly++;
-                }
+                    }
                 break;
             case 1:
                 x = x - 1;
                 y = y - 1;
-                if (x == game.width - 55 && y == game.height - 250) {
+                if (x <= game.width - 950 && y <= game.height - 900) {
                     howToFly++;
                 }
                 break;
             case 2:
                 x = x + 1;
                 y = y - 1;
-                if (x == game.width - 50 && y == game.height - 255) {
+                if (x >= game.width - 800 && y <= game.height - 1000) {
                     howToFly++;
                 }
                 break;
