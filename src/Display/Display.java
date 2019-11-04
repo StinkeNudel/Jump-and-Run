@@ -36,7 +36,7 @@ public class Display {
 
         frame.add(canvas);
         frame.pack();
-        device.setFullScreenWindow(frame);
+        //device.setFullScreenWindow(frame);
     }
 
     public Canvas getCanvas() {

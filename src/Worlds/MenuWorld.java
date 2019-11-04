@@ -16,6 +16,7 @@ public class MenuWorld extends World {
      */
     public MenuWorld(Game game) {
         super(game);
+        player = new Player(game, 100, 100);
     }
 
     /**

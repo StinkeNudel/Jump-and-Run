@@ -1,11 +1,13 @@
 package Entity;
 
+import GFX.ImageLoader;
 import Main.Game;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
-    Image
+    BufferedImage image = ImageLoader.loadImage("Elves.png");
     private Game game;
 
     public Player(Game game, double x, double y) {
@@ -20,6 +22,6 @@ public class Player extends Entity {
 
     @Override
     public void render(Graphics g) {
-
+        g.drawImage(image, (int) x, (int) y, null);
     }
 }
