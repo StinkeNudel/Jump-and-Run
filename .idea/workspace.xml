@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49b7abdd-742d-4dba-898a-7b51f6da23db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Blocks/MainBlock.java" afterDir="false" />
-    </list>
+    <list default="true" id="49b7abdd-742d-4dba-898a-7b51f6da23db" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,11 +25,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1T9teR5cZMm0GSvQ719fw5ACZWZ" />
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Workspace\Adv-Jump-and-Run\res" />
-    </key>
-  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Dokumente und Daten\judith\Documents\workspace\Jump-and-Run\res" />
@@ -71,13 +64,14 @@
     </task>
     <servers />
   </component>
-
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
