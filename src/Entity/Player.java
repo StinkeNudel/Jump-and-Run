@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
-    BufferedImage image = ImageLoader.loadImage("Elves.png");
+    BufferedImage image = ImageLoader.loadImage("/test.jpg");
     private Game game;
 
     public Player(Game game, double x, double y) {

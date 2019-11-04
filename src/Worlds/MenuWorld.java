@@ -24,6 +24,7 @@ public class MenuWorld extends World {
      */
     @Override
     public void tick() {
+        player.tick();
     }
 
     /**
@@ -33,5 +34,6 @@ public class MenuWorld extends World {
     public void render(Graphics g) {
         //render background
         g.drawImage(Image, 0, 0, null);
+        player.render(g);
     }
 }
