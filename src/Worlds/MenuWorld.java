@@ -1,6 +1,6 @@
 package Worlds;
 
-import GFX.ImageLoader;
+import Entity.Player;
 import Main.Game;
 
 import java.awt.*;
@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 public class MenuWorld extends World {
 
     private BufferedImage Image; //background image
+    private Player player;
 
     /**
      * Constructor
