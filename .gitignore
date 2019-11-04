@@ -32,6 +32,7 @@ local.properties
 ######################
 # Intellij
 ######################
+/idea
 .idea/
 .idea/**
 *.iml
