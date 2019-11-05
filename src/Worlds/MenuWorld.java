@@ -19,7 +19,7 @@ public class MenuWorld extends World {
     public MenuWorld(Game game) {
         super(game);
         player = new Player(game, 100, 100);
-        letter = new Letter(game, game.width - 100, game.height - 700);
+        letter = new Letter(game, game.width - 100, game.height - 400);
 
     }
 
