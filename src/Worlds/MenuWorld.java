@@ -23,6 +23,7 @@ public class MenuWorld extends World {
     public MenuWorld(Game game) {
         super(game);
         player = new Player(game, 100, 100);
+        ArrayLists.player.add(player);
         letter = new Letter(game, game.width - 100, game.height - 400);
         generateBlocks();
     }
@@ -54,9 +55,9 @@ public class MenuWorld extends World {
     }
 
     public void generateBlocks() {
-        int BlockX = 100, y = 500;
-        for (int i = 0; i < 5; i++) {
-            Grass z = new Grass(BlockX, y);
+        int BlockX = 100, BlockY = game.height - 100;
+        for (int i = 0; i < 40; i++) {
+            Grass z = new Grass(BlockX, BlockY);
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
         }
