@@ -2,10 +2,9 @@ package Blocks;
 
 import java.awt.*;
 
-public class Grass extends MainBlock{
-    public Grass(int x, int y) {
+public class Grass extends SolidBlocks {
+    public Grass(double x, double y) {
         super(x, y);
-        solid = true;
     }
 
     @Override
@@ -14,6 +13,7 @@ public class Grass extends MainBlock{
 
     @Override
     public void render(Graphics g) {
-
+        g.setColor(Color.BLACK);
+        g.fillRect((int) x, (int) y, 64, 64);
     }
 }

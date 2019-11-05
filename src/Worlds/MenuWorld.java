@@ -1,11 +1,15 @@
 package Worlds;
 
+import Blocks.Grass;
+import Blocks.SolidBlocks;
 import Entity.Letter;
 import Entity.Player;
+import Main.ArrayLists;
 import Main.Game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class MenuWorld extends World {
 
@@ -20,7 +24,7 @@ public class MenuWorld extends World {
         super(game);
         player = new Player(game, 100, 100);
         letter = new Letter(game, game.width - 100, game.height - 700);
-
+        generateBlocks();
     }
 
     /**
@@ -41,5 +45,20 @@ public class MenuWorld extends World {
         g.drawImage(Image, 0, 0, null);
         player.render(g);
         letter.render(g);
+        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+        for (int w = 0; w < solidBlocks.size(); w++) {
+            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+            m.render(g);
+        }
+
+    }
+
+    public void generateBlocks() {
+        int BlockX = 100, y = 500;
+        for (int i = 0; i < 5; i++) {
+            Grass z = new Grass(BlockX, y);
+            ArrayLists.solidBlocks.add(z);
+            BlockX = BlockX + 64;
+        }
     }
 }
