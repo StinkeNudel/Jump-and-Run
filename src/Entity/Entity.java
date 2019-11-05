@@ -4,11 +4,19 @@ import java.awt.*;
 
 public abstract class Entity {
 
-    double x, y;
+    public double x, y;
 
     public Entity(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 
     public abstract void tick();

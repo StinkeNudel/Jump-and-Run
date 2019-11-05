@@ -46,6 +46,7 @@ public class Game implements Runnable {
     private void init() {
         display = new Display(title, width, height); //creates Display
         display.getFrame().addKeyListener(keyHandler); //adds KeyListener
+        ArrayLists arrayLists = new ArrayLists(); //creates ArrayLists object
         menuWorld = new MenuWorld(this); //creates MenuWorld
         World.setWorld(menuWorld); //sets World to MenuWorld
 
