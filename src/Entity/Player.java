@@ -10,6 +10,7 @@ public class Player extends Entity {
     BufferedImage image = ImageLoader.loadImage("/test.jpg");
     private Game game;
     private int playerWidth = 100, playerHeight = 100;
+    private boolean notfalling = false;
 
     public Player(Game game, double x, double y) {
         super(x, y);
@@ -19,6 +20,7 @@ public class Player extends Entity {
     @Override
     public void tick() {
         input();
+        gravity();
     }
 
     @Override
@@ -28,7 +30,7 @@ public class Player extends Entity {
 
     private void input() {
         if (game.getKeyHandler().w) {
-            y = y - 3;
+            y = y - 40;
         }
         if (game.getKeyHandler().a) {
             x = x - 3;
@@ -38,6 +40,12 @@ public class Player extends Entity {
         }
         if (game.getKeyHandler().d) {
             x = x + 3;
+        }
+    }
+
+    private void gravity(){
+        if (!notfalling){
+            y++;
         }
     }
 }
