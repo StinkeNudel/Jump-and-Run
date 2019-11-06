@@ -40,7 +40,7 @@ public class Letter extends Entity {
         if (x >= game.width / 2 - 195) {
             x = x - 4;
         } else {
-            switch (scrollImage) {
+            switch (scrollImage) { //switch ist für die Scroll-Animation
                 case 0:
                     w = 130;
                     h = 160;
