@@ -24,7 +24,7 @@ public class MenuWorld extends World {
         super(game);
         player = new Player(game, 100, 100);
         ArrayLists.player.add(player);
-        letter = new Letter(game, game.width - 100, game.height - 400);
+        letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
     }
 
