@@ -12,8 +12,9 @@ public class Letter extends Entity {
     private BufferedImage image = ImageLoader.loadImage("/Scroll_Open-12.png.png");
 
     private Game game;
+    int scrollImage;
 
-    long open = System.currentTimeMillis();
+    //long open = System.currentTimeMillis();
     //int howToFly = 0;
 
 
@@ -32,11 +33,63 @@ public class Letter extends Entity {
 
     public void move() {
 
-        if (open <= 5) {
+        if (x >= game.width / 2) {
             x = x - 4;
-            open = System.currentTimeMillis();
+        } else {
+            switch (scrollImage) {
+                case 0:
+                    image = ImageLoader.loadImage("/Scroll_Open-11.png.png");
+                    scrollImage++;
+                    break;
+                case 1:
+                    image = ImageLoader.loadImage("/Scroll_Open-10.png.png");
+                    scrollImage++;
+                    break;
+                case 2:
+                    image = ImageLoader.loadImage("/Scroll_Open-9.png.png");
+                    scrollImage++;
+                    break;
+                case 3:
+                    image = ImageLoader.loadImage("/Scroll_Open-8.png.png");
+                    scrollImage++;
+                    break;
+                case 4:
+                    image = ImageLoader.loadImage("/Scroll_Open-7.png.png");
+                    scrollImage++;
+                    break;
+                case 5:
+                    image = ImageLoader.loadImage("/Scroll_Open-6.png.png");
+                    scrollImage++;
+                    break;
+                case 6:
+                    image = ImageLoader.loadImage("/Scroll_Open-5.png.png");
+                    scrollImage++;
+                    break;
+                case 7:
+                    image = ImageLoader.loadImage("/Scroll_Open-4.png.png");
+                    scrollImage++;
+                    break;
+                case 8:
+                    image = ImageLoader.loadImage("/Scroll_Open-3.png.png");
+                    scrollImage++;
+                    break;
+                case 9:
+                    image = ImageLoader.loadImage("/Scroll_Open-2.png.png");
+                    scrollImage++;
+                    break;
+                case 10:
+                    image = ImageLoader.loadImage("/Scroll_Open-1.png.png");
+                    scrollImage++;
+                    break;
+            }
         }
 
+        /**
+         * if (open <= 5) {
+         x = x - 4;
+         open = System.currentTimeMillis();
+         }
+         */
 
         /**
          *
