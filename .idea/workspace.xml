@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49b7abdd-742d-4dba-898a-7b51f6da23db" name="Default Changelist" comment="">
-<<<<<<< HEAD
-      <change afterPath="$PROJECT_DIR$/src/Worlds/TestWorld.java" afterDir="false" />
-=======
->>>>>>> 1f0747e31ed6e07b04402c3c93e50889e231b36f
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Adventure/Worlds/MenuWorld.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Adventure/Worlds/MenuWorld.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Letter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Letter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Worlds/MenuWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worlds/MenuWorld.java" afterDir="false" />
+
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +16,7 @@
   <component name="FavoritesManager">
     <favorites_list name="Adv-Jump-and-Run" />
   </component>
-<<<<<<< HEAD
+
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -83,8 +76,7 @@
       </file>
     </leaf>
   </component>
-=======
->>>>>>> 1f0747e31ed6e07b04402c3c93e50889e231b36f
+
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -95,7 +87,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-<<<<<<< HEAD
+
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -106,8 +98,7 @@
       </list>
     </option>
   </component>
-=======
->>>>>>> 1f0747e31ed6e07b04402c3c93e50889e231b36f
+
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
@@ -210,7 +201,7 @@
     </task>
     <servers />
   </component>
-<<<<<<< HEAD
+
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
@@ -243,8 +234,7 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
   </component>
-=======
->>>>>>> 1f0747e31ed6e07b04402c3c93e50889e231b36f
+
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -285,7 +275,6 @@
       </map>
     </option>
   </component>
-<<<<<<< HEAD
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/res/Scroll_Open-12.png.png">
       <provider selected="true" editor-type-id="images" />
@@ -356,6 +345,5 @@
       </provider>
     </entry>
   </component>
-=======
->>>>>>> 1f0747e31ed6e07b04402c3c93e50889e231b36f
+
 </project>
