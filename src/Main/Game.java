@@ -1,5 +1,6 @@
 package Main;
 
+import GFX.GameCamera;
 import Worlds.MenuWorld;
 import Display.Display;
 import Input.KeyHandler;
@@ -22,6 +23,8 @@ public class Game implements Runnable {
 
 
     private KeyHandler keyHandler; //KeyListener
+
+    private GameCamera gameCamera;
 
     //Worlds
     private World gameWorld;
@@ -46,6 +49,9 @@ public class Game implements Runnable {
     private void init() {
         display = new Display(title, width, height); //creates Display
         display.getFrame().addKeyListener(keyHandler); //adds KeyListener
+
+        gameCamera = new GameCamera(0,0);
+
         ArrayLists arrayLists = new ArrayLists(); //creates ArrayLists object
         menuWorld = new MenuWorld(this); //creates MenuWorld
         World.setWorld(menuWorld); //sets World to MenuWorld
@@ -119,6 +125,10 @@ public class Game implements Runnable {
 
     public KeyHandler getKeyHandler() {
         return keyHandler;
+    }
+
+    public GameCamera getGameCamera() {
+        return gameCamera;
     }
 
     public synchronized void start() {
