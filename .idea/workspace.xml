@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49b7abdd-742d-4dba-898a-7b51f6da23db" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/GFX/GameCamera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Adventure/Input/KeyHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Adventure/Input/KeyHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Adventure/Worlds/MenuWorld.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Adventure/Worlds/MenuWorld.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Input/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Input/KeyHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Worlds/MenuWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worlds/MenuWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Worlds/TestWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Worlds/TestWorld.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

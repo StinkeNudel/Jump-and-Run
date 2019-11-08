@@ -28,6 +28,8 @@ public class TestWorld extends World {
         ArrayLists.player.add(player);
         letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
+
+        game.getGameCamera().move(0,0);
     }
 
     @Override
