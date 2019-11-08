@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Player extends Entity {
     BufferedImage image = ImageLoader.loadImage("/Player_Front.png");
     private Game game;
-    private int playerWidth = 100, playerHeight = 100;
+    private int playerWidth = 96, playerHeight = 117;
     private boolean notfalling = false;
     private boolean jump = false;
     private double beforeJumpY;
@@ -58,11 +58,19 @@ public class Player extends Entity {
             BlockX = m.getX();
             BlockY = m.getY();
 
-            if (y + playerHeight >= BlockY && BlockX > x && BlockX < x + playerWidth) {
+            if (y + playerHeight >= BlockY - 1 && ((BlockX > x && BlockX < x + playerWidth) || (BlockX + 64 > x && BlockX + 64 < x + playerWidth)) && !(y + playerHeight > BlockY)) {
+              //ALLES FALSCH, also der hintere Teil
                 notfalling = true;
                 return;
             } else {
                 notfalling = false;
+            }
+
+            if (jump && y <= BlockY + 65 && ((BlockX > x && BlockX < x + playerWidth) || (BlockX + 64 > x && BlockX + 64 < x + playerWidth))){
+                //jump = false;
+                notfalling = false;
+                return;
+
             }
         }
 
@@ -70,13 +78,18 @@ public class Player extends Entity {
     }
 
     private void jump() {
-        int jumpHeight = (int) (beforeJumpY - y);
-
         if (jump) {
             y = y - jumpSpeed;
+
+           System.out.println("homp" + jumpSpeed);
+            if(y < beforeJumpY -100){
+                jumpSpeed = 20;
+
+            }
+
             if (y < beforeJumpY - 200){
+                jumpSpeed = 40;
                 jump = false;
-                jumpSpeed = jumpSpeed -10;
             }
         }
     }
@@ -84,7 +97,6 @@ public class Player extends Entity {
     private void gravity() {
         if (!notfalling) {
             y = y + 10;
-            jumpSpeed = 40;
         }
     }
 }

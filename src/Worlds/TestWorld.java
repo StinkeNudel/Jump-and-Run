@@ -54,10 +54,13 @@ public class TestWorld extends World {
 
     public void generateBlocks() {
         int BlockX = 100, BlockY = game.height - 100;
+
         for (int i = 0; i < 40; i++) {
             Grass z = new Grass(BlockX, BlockY);
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
         }
+        Grass z = new Grass(500, BlockY - 300);
+        ArrayLists.solidBlocks.add(z);
     }
 }

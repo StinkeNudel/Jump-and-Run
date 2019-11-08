@@ -51,7 +51,7 @@ public class MenuWorld extends World {
     }
 
     public void cheat() {
-        if (game.getKeyHandler().s) {
+        if (game.getKeyHandler().p) {
             TestWorld testWorld = new TestWorld(game);
             setWorld(testWorld);
         }
