@@ -2,7 +2,7 @@ package Entity;
 
 import java.awt.*;
 
-public abstract class Entity{
+public abstract class Entity {
 
     public double x, y;
 
