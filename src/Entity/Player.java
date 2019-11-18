@@ -58,7 +58,7 @@ public class Player extends Entity {
             BlockX = m.getX();
             BlockY = m.getY();
 
-            if (y + playerHeight >= BlockY - 1 && ((BlockX > x && BlockX < x + playerWidth) || (BlockX + 64 > x && BlockX + 64 < x + playerWidth)) && !(y + playerHeight > BlockY)) {
+            if (y + playerHeight >= BlockY - 1 && ((BlockX > x && BlockX < x + playerWidth))) {
               //ALLES FALSCH, also der hintere Teil
                 notfalling = true;
                 return;
