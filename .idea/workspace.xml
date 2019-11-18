@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+
     <list default="true" id="49b7abdd-742d-4dba-898a-7b51f6da23db" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+
+    <list default="true" id="49b7abdd-742d-4dba-898a-7b51f6da23db" name="Default Changelist" comment="" />
+
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +20,7 @@
   <component name="FavoritesManager">
     <favorites_list name="Adv-Jump-and-Run" />
   </component>
+
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
@@ -80,6 +85,7 @@
       </file>
     </leaf>
   </component>
+
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -90,6 +96,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -108,69 +115,16 @@
     <option name="width" value="983" />
     <option name="height" value="1029" />
   </component>
+
   <component name="ProjectId" id="1T9teR5cZMm0GSvQ719fw5ACZWZ" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Jump-and-Run" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Jump-and-Run" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Jump-and-Run" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Jump-and-Run" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Jump-and-Run" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Jump-and-Run" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Jump-and-Run" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Jump-and-Run" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Jump-and-Run" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Jump-and-Run" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Jump-and-Run" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Jump-and-Run" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="GFX" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Jump-and-Run" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Jump-and-Run" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Jump-and-Run" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Jump-and-Run" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Worlds" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-    </panes>
-  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+
     <property name="last_opened_file_path" value="$PROJECT_DIR$/res" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -201,6 +155,16 @@
       </method>
     </configuration>
   </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <treeState>
+          <expand />
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -214,6 +178,7 @@
     </task>
     <servers />
   </component>
+
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="786" height="823" extended-state="0" />
     <editor active="true" />
@@ -246,26 +211,14 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
   </component>
+
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
+              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
@@ -286,6 +239,7 @@
       </map>
     </option>
   </component>
+
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/res/Scroll_Open-12.png.png">
       <provider selected="true" editor-type-id="images" />
@@ -388,4 +342,5 @@
       </provider>
     </entry>
   </component>
+
 </project>

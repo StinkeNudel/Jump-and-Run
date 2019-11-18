@@ -10,13 +10,13 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Player extends Entity {
-    BufferedImage image = ImageLoader.loadImage("/test.jpg");
+    BufferedImage image = ImageLoader.loadImage("/Player_Front.png");
     private Game game;
-    private int playerWidth = 100, playerHeight = 100;
+    private int playerWidth = 96, playerHeight = 117;
     private boolean notfalling = false;
     private boolean jump = false;
     private double beforeJumpY;
-
+   private int jumpSpeed = 40;
     public Player(Game game, double x, double y) {
         super(x, y);
         this.game = game;
@@ -43,10 +43,10 @@ public class Player extends Entity {
             }
         }
         if (game.getKeyHandler().a) {
-            x = x - 3;
+            x = x - 5;
         }
         if (game.getKeyHandler().d) {
-            x = x + 3;
+            x = x + 5;
         }
     }
 
@@ -58,11 +58,19 @@ public class Player extends Entity {
             BlockX = m.getX();
             BlockY = m.getY();
 
-            if (y + playerHeight >= BlockY && BlockX > x && BlockX < x + playerWidth) {
+            if (y + playerHeight >= BlockY - 1 && ((BlockX > x && BlockX < x + playerWidth) || (BlockX + 64 > x && BlockX + 64 < x + playerWidth)) && !(y + playerHeight > BlockY)) {
+              //ALLES FALSCH, also der hintere Teil
                 notfalling = true;
                 return;
             } else {
                 notfalling = false;
+            }
+
+            if (jump && y <= BlockY + 65 && ((BlockX > x && BlockX < x + playerWidth) || (BlockX + 64 > x && BlockX + 64 < x + playerWidth))){
+                //jump = false;
+                notfalling = false;
+                return;
+
             }
         }
 
@@ -71,8 +79,16 @@ public class Player extends Entity {
 
     private void jump() {
         if (jump) {
-            y = y - 40;
-            if (y < beforeJumpY - 120){
+            y = y - jumpSpeed;
+
+           System.out.println("homp" + jumpSpeed);
+            if(y < beforeJumpY -100){
+                jumpSpeed = 20;
+
+            }
+
+            if (y < beforeJumpY - 200){
+                jumpSpeed = 40;
                 jump = false;
             }
         }
@@ -80,7 +96,7 @@ public class Player extends Entity {
 
     private void gravity() {
         if (!notfalling) {
-            y = y + 5;
+            y = y + 10;
         }
     }
 }
