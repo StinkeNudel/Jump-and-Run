@@ -38,7 +38,7 @@ public class Letter extends Entity {
          * Scroll fliegt in die Mitte und rollt sich dann aus
          */
         if (x >= game.width / 2 - 195) {
-            x = x - 8;
+            x = x - 4;
         } else {
             switch (scrollImage) { //switch ist für die Scroll-Animation
                 case 0:
