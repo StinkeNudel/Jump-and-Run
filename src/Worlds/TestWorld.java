@@ -2,6 +2,7 @@ package Worlds;
 
 import Blocks.Grass;
 import Blocks.SolidBlocks;
+import Entity.Enemy;
 import Entity.Letter;
 import Entity.Player;
 import Main.ArrayLists;
@@ -16,6 +17,7 @@ public class TestWorld extends World {
     private BufferedImage Image; //background image
     private Player player;
     private Letter letter;
+    private Enemy enemy;
 
     /**
      * constructor
@@ -29,6 +31,7 @@ public class TestWorld extends World {
         letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
 
+        enemy = new Enemy(200, 100);
         game.getGameCamera().move(0,0);
     }
 
@@ -37,6 +40,7 @@ public class TestWorld extends World {
 
         player.tick();
         letter.tick();
+        enemy.tick();
 
     }
 
@@ -46,6 +50,7 @@ public class TestWorld extends World {
         g.drawImage(Image, 0, 0, null);
         player.render(g);
         letter.render(g);
+        enemy.render(g);
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
