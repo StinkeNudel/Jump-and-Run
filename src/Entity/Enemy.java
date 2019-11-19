@@ -16,6 +16,7 @@ public class Enemy extends Creature {
     private int enemyHeight = 60;
     private int enemyWidth = 60;
     private boolean notfalling = false;
+    boolean isThereABlockOnMyLeftSide = false;
 
     public Enemy(double x, double y) {
         super(x, y);
@@ -25,6 +26,7 @@ public class Enemy extends Creature {
     public void tick() {
         checkBlocks();
         falling();
+        move();
 
     }
 
@@ -49,8 +51,22 @@ public class Enemy extends Creature {
             } else {
                 notfalling = false;
             }
+
+            if (x < BlockX + 60 && x + enemyWidth > BlockX) {
+                isThereABlockOnMyLeftSide = true;
+            }
         }
     }
+
+    public void move() {
+        if(!isThereABlockOnMyLeftSide) {
+            x = x - 2;
+        } else {
+            x = x + 2;
+            isThereABlockOnMyLeftSide = false;
+        }
+    }
+
 
     private void falling() {
         if(!notfalling) {

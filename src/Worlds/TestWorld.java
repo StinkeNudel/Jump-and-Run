@@ -31,7 +31,7 @@ public class TestWorld extends World {
         letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
 
-        enemy = new Enemy(200, 100);
+        enemy = new Enemy(900, 100);
         game.getGameCamera().move(0,0);
     }
 
@@ -67,7 +67,7 @@ public class TestWorld extends World {
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
         }
-        Grass z = new Grass(500, BlockY - 300);
+        Grass z = new Grass(300, BlockY - 60);
         ArrayLists.solidBlocks.add(z);
     }
 }
