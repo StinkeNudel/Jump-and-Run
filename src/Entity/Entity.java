@@ -11,6 +11,7 @@ public abstract class Entity {
         this.y = y;
     }
 
+
     public double getX() {
         return x;
     }

@@ -52,11 +52,13 @@ public class Enemy extends Creature {
                 notfalling = false;
             }
 
-            if (x < BlockX + 60 && x + enemyWidth > BlockX) {
+            if (x < BlockX + 60 && x + enemyWidth > BlockX && y < BlockY + 60 && y + enemyHeight > BlockY) {
                 isThereABlockOnMyLeftSide = true;
             }
         }
     }
+
+
 
     public void move() {
         if(!isThereABlockOnMyLeftSide) {
