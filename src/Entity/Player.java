@@ -46,6 +46,7 @@ public class Player extends Entity {
             }
         }
         if (game.getKeyHandler().a) {
+            image = ImageLoader.loadImage("/Player_Left.png");
             movingLeft = true;
             checkLeft();
             if (movingLeft) {
@@ -53,13 +54,19 @@ public class Player extends Entity {
                 movingLeft = false;
             }
         }
+
         if (game.getKeyHandler().d) {
+            image = ImageLoader.loadImage("/Player_Right.png");
             movingRight = true;
             checkRight();
             if (movingRight) {
                 x = x + speed;
                 movingRight = false;
             }
+        }
+
+        if (!game.getKeyHandler().d && !game.getKeyHandler().a){
+            image = ImageLoader.loadImage("/Player_Front.png");
         }
     }
 
@@ -73,9 +80,11 @@ public class Player extends Entity {
             BlockY = m.getY();
             if (y + playerHeight > BlockY - 2 && ((BlockX > x && BlockX < x + playerWidth))) {
                 notfalling = true;
+                y = BlockY - playerHeight;
                 return;
             } else if (y + playerHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth))) {
                 notfalling = true;
+                y = BlockY - playerHeight;
                 return;
             } else {
                 notfalling = false;
@@ -108,7 +117,7 @@ public class Player extends Entity {
             BlockX = m.getX();
             BlockY = m.getY();
             if ((y + playerHeight > BlockY && y + playerHeight < BlockY + 64
-                    || y + playerHeight/2 > BlockY && y + playerHeight/2 < BlockY + 64
+                    || y + playerHeight / 2 > BlockY && y + playerHeight / 2 < BlockY + 64
                     || y > BlockY && y < BlockY + 64)
                     && x - speed <= BlockX + 64 && !(x < BlockX)) {
                 movingLeft = false;
@@ -135,7 +144,7 @@ public class Player extends Entity {
 
     private void gravity() {
         if (!notfalling) {
-            y = y + 2;
+            y = y + 5;
         }
     }
 }
