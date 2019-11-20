@@ -17,10 +17,11 @@ public class Enemy extends Creature {
     private int enemyHeight = 60;
     private int enemyWidth = 60;
     private boolean notfalling = false;
-    boolean isThereABlockOnMyLeftSide = false;
-    boolean isThereABlockOnMyRightSide = false;
-    int speed = 2;
-    int animation;
+    private boolean isThereABlockOnMyLeftSide = false;
+    private boolean isThereABlockOnMyRightSide = false;
+    private int speed = 2;
+    private int animation;
+    private int animationCounter;
 
     public Enemy(Game game, double x, double y) {
         super(game, x, y);
@@ -33,7 +34,12 @@ public class Enemy extends Creature {
         move();
         checkLeft();
         checkRight();
-        animation();
+        animationCounter++;
+
+        if (animationCounter >= 3) {
+            animation();
+            animationCounter = 0;
+        }
 
     }
 
