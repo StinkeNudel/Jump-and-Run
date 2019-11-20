@@ -16,7 +16,10 @@ public class Player extends Entity {
     private boolean notfalling = false;
     private boolean jump = false;
     private double beforeJumpY;
-   private int jumpSpeed = 40;
+    private int jumpSpeed = 40;
+    private int speed = 5;
+    private boolean movingRight, movingLeft;
+
     public Player(Game game, double x, double y) {
         super(x, y);
         this.game = game;
@@ -43,12 +46,23 @@ public class Player extends Entity {
             }
         }
         if (game.getKeyHandler().a) {
-            x = x - 5;
+            movingLeft = true;
+            checkLeft();
+            if (movingLeft) {
+                x = x - speed;
+                movingLeft = false;
+            }
         }
         if (game.getKeyHandler().d) {
-            x = x + 5;
+            movingRight = true;
+            checkRight();
+            if (movingRight) {
+                x = x + speed;
+                movingRight = false;
+            }
         }
     }
+
 
     private void checkBlocks() {
         double BlockX, BlockY;
@@ -57,37 +71,58 @@ public class Player extends Entity {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-
-            if (y + playerHeight >= BlockY - 1 && ((BlockX > x && BlockX < x + playerWidth))) {
-              //ALLES FALSCH, also der hintere Teil
+            if (y + playerHeight > BlockY - 2 && ((BlockX > x && BlockX < x + playerWidth))) {
                 notfalling = true;
                 return;
-            } else {
-                notfalling = false;
             }
-
-            if (jump && y <= BlockY + 65 && ((BlockX > x && BlockX < x + playerWidth) || (BlockX + 64 > x && BlockX + 64 < x + playerWidth))){
-                //jump = false;
-                notfalling = false;
+            else if (y + playerHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth))){
+                notfalling = true;
                 return;
-
+            }
+            else {
+                notfalling = false;
             }
         }
+    }
 
+    private void checkRight() {
+        double BlockX, BlockY;
+        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+        for (int w = 0; w < solidBlocks.size(); w++) {
+            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+            BlockX = m.getX();
+            BlockY = m.getY();
+            if (y + playerHeight > BlockY && y + playerHeight < BlockY + 64 && x + playerWidth + speed >= BlockX && !(x + playerWidth > BlockX + 64)) {
+                movingRight = false;
+                return;
+            }
+        }
+    }
 
+    private void checkLeft() {
+        double BlockX, BlockY;
+        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+        for (int w = 0; w < solidBlocks.size(); w++) {
+            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+            BlockX = m.getX();
+            BlockY = m.getY();
+            if (y + playerHeight > BlockY && y + playerHeight < BlockY + 64 && x - speed <= BlockX + 64 && !(x < BlockX)) {
+                movingLeft = false;
+                return;
+            }
+        }
     }
 
     private void jump() {
         if (jump) {
             y = y - jumpSpeed;
 
-           System.out.println("homp" + jumpSpeed);
-            if(y < beforeJumpY -100){
+            if (y < beforeJumpY - 100) {
                 jumpSpeed = 20;
 
             }
 
-            if (y < beforeJumpY - 200){
+            if (y < beforeJumpY - 200) {
                 jumpSpeed = 40;
                 jump = false;
             }
@@ -96,7 +131,8 @@ public class Player extends Entity {
 
     private void gravity() {
         if (!notfalling) {
-            y = y + 10;
+            y = y + 2;
         }
     }
 }
+

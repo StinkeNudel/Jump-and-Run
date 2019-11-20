@@ -62,7 +62,7 @@ public class TestWorld extends World {
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
         }
-        Grass z = new Grass(500, BlockY - 300);
+        Grass z = new Grass(500, game.height - 164);
         ArrayLists.solidBlocks.add(z);
     }
 }
