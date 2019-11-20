@@ -54,11 +54,11 @@ public class TestWorld extends World {
         int mountainX = -500;
         for (int i = 0; i < 20; i++) {
             mountainX += 600;
-            g.drawImage(mountain, mountainX - (int) (game.getGameCamera().getxOffset() / 4), game.height - 800, 800, 800, null);
+            g.drawImage(mountain, mountainX - (int) (game.getGameCamera().getxOffset() / 8), game.height - 800, 800, 800, null);
         }
         for (int i = 0; i < 20; i++) {
             treeX += 300;
-            g.drawImage(tree, treeX - (int) (game.getGameCamera().getxOffset() / 2), game.height - 600, 500, 500, null);
+            g.drawImage(tree, treeX - (int) (game.getGameCamera().getxOffset() / 4), game.height - 600, 500, 500, null);
         }
 
 
