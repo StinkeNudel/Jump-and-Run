@@ -49,20 +49,19 @@ public class Enemy extends Creature {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-
-            if (y + enemyHeight > BlockY - 2 && ((BlockX > x && BlockX < x + enemyWidth))) {
+            if (y + enemyHeight > BlockY - 2 && ((BlockX > x && BlockX < x + enemyWidth + 10))) {
                 notfalling = true;
                 y = BlockY - enemyHeight;
                 return;
-            } else if (y + enemyHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + enemyWidth))) {
+            } else if (y + enemyHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + enemyWidth + 10))) {
                 notfalling = true;
                 y = BlockY - enemyHeight;
                 return;
-            } else {
-                notfalling = false;
             }
+            }
+        notfalling = false;
         }
-    }
+
 
     private void checkRight() {
         double BlockX, BlockY;

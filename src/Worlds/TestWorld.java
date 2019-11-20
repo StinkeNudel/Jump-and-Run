@@ -31,7 +31,7 @@ public class TestWorld extends World {
         letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
 
-        enemy = new Enemy(game, 900, 100);
+        enemy = new Enemy(game, 900, 90);
         game.getGameCamera().move(0, 0);
     }
 
