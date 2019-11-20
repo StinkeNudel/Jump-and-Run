@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class Player extends Entity {
     BufferedImage image = ImageLoader.loadImage("/Player_Front.png");
-    private Game game;
     private int playerWidth = 96, playerHeight = 117;
     private boolean notfalling = false;
     private boolean jump = false;
@@ -21,7 +20,7 @@ public class Player extends Entity {
     private boolean movingRight, movingLeft;
 
     public Player(Game game, double x, double y) {
-        super(x, y);
+        super(game, x, y);
         this.game = game;
     }
 
@@ -35,7 +34,7 @@ public class Player extends Entity {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(image, (int) x, (int) y, playerWidth, playerHeight, null);
+        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), playerWidth, playerHeight, null);
     }
 
     private void input() {
@@ -51,6 +50,7 @@ public class Player extends Entity {
             checkLeft();
             if (movingLeft) {
                 x = x - speed;
+                game.getGameCamera().move(-speed, 0);
                 movingLeft = false;
             }
         }
@@ -61,11 +61,12 @@ public class Player extends Entity {
             checkRight();
             if (movingRight) {
                 x = x + speed;
+                game.getGameCamera().move(speed, 0);
                 movingRight = false;
             }
         }
 
-        if (!game.getKeyHandler().d && !game.getKeyHandler().a){
+        if ((!game.getKeyHandler().d && !game.getKeyHandler().a) || game.getKeyHandler().d && game.getKeyHandler().a) {
             image = ImageLoader.loadImage("/Player_Front.png");
         }
     }
@@ -148,4 +149,3 @@ public class Player extends Entity {
         }
     }
 }
-

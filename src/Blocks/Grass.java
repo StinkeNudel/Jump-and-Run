@@ -1,10 +1,17 @@
 package Blocks;
 
+import GFX.ImageLoader;
+import Main.Game;
+
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Grass extends SolidBlocks {
-    public Grass(double x, double y) {
-        super(x, y);
+    private BufferedImage image = ImageLoader.loadImage("/grass_block.png");
+
+
+    public Grass(Game game, double x, double y) {
+        super(game, x, y);
     }
 
     @Override
@@ -13,7 +20,6 @@ public class Grass extends SolidBlocks {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.fillRect((int) x, (int) y, 64, 64);
+        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), 64, 64, null);
     }
 }

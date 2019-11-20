@@ -19,7 +19,7 @@ public class Letter extends Entity {
 
 
     public Letter(Game game, double x, double y) {
-        super(x, y);
+        super(game, x, y);
         this.game = game;
     }
 
@@ -29,7 +29,7 @@ public class Letter extends Entity {
 
     public void render(Graphics g) {
 
-        g.drawImage(image, (int) x, (int) y, w, h, null);
+        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), w, h, null);
     }
 
     public void move() {

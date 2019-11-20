@@ -2,6 +2,7 @@ package Worlds;
 
 import Blocks.Grass;
 import Blocks.SolidBlocks;
+import Entity.Enemy;
 import Entity.Letter;
 import Entity.Player;
 import Main.ArrayLists;
@@ -16,6 +17,7 @@ public class TestWorld extends World {
     private BufferedImage Image; //background image
     private Player player;
     private Letter letter;
+    private Enemy enemy;
 
     /**
      * constructor
@@ -24,12 +26,13 @@ public class TestWorld extends World {
      */
     public TestWorld(Game game) {
         super(game);
-        player = new Player(game, 100, 100);
+        player = new Player(game, game.width/2, 100);
         ArrayLists.player.add(player);
         letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
 
-        game.getGameCamera().move(0,0);
+        enemy = new Enemy(game, 900, 100);
+        game.getGameCamera().move(0, 0);
     }
 
     @Override
@@ -37,6 +40,7 @@ public class TestWorld extends World {
 
         player.tick();
         letter.tick();
+        enemy.tick();
 
     }
 
@@ -46,6 +50,7 @@ public class TestWorld extends World {
         g.drawImage(Image, 0, 0, null);
         player.render(g);
         letter.render(g);
+        enemy.render(g);
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
@@ -58,11 +63,11 @@ public class TestWorld extends World {
         int BlockX = 100, BlockY = game.height - 100;
 
         for (int i = 0; i < 40; i++) {
-            Grass z = new Grass(BlockX, BlockY);
+            Grass z = new Grass(game, BlockX, BlockY);
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
         }
-        Grass z = new Grass(500, game.height - 180);
+        Grass z = new Grass(game, 300, BlockY - 64);
         ArrayLists.solidBlocks.add(z);
     }
 }

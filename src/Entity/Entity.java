@@ -1,15 +1,20 @@
 package Entity;
 
+import Main.Game;
+
 import java.awt.*;
 
 public abstract class Entity {
 
     public double x, y;
+    protected Game game;
 
-    public Entity(double x, double y) {
+    public Entity(Game game, double x, double y) {
         this.x = x;
         this.y = y;
+        this.game = game;
     }
+
 
     public double getX() {
         return x;
