@@ -18,9 +18,12 @@ public class TestWorld extends World {
     private BufferedImage Image; //background image
     BufferedImage tree = ImageLoader.loadImage("/Tree.png");
     BufferedImage mountain = ImageLoader.loadImage("/Berg.png");
+    BufferedImage cloud1 = ImageLoader.loadImage("/Wolke1.png");
+    BufferedImage cloud2 = ImageLoader.loadImage("/Wolke2.png");
     private Player player;
     private Letter letter;
     private Enemy enemy;
+    int cloundAn = 0;
 
     /**
      * constructor
@@ -52,10 +55,21 @@ public class TestWorld extends World {
         //render background
         int treeX = -500;
         int mountainX = -500;
+        int cloudX = - 500;
+        g.setColor(Color.CYAN);
+        g.fillRect(0, 0, 10000 , 10000);
+
         for (int i = 0; i < 20; i++) {
             mountainX += 600;
             g.drawImage(mountain, mountainX - (int) (game.getGameCamera().getxOffset() / 8), game.height - 800, 800, 800, null);
         }
+        for (int i = 0; i < 20; i++) {
+            cloudX += 500;
+            g.drawImage(cloud1, cloudX - (int) (game.getGameCamera().getxOffset() / 4 + cloundAn), game.height - 1200, 400, 400, null);
+            cloudX += 500;
+            g.drawImage(cloud2, cloudX - (int) (game.getGameCamera().getxOffset() / 4 + cloundAn), game.height - 1100, 400, 400, null);
+        }
+        cloundAn += 1;
         for (int i = 0; i < 20; i++) {
             treeX += 300;
             g.drawImage(tree, treeX - (int) (game.getGameCamera().getxOffset() / 4), game.height - 600, 500, 500, null);
