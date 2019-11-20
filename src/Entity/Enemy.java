@@ -18,6 +18,8 @@ public class Enemy extends Creature {
     private int enemyWidth = 60;
     private boolean notfalling = false;
     boolean isThereABlockOnMyLeftSide = false;
+    boolean isThereABlockOnMyRightSide = false;
+    int speed = 2;
 
     public Enemy(Game game, double x, double y) {
         super(game, x, y);
@@ -28,6 +30,8 @@ public class Enemy extends Creature {
         checkBlocks();
         falling();
         move();
+        checkLeft();
+        checkRight();
 
     }
 
@@ -46,15 +50,52 @@ public class Enemy extends Creature {
             BlockX = m.getX();
             BlockY = m.getY();
 
-            if (y + enemyHeight >= BlockY - 1 && ((BlockX > x && BlockX < x + enemyWidth))) {
+            if (y + enemyHeight > BlockY - 2 && ((BlockX > x && BlockX < x + enemyWidth))) {
                 notfalling = true;
+                y = BlockY - enemyHeight;
+                return;
+            } else if (y + enemyHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + enemyWidth))) {
+                notfalling = true;
+                y = BlockY - enemyHeight;
                 return;
             } else {
                 notfalling = false;
             }
+        }
+    }
 
-            if (x < BlockX + 60 && x + enemyWidth > BlockX && y < BlockY + 60 && y + enemyHeight > BlockY) {
+    private void checkRight() {
+        double BlockX, BlockY;
+        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+        for (int w = 0; w < solidBlocks.size(); w++) {
+            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+            BlockX = m.getX();
+            BlockY = m.getY();
+            if ((y + enemyHeight > BlockY && y + enemyHeight < BlockY + 64
+                    || y + enemyHeight / 2 > BlockY && y + enemyHeight / 2 < BlockY + 64
+                    || y > BlockY && y < BlockY + 64)
+                    && x + enemyWidth + speed >= BlockX && !(x + enemyWidth > BlockX + 64)) {
+                isThereABlockOnMyRightSide = true;
+                isThereABlockOnMyLeftSide = false;
+                return;
+            }
+        }
+    }
+
+    private void checkLeft() {
+        double BlockX, BlockY;
+        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+        for (int w = 0; w < solidBlocks.size(); w++) {
+            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+            BlockX = m.getX();
+            BlockY = m.getY();
+            if ((y + enemyHeight > BlockY && y + enemyHeight < BlockY + 64
+                    || y + enemyHeight / 2 > BlockY && y + enemyHeight / 2 < BlockY + 64
+                    || y > BlockY && y < BlockY + 64)
+                    && x - speed <= BlockX + 64 && !(x < BlockX)) {
                 isThereABlockOnMyLeftSide = true;
+                isThereABlockOnMyRightSide = false;
+                return;
             }
         }
     }
@@ -63,10 +104,9 @@ public class Enemy extends Creature {
 
     public void move() {
         if(!isThereABlockOnMyLeftSide) {
-            x = x - 2;
+            x = x - speed;
         } else {
-            x = x + 2;
-            isThereABlockOnMyLeftSide = false;
+            x = x + speed;
         }
     }
 
