@@ -74,12 +74,10 @@ public class Player extends Entity {
             if (y + playerHeight > BlockY - 2 && ((BlockX > x && BlockX < x + playerWidth))) {
                 notfalling = true;
                 return;
-            }
-            else if (y + playerHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth))){
+            } else if (y + playerHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth))) {
                 notfalling = true;
                 return;
-            }
-            else {
+            } else {
                 notfalling = false;
             }
         }
@@ -92,7 +90,10 @@ public class Player extends Entity {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-            if (y + playerHeight > BlockY && y + playerHeight < BlockY + 64 && x + playerWidth + speed >= BlockX && !(x + playerWidth > BlockX + 64)) {
+            if ((y + playerHeight > BlockY && y + playerHeight < BlockY + 64
+                    || y + playerHeight / 2 > BlockY && y + playerHeight / 2 < BlockY + 64
+                    || y > BlockY && y < BlockY + 64)
+                    && x + playerWidth + speed >= BlockX && !(x + playerWidth > BlockX + 64)) {
                 movingRight = false;
                 return;
             }
@@ -106,7 +107,10 @@ public class Player extends Entity {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-            if (y + playerHeight > BlockY && y + playerHeight < BlockY + 64 && x - speed <= BlockX + 64 && !(x < BlockX)) {
+            if ((y + playerHeight > BlockY && y + playerHeight < BlockY + 64
+                    || y + playerHeight/2 > BlockY && y + playerHeight/2 < BlockY + 64
+                    || y > BlockY && y < BlockY + 64)
+                    && x - speed <= BlockX + 64 && !(x < BlockX)) {
                 movingLeft = false;
                 return;
             }
