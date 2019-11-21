@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
     private boolean[] keys;
-    public boolean w, a, s, d, up, enter, space, p;
+    public boolean w, a, s, d, up, enter, space, p, o;
 
     public KeyHandler() {
         keys = new boolean[256];
@@ -17,6 +17,7 @@ public class KeyHandler implements KeyListener {
         s = keys[KeyEvent.VK_S];
         d = keys[KeyEvent.VK_D];
         p = keys[KeyEvent.VK_P];
+        o = keys[KeyEvent.VK_O];
         up = keys[KeyEvent.VK_UP];
         enter = keys[KeyEvent.VK_ENTER];
         space = keys[KeyEvent.VK_SPACE];

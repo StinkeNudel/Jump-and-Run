@@ -55,7 +55,12 @@ public class MenuWorld extends World {
             TestWorld testWorld = new TestWorld(game);
             setWorld(testWorld);
         }
+        if (game.getKeyHandler().o) {
+                Tutorial tutorial = new Tutorial(game);
+                setWorld(tutorial);
+            }
+        }
     }
 
 
-}
+
