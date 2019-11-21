@@ -19,8 +19,6 @@ public class MenuWorld extends World {
      */
     public MenuWorld(Game game) {
         super(game);
-        player = new Player(game, game.width/2, game.height/3);
-        ArrayLists.player.add(player);
     }
 
     /**
@@ -28,9 +26,7 @@ public class MenuWorld extends World {
      */
     @Override
     public void tick() {
-        player.tick();
         cheat();
-
     }
 
     /**
@@ -40,7 +36,6 @@ public class MenuWorld extends World {
     public void render(Graphics g) {
         //render background
         g.drawImage(Image, 0, 0, null);
-        player.render(g);
 
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
