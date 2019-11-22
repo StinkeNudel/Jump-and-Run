@@ -5,6 +5,7 @@ import Blocks.SolidBlocks;
 import Entity.Enemy;
 import Entity.Letter;
 import Entity.Player;
+import Entity.Worm;
 import GFX.ImageLoader;
 import Main.ArrayLists;
 import Main.Game;
@@ -22,7 +23,7 @@ public class TestWorld extends World {
     BufferedImage cloud2 = ImageLoader.loadImage("/Wolke2.png");
     private Player player;
     private Letter letter;
-    private Enemy enemy;
+    private Enemy worm;
     int cloundAn = 0;
     private boolean background = false;
 
@@ -38,8 +39,8 @@ public class TestWorld extends World {
         letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
 
-        enemy = new Enemy(game, 900, 90);
-        ArrayLists.enemys.add(enemy);
+        worm = new Worm(game, 900, 90);
+        ArrayLists.enemys.add(worm);
 
         game.getGameCamera().move(0, 0);
     }
@@ -49,7 +50,7 @@ public class TestWorld extends World {
 
         player.tick();
         letter.tick();
-        enemy.tick();
+        worm.tick();
 
     }
 
@@ -83,7 +84,7 @@ public class TestWorld extends World {
 
         player.render(g);
         letter.render(g);
-        enemy.render(g);
+        worm.render(g);
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);

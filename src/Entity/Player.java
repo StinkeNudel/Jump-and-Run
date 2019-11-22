@@ -4,10 +4,15 @@ import Blocks.SolidBlocks;
 import GFX.ImageLoader;
 import Main.ArrayLists;
 import Main.Game;
+import Worlds.Defeat;
+import Worlds.World;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import static Main.ArrayLists.enemys;
+import static Main.ArrayLists.player;
 
 public class Player extends Entity {
     BufferedImage image = ImageLoader.loadImage("/Player_Front.png");
@@ -18,6 +23,8 @@ public class Player extends Entity {
     private int jumpSpeed = 40;
     private int speed = 5;
     private boolean movingRight, movingLeft;
+    private boolean touchingEnemy = false;
+
     int life = 10;
 
     public Player(Game game, double x, double y) {
@@ -31,6 +38,8 @@ public class Player extends Entity {
         checkBlocks();
         gravity();
         jump();
+        lowerHealth();
+        die();
     }
 
     @Override
@@ -152,6 +161,52 @@ public class Player extends Entity {
         }
     }
 
+    public void lowerHealth() {
+        int noTouchingEnemies = 0;
+        int offset = 25;
+        double EnemyUpX, EnemyUpY;
+        double EnemyDownX, EnemyDownY;
+        double EnemyRightX, EnemyRightY;
+        double EnemyLeftX, EnemyLeftY;
+        ArrayList enemies = ArrayLists.getEnemys();
+        for (int w = 0; w < enemies.size(); w++) {
+            Enemy m = (Enemy) enemies.get(w);
+
+            EnemyUpX = m.getX() + 64;
+            EnemyUpY = m.getY() + offset;
+            EnemyDownX = m.getX() + 64;
+            EnemyDownY = m.getY() + 128 - offset;
+            EnemyRightX = m.getX() + 128 - offset;
+            EnemyRightY = m.getY() + 64;
+            EnemyLeftX = m.getX() + offset;
+            EnemyLeftY = m.getY() + 64;
+
+            if (EnemyUpX > x && EnemyUpX < x + playerWidth
+                    && EnemyUpY > y && EnemyUpY < y + playerWidth ||
+                    EnemyDownX > x && EnemyDownX < x + playerWidth
+                            && EnemyDownY > y && EnemyDownY < y + playerWidth ||
+                    EnemyRightX > x && EnemyRightX < x + playerWidth
+                            && EnemyRightY > y && EnemyRightY < y + playerWidth
+                    || EnemyLeftX > x && EnemyLeftX < x + playerWidth
+                    && EnemyLeftY > y && EnemyLeftY < y + playerWidth) {
+                if (!touchingEnemy) {
+                    life--;
+                    touchingEnemy = true;
+                }
+
+            } else {
+                noTouchingEnemies++;
+                if (enemys.size() == noTouchingEnemies) {
+                    touchingEnemy = false;
+                }
+            }
+        }
+    }
+
     public void die() {
+        if (life == 0) {
+            Defeat defeat = new Defeat(game);
+            World.setWorld(defeat);
+        }
     }
 }
