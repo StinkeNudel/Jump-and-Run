@@ -17,13 +17,13 @@ public class Tutorial extends World {
 
 
     private BufferedImage Image; //background image
-    BufferedImage tree = ImageLoader.loadImage("/Tree.png");
-    BufferedImage mountain = ImageLoader.loadImage("/Berg.png");
-    BufferedImage cloud1 = ImageLoader.loadImage("/Wolke1.png");
-    BufferedImage cloud2 = ImageLoader.loadImage("/Wolke2.png");
+    private BufferedImage tree = ImageLoader.loadImage("/Tree.png");
+    private BufferedImage mountain = ImageLoader.loadImage("/Berg.png");
+    private BufferedImage cloud1 = ImageLoader.loadImage("/Wolke1.png");
+    private BufferedImage cloud2 = ImageLoader.loadImage("/Wolke2.png");
     private Player player;
     private Enemy enemy;
-    int cloundAn = 0;
+    private int cloundAn = 0;
 
     /**
      * constructor

@@ -18,6 +18,7 @@ public class Player extends Entity {
     private int jumpSpeed = 40;
     private int speed = 5;
     private boolean movingRight, movingLeft;
+    int life = 10;
 
     public Player(Game game, double x, double y) {
         super(game, x, y);
@@ -147,5 +148,8 @@ public class Player extends Entity {
         if (!notfalling) {
             y = y + 5;
         }
+    }
+
+    public void die() {
     }
 }

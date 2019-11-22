@@ -39,6 +39,8 @@ public class TestWorld extends World {
         generateBlocks();
 
         enemy = new Enemy(game, 900, 90);
+        ArrayLists.enemys.add(enemy);
+
         game.getGameCamera().move(0, 0);
     }
 
