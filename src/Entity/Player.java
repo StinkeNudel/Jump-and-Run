@@ -131,6 +131,7 @@ public class Player extends Entity {
     private void jump() {
         if (jump) {
             y = y - jumpSpeed;
+            game.getGameCamera().move(0, -jumpSpeed);
 
             if (y < beforeJumpY - 100) {
                 jumpSpeed = 20;
@@ -147,6 +148,7 @@ public class Player extends Entity {
     private void gravity() {
         if (!notfalling) {
             y = y + 5;
+            game.getGameCamera().move(0, 5);
         }
     }
 

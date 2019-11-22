@@ -32,7 +32,7 @@ public class Tutorial extends World {
      */
     public Tutorial(Game game) {
         super(game);
-        player = new Player(game, game.width / 2, 100);
+        player = new Player(game, game.width / 2, game.height - 500);
         ArrayLists.player.add(player);
         generateBlocks();
 

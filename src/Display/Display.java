@@ -1,5 +1,7 @@
 package Display;
 
+import Input.MouseHandler;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -36,6 +38,8 @@ public class Display {
 
         frame.add(canvas);
         frame.pack();
+
+        canvas.addMouseListener(new MouseHandler());
         //device.setFullScreenWindow(frame);
     }
 

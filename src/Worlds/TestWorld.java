@@ -33,7 +33,7 @@ public class TestWorld extends World {
      */
     public TestWorld(Game game) {
         super(game);
-        player = new Player(game, game.width / 2, 100);
+        player = new Player(game, game.width / 2, game.height - 100 - 1);
         ArrayLists.player.add(player);
         letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
