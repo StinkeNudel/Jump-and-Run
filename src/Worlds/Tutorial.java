@@ -85,7 +85,8 @@ public class Tutorial extends World {
     }
 
     public void generateBlocks() {
-        int BlockX = 0, BlockY = game.height - 100, dBlockX = 30*64, qBlockY = game.height + 92;
+        int BlockX = 0, BlockY = game.height - 100, dBlockX = 30*64, qBlockY = game.height + 92, rBlockX = 47*64,
+                sBlockY = game.height + 988;
 
         for (int i = 0; i < 46; i++) {
             Grass z = new Grass(game, BlockX, BlockY);
@@ -150,6 +151,18 @@ public class Tutorial extends World {
             Grass q = new Grass(game, 47 * 64, qBlockY);
             ArrayLists.solidBlocks.add(q);
             qBlockY = qBlockY + 64;
+        }
+
+        for (int z = 0; z < 8; z++) {
+            Grass r = new Grass(game, rBlockX, game.height + 1052);
+            ArrayLists.solidBlocks.add(r);
+            rBlockX = rBlockX + 64;
+        }
+
+        for (int z = 0; z < 18; z++) {
+            Grass s = new Grass(game, 51*64, sBlockY);
+            ArrayLists.solidBlocks.add(s);
+            sBlockY = sBlockY - 64;
         }
 
 
