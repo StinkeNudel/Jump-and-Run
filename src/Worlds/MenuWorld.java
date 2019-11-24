@@ -2,6 +2,7 @@ package Worlds;
 
 import Blocks.SolidBlocks;
 import Entity.Player;
+import Input.MouseHandler;
 import Main.ArrayLists;
 import Main.Game;
 
@@ -14,6 +15,7 @@ public class MenuWorld extends World {
 
     private BufferedImage Image; //background image
     private Player player;
+    private MouseHandler mouseHandler;
 
     /**
      * Constructor
@@ -44,6 +46,18 @@ public class MenuWorld extends World {
             m.render(g);
         }
 
+        //render startButton
+        g.setColor(Color.BLACK);
+        g.fillRect(game.width / 2 - 200, game.height / 2 - 50, 400, 100);
+        g.setColor(Color.WHITE);
+        g.drawString("TestWorld", game.width / 2 - 20, game.height / 2);
+
+        g.setColor(Color.BLACK);
+        g.fillRect(game.width / 2 - 200, game.height / 2 + 100, 400, 100);
+        g.setColor(Color.WHITE);
+        g.drawString("Tutorial", game.width / 2 - 20, game.height / 2 + 150);
+
+
     }
 
 
@@ -51,13 +65,17 @@ public class MenuWorld extends World {
      * KeyInput
      */
     public void input() {
-        if (game.getKeyHandler().p) {
+
+        if (MouseHandler.clickX > game.width / 2 - 200 && MouseHandler.clickX < game.width / 2 - 200 + 400 && MouseHandler.clickY > game.height / 2 - 50 && MouseHandler.clickY < game.height / 2 - 50 + 100) {
             TestWorld testWorld = new TestWorld(game);
             setWorld(testWorld);
+            MouseHandler.resetClicks();
         }
-        if (game.getKeyHandler().o) {
+
+        if (MouseHandler.clickX > game.width / 2 - 200 && MouseHandler.clickX < game.width / 2 - 200 + 400 && MouseHandler.clickY > game.height / 2 + 100 && MouseHandler.clickY < game.height / 2 + 100 + 100) {
             Tutorial tutorial = new Tutorial(game);
             setWorld(tutorial);
+            MouseHandler.resetClicks();
         }
     }
 }

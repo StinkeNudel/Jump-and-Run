@@ -25,7 +25,7 @@ public class TestWorld extends World {
     private Letter letter;
     private Enemy worm;
     int cloundAn = 0;
-    private boolean background = false;
+    private boolean background = true;
 
     /**
      * constructor

@@ -4,10 +4,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MouseHandler implements MouseListener {
+
+    public static int clickX, clickY;
+
     @Override
-    public  void mouseClicked(MouseEvent e) {
-        System.out.println("X:" + e.getX());
-        System.out.println("Y:" + e.getY());
+    public void mouseClicked(MouseEvent e) {
+        clickX = e.getX();
+        clickY = e.getY();
     }
 
     @Override
@@ -28,5 +31,10 @@ public class MouseHandler implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    public static void resetClicks(){
+        MouseHandler.clickX = 0;
+        MouseHandler.clickY = 0;
     }
 }
