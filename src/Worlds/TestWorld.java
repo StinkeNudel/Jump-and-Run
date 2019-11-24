@@ -34,7 +34,7 @@ public class TestWorld extends World {
      */
     public TestWorld(Game game) {
         super(game);
-        player = new Player(game, game.width / 2, game.height - 100 - 1);
+        player = new Player(game, game.width / 2, game.height - 200);
         ArrayLists.player.add(player);
         letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
@@ -47,16 +47,14 @@ public class TestWorld extends World {
 
     @Override
     public void tick() {
-
         player.tick();
         letter.tick();
         worm.tick();
-
     }
 
     @Override
     public void render(Graphics g) {
-        if(background) {
+        if (background) {
             //render background
             int treeX = -500;
             int mountainX = -500;
@@ -66,21 +64,20 @@ public class TestWorld extends World {
 
             for (int i = 0; i < 20; i++) {
                 mountainX += 600;
-                g.drawImage(mountain, mountainX - (int) (game.getGameCamera().getxOffset() / 8), game.height - 800, 800, 800, null);
+                g.drawImage(mountain, mountainX - (int) (game.getGameCamera().getxOffset() / 8), (int) (game.height - 800 - game.getGameCamera().getyOffset()), 800, 800, null);
             }
             for (int i = 0; i < 20; i++) {
                 cloudX += 500;
-                g.drawImage(cloud1, cloudX - (int) (game.getGameCamera().getxOffset() / 4 + cloundAn), game.height - 1200, 400, 400, null);
+                g.drawImage(cloud1, cloudX - (int) (game.getGameCamera().getxOffset() / 4 + cloundAn), (int) (game.height - 1200 - game.getGameCamera().getyOffset()), 400, 400, null);
                 cloudX += 500;
-                g.drawImage(cloud2, cloudX - (int) (game.getGameCamera().getxOffset() / 4 + cloundAn), game.height - 1100, 400, 400, null);
+                g.drawImage(cloud2, cloudX - (int) (game.getGameCamera().getxOffset() / 4 + cloundAn), (int) (game.height - 1100 - game.getGameCamera().getyOffset()), 400, 400, null);
             }
             cloundAn += 1;
             for (int i = 0; i < 20; i++) {
                 treeX += 300;
-                g.drawImage(tree, treeX - (int) (game.getGameCamera().getxOffset() / 4), game.height - 600, 500, 500, null);
+                g.drawImage(tree, treeX - (int) (game.getGameCamera().getxOffset() / 4), (int) (game.height - 600 - game.getGameCamera().getyOffset()), 500, 500, null);
             }
         }
-
 
         player.render(g);
         letter.render(g);
@@ -100,7 +97,7 @@ public class TestWorld extends World {
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
         }
-        Grass z = new Grass(game, 300, BlockY - 64);
+        Grass z = new Grass(game, 300, BlockY - 256);
         ArrayLists.solidBlocks.add(z);
     }
 }

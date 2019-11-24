@@ -24,6 +24,8 @@ public class Player extends Entity {
     private int speed = 5;
     private boolean movingRight, movingLeft;
     private boolean touchingEnemy = false;
+    private int offsetBeforeJump;
+    private boolean jumpedAgainstBlock;
 
     int life = 10;
 
@@ -40,6 +42,7 @@ public class Player extends Entity {
         jump();
         lowerHealth();
         die();
+        checkUp();
     }
 
     @Override
@@ -50,6 +53,7 @@ public class Player extends Entity {
     private void input() {
         if (game.getKeyHandler().space) {
             if (notfalling && !jump) {
+                offsetBeforeJump = (int) game.getGameCamera().getyOffset();
                 jump = true;
                 beforeJumpY = y;
             }
@@ -89,16 +93,42 @@ public class Player extends Entity {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-            if (y + playerHeight > BlockY - 2 && ((BlockX > x && BlockX < x + playerWidth))) {
+            if (y + playerHeight > BlockY - 2 && ((BlockX > x && BlockX < x + playerWidth)) && y + playerHeight < BlockY + 64) {
                 notfalling = true;
+                jumpedAgainstBlock = false;
                 y = BlockY - playerHeight;
                 return;
-            } else if (y + playerHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth))) {
+            } else if (y + playerHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth)) && !(y + playerHeight > BlockY + 64)) {
                 notfalling = true;
+                jumpedAgainstBlock = false;
                 y = BlockY - playerHeight;
                 return;
             } else {
                 notfalling = false;
+            }
+        }
+    }
+
+    private void checkUp() {
+        double BlockX, BlockY;
+        double diff;
+        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+        for (int w = 0; w < solidBlocks.size(); w++) {
+            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+            BlockX = m.getX();
+            BlockY = m.getY();
+            if (jump && y < BlockY + 64 && y > BlockY && ((BlockX > x && BlockX < x + playerWidth))) {
+                jump = false;
+                y = BlockY + 64 + 1;
+                jumpedAgainstBlock = true;
+                game.getGameCamera().setyOffset(offsetBeforeJump);
+            }
+            if (jump && y < BlockY + 64 && y > BlockY && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth))) {
+                jump = false;
+                y = BlockY + 64 + 1;
+                jumpedAgainstBlock = true;
+                game.getGameCamera().setyOffset(offsetBeforeJump);
+
             }
         }
     }
@@ -157,7 +187,9 @@ public class Player extends Entity {
     private void gravity() {
         if (!notfalling) {
             y = y + 5;
-            game.getGameCamera().move(0, 5);
+            if (!jumpedAgainstBlock) {
+                game.getGameCamera().move(0, 5);
+            }
         }
     }
 

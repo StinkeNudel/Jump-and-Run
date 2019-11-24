@@ -19,6 +19,7 @@ public class GameCamera {
 
     /**
      * setter methods for xOffset and yOffset
+     *
      * @param xOffset
      */
     public void setxOffset(float xOffset) {
@@ -32,6 +33,7 @@ public class GameCamera {
 
     /**
      * getter methods for xOffset and yOffset
+     *
      * @return
      */
     public float getxOffset() {
