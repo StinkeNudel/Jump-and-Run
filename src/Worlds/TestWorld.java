@@ -2,10 +2,7 @@ package Worlds;
 
 import Blocks.Grass;
 import Blocks.SolidBlocks;
-import Entity.Enemy;
-import Entity.Letter;
-import Entity.Player;
-import Entity.Worm;
+import Entity.*;
 import GFX.ImageLoader;
 import Main.ArrayLists;
 import Main.Game;
@@ -24,6 +21,7 @@ public class TestWorld extends World {
     private Player player;
     private Letter letter;
     private Enemy worm;
+    private TouchMe touchMe;
     int cloundAn = 0;
     private boolean background = true;
 
@@ -34,13 +32,15 @@ public class TestWorld extends World {
      */
     public TestWorld(Game game) {
         super(game);
-        player = new Player(game, game.width / 2, game.height - 200);
+        player = new Player(game, game.width / 2, game.height - 500);
         ArrayLists.player.add(player);
         letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
 
         worm = new Worm(game, 900, 90);
         ArrayLists.enemys.add(worm);
+
+        touchMe = new TouchMe(game, game.width / 2, game.height - 120);
 
         game.getGameCamera().move(0, 0);
     }
