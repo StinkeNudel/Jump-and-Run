@@ -17,6 +17,8 @@ public class TouchMe extends Entity {
     int touchMeWidth = 412;
     int touchMeHeigth = 450;
 
+    private MouseHandler mouseHandler;
+
     public TouchMe(Game game, double x, double y) {
         super(game, x, y);
     }
@@ -36,6 +38,7 @@ public class TouchMe extends Entity {
     public void checkPlayer() {
         if (x < MouseHandler.clickX && x + touchMeWidth > MouseHandler.clickX
                 && y < MouseHandler.clickY && y + touchMeHeigth > MouseHandler.clickY) {
+            System.out.println("hello");
             SaveWorld saveWorld = new SaveWorld(game);
             World.setWorld(saveWorld);
             MouseHandler.resetClicks();
