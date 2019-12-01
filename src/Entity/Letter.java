@@ -111,5 +111,9 @@ public class Letter extends Entity {
         }
     }
 
+    public void readMe () {
+
+    }
+
 }
 

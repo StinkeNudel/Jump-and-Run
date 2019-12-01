@@ -14,8 +14,8 @@ public class TouchMe extends Entity {
     BufferedImage image = ImageLoader.loadImage("/noodle.jpg");
 
 
-    int touchMeWidth = 60;
-    int touchMeHeigth = 60;
+    int touchMeWidth = 412;
+    int touchMeHeigth = 450;
 
     public TouchMe(Game game, double x, double y) {
         super(game, x, y);
@@ -38,6 +38,7 @@ public class TouchMe extends Entity {
                 && y < MouseHandler.clickY && y + touchMeHeigth > MouseHandler.clickY) {
             SaveWorld saveWorld = new SaveWorld(game);
             World.setWorld(saveWorld);
+            MouseHandler.resetClicks();
         }
     }
 }

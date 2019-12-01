@@ -40,7 +40,7 @@ public class TestWorld extends World {
         worm = new Worm(game, 900, 90);
         ArrayLists.enemys.add(worm);
 
-        touchMe = new TouchMe(game, game.width / 2, game.height - 120);
+        touchMe = new TouchMe(game, game.width / 2, game.height / 2);
 
         game.getGameCamera().move(0, 0);
     }
@@ -50,6 +50,7 @@ public class TestWorld extends World {
         player.tick();
         letter.tick();
         worm.tick();
+        touchMe.tick();
     }
 
     @Override
@@ -82,6 +83,7 @@ public class TestWorld extends World {
         player.render(g);
         letter.render(g);
         worm.render(g);
+        touchMe.render(g);
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
