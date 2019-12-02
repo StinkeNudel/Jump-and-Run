@@ -1,5 +1,6 @@
 package Worlds;
 
+import Blocks.Dirt;
 import Blocks.Grass;
 import Blocks.SolidBlocks;
 import Entity.Enemy;
@@ -11,6 +12,10 @@ import Main.Game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Tutorial extends World {
@@ -21,6 +26,7 @@ public class Tutorial extends World {
     private BufferedImage mountain = ImageLoader.loadImage("/Berg.png");
     private BufferedImage cloud1 = ImageLoader.loadImage("/Wolke1.png");
     private BufferedImage cloud2 = ImageLoader.loadImage("/Wolke2.png");
+    private BufferedImage dirt = ImageLoader.loadImage("/dirt.png");
     private Player player;
     private Enemy enemy;
     private int cloundAn = 0;
@@ -38,6 +44,7 @@ public class Tutorial extends World {
 
         enemy = new Enemy(game, 900, 90);
         game.getGameCamera().move(0, 0);
+        saveGame();
     }
 
     @Override
@@ -72,6 +79,9 @@ public class Tutorial extends World {
             treeX += 300;
             g.drawImage(tree, treeX - (int) (game.getGameCamera().getxOffset() / 4), (int) (game.height - 600 - game.getGameCamera().getyOffset()), 500, 500, null);
         }
+
+        //render dirt
+        g.drawImage(dirt, 0 - (int) (game.getGameCamera().getxOffset()), 0 + 980 - (int)(game.getGameCamera().getyOffset()), 10000, 10000, null);
 
         player.render(g);
         enemy.render(g);
@@ -164,6 +174,15 @@ public class Tutorial extends World {
         }
 
 
+    }
+
+    private void saveGame(){
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("D:\\Workspace\\Jump-and-Run\\src\\SaveFile"));
+            bw.write("0");
+            bw.close();
+        } catch (Exception e) {
+        }
     }
 }
 

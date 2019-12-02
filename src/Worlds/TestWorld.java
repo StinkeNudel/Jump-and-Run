@@ -1,5 +1,6 @@
 package Worlds;
 
+import Blocks.Dirt;
 import Blocks.Grass;
 import Blocks.SolidBlocks;
 import Entity.*;
@@ -9,6 +10,8 @@ import Main.Game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class TestWorld extends World {
@@ -18,6 +21,8 @@ public class TestWorld extends World {
     BufferedImage mountain = ImageLoader.loadImage("/Berg.png");
     BufferedImage cloud1 = ImageLoader.loadImage("/Wolke1.png");
     BufferedImage cloud2 = ImageLoader.loadImage("/Wolke2.png");
+    BufferedImage dirt = ImageLoader.loadImage("/dirt.png");
+
     private Player player;
     private Letter letter;
     private Enemy worm;
@@ -43,6 +48,8 @@ public class TestWorld extends World {
         touchMe = new TouchMe(game, game.width / 2, game.height / 2);
 
         game.getGameCamera().move(0, 0);
+
+        saveGame();
     }
 
     @Override
@@ -80,6 +87,9 @@ public class TestWorld extends World {
             }
         }
 
+        //render dirt
+        g.drawImage(dirt, 0 - (int) (game.getGameCamera().getxOffset()), 0 + 980 - (int)(game.getGameCamera().getyOffset()), 10000, 10000, null);
+
         player.render(g);
         letter.render(g);
         worm.render(g);
@@ -99,7 +109,14 @@ public class TestWorld extends World {
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
         }
-        Grass z = new Grass(game, 300, BlockY - 256);
-        ArrayLists.solidBlocks.add(z);
+    }
+
+    private void saveGame() {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("D:\\Workspace\\Jump-and-Run\\src\\SaveFile"));
+            bw.write("1");
+            bw.close();
+        } catch (Exception e) {
+        }
     }
 }
