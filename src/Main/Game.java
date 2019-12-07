@@ -32,8 +32,9 @@ public class Game implements Runnable {
 
     /**
      * Constructor
-     * @param title title of the Window
-     * @param width with of the game
+     *
+     * @param title  title of the Window
+     * @param width  with of the game
      * @param height height of the game
      */
     public Game(String title, int width, int height) {
@@ -43,20 +44,6 @@ public class Game implements Runnable {
         keyHandler = new KeyHandler();
     }
 
-    /**
-     * initial Method
-     */
-    private void init() {
-        display = new Display(title, width, height); //creates Display
-        display.getFrame().addKeyListener(keyHandler); //adds KeyListener
-
-        gameCamera = new GameCamera(0,0);
-
-        ArrayLists arrayLists = new ArrayLists(); //creates ArrayLists object
-        menuWorld = new MenuWorld(this); //creates MenuWorld
-        World.setWorld(menuWorld); //sets World to MenuWorld
-
-    }
 
     /**
      * ticks the Main.Game
@@ -89,6 +76,25 @@ public class Game implements Runnable {
         g.dispose();
     }
 
+
+    /**
+     * initial Method
+     */
+    private void init() {
+        display = new Display(title, width, height); //creates Display
+        display.getFrame().addKeyListener(keyHandler); //adds KeyListener
+
+        gameCamera = new GameCamera(0, 0);
+
+        ArrayLists arrayLists = new ArrayLists(); //creates ArrayLists object
+        menuWorld = new MenuWorld(this); //creates MenuWorld
+        World.setWorld(menuWorld); //sets World to MenuWorld
+
+    }
+
+    /**
+     * game loop
+     */
     public void run() {
         init();
 

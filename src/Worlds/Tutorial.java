@@ -4,7 +4,6 @@ import Blocks.Dirt;
 import Blocks.Grass;
 import Blocks.SolidBlocks;
 import Entity.Enemy;
-import Entity.Letter;
 import Entity.Player;
 import GFX.ImageLoader;
 import Main.ArrayLists;
@@ -12,10 +11,8 @@ import Main.Game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Tutorial extends World {
@@ -47,7 +44,9 @@ public class Tutorial extends World {
         saveGame();
     }
 
-    @Override
+    /**
+     * tick World
+     */
     public void tick() {
 
         player.tick();
@@ -55,7 +54,10 @@ public class Tutorial extends World {
 
     }
 
-    @Override
+    /**
+     * render World
+     * @param g Graphic Object
+     */
     public void render(Graphics g) {
         //render background
         int treeX = -500;
@@ -92,6 +94,10 @@ public class Tutorial extends World {
         }
     }
 
+
+    /**
+     * generates Blocks of the World
+     */
     public void generateBlocks() {
         int BlockX = 0, BlockY = game.height - 100, dBlockX = 30 * 64, qBlockY = game.height + 92, rBlockX = 47 * 64,
                 sBlockY = game.height + 988;
@@ -176,6 +182,10 @@ public class Tutorial extends World {
 
     }
 
+
+    /**
+     * saves in SafeFile
+     */
     private void saveGame(){
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("D:\\Workspace\\Jump-and-Run\\src\\SaveFile"));

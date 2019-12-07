@@ -10,7 +10,6 @@ import Main.Game;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 
@@ -71,7 +70,9 @@ public class MenuWorld extends World {
 
     }
 
-
+    /**
+     * loads the SafeFile
+     */
     private void loadFile() {
         try {
             BufferedReader br = new BufferedReader(new FileReader("D:\\Workspace\\Jump-and-Run\\src\\SaveFile"));

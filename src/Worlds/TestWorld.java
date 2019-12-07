@@ -31,9 +31,9 @@ public class TestWorld extends World {
     private boolean background = true;
 
     /**
-     * constructor
+     * Constructor
      *
-     * @param game
+     * @param game Game Object
      */
     public TestWorld(Game game) {
         super(game);
@@ -52,7 +52,9 @@ public class TestWorld extends World {
         saveGame();
     }
 
-    @Override
+    /**
+     * ticks the world
+     */
     public void tick() {
         player.tick();
         letter.tick();
@@ -60,7 +62,11 @@ public class TestWorld extends World {
         touchMe.tick();
     }
 
-    @Override
+    /**
+     * renders the world
+     *
+     * @param g Graphics Object
+     */
     public void render(Graphics g) {
         if (background) {
             //render background
@@ -88,7 +94,7 @@ public class TestWorld extends World {
         }
 
         //render dirt
-        g.drawImage(dirt, 0 - (int) (game.getGameCamera().getxOffset()), 0 + 980 - (int)(game.getGameCamera().getyOffset()), 10000, 10000, null);
+        g.drawImage(dirt, 0 - (int) (game.getGameCamera().getxOffset()), 0 + 980 - (int) (game.getGameCamera().getyOffset()), 10000, 10000, null);
 
         player.render(g);
         letter.render(g);
@@ -101,6 +107,9 @@ public class TestWorld extends World {
         }
     }
 
+    /**
+     * generates the Bocks in the World
+     */
     public void generateBlocks() {
         int BlockX = 100, BlockY = game.height - 100;
 
@@ -111,6 +120,9 @@ public class TestWorld extends World {
         }
     }
 
+    /**
+     * saves in SafeFile
+     */
     private void saveGame() {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("D:\\Workspace\\Jump-and-Run\\src\\SaveFile"));

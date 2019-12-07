@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import static Main.ArrayLists.enemys;
 import static Main.ArrayLists.player;
 
-public class Player extends Entity {
+public class Player extends Creature {
     BufferedImage image = ImageLoader.loadImage("/Player_Front.png");
     private int playerWidth = 96, playerHeight = 117;
     private boolean notfalling = false;
@@ -26,15 +26,27 @@ public class Player extends Entity {
     private boolean touchingEnemy = false;
     private int offsetBeforeJump;
     private boolean jumpedAgainstBlock;
+    private HealthBar healthBar;
 
-    int life = 10;
 
+    /**
+     * Constructor
+     *
+     * @param game Game Object
+     * @param x    X-Coordinate
+     * @param y    Y-XCoordinate
+     */
     public Player(Game game, double x, double y) {
         super(game, x, y);
         this.game = game;
+        health = 10;
+        healthBar = new HealthBar();
     }
 
-    @Override
+
+    /**
+     * ticks the Player
+     */
     public void tick() {
         input();
         checkBlocks();
@@ -43,13 +55,26 @@ public class Player extends Entity {
         lowerHealth();
         die();
         checkUp();
+
+        //HealthBar
+        healthBar.tick();
     }
 
-    @Override
+
+    /**
+     * renders the Player
+     *
+     * @param g Graphics Object
+     */
     public void render(Graphics g) {
         g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), playerWidth, playerHeight, null);
+        healthBar.render(g);
     }
 
+
+    /**
+     * Keyboard input
+     */
     private void input() {
         if (game.getKeyHandler().space) {
             if (notfalling && !jump) {
@@ -86,6 +111,9 @@ public class Player extends Entity {
     }
 
 
+    /**
+     * checks Blocks below
+     */
     private void checkBlocks() {
         double BlockX, BlockY;
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
@@ -109,9 +137,12 @@ public class Player extends Entity {
         }
     }
 
+
+    /**
+     * checks Blocks above
+     */
     private void checkUp() {
         double BlockX, BlockY;
-        double diff;
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
@@ -133,6 +164,10 @@ public class Player extends Entity {
         }
     }
 
+
+    /**
+     * checks Blocks right
+     */
     private void checkRight() {
         double BlockX, BlockY;
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
@@ -150,6 +185,10 @@ public class Player extends Entity {
         }
     }
 
+
+    /**
+     * check Blocks left
+     */
     private void checkLeft() {
         double BlockX, BlockY;
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
@@ -167,6 +206,10 @@ public class Player extends Entity {
         }
     }
 
+
+    /**
+     * Player will jump
+     */
     private void jump() {
         if (jump) {
             y = y - jumpSpeed;
@@ -184,6 +227,10 @@ public class Player extends Entity {
         }
     }
 
+
+    /**
+     * player moves down to create gravity
+     */
     private void gravity() {
         if (!notfalling) {
             y = y + 5;
@@ -193,6 +240,10 @@ public class Player extends Entity {
         }
     }
 
+
+    /**
+     * Player will loose lifes if he touches an Enemy
+     */
     public void lowerHealth() {
         int noTouchingEnemies = 0;
         int offset = 25;
@@ -222,7 +273,7 @@ public class Player extends Entity {
                     || EnemyLeftX > x && EnemyLeftX < x + playerWidth
                     && EnemyLeftY > y && EnemyLeftY < y + playerWidth) {
                 if (!touchingEnemy) {
-                    life--;
+                    health--;
                     touchingEnemy = true;
                 }
 
@@ -235,10 +286,57 @@ public class Player extends Entity {
         }
     }
 
+
+    /**
+     * Player will die if life equals 0
+     */
     public void die() {
-        if (life == 0) {
+        if (health == 0) {
             Defeat defeat = new Defeat(game);
             World.setWorld(defeat);
         }
     }
+
+
+    //___________________________________________________________________________________________________________________________________________________________________________________________________________________
+    //___________________________________________________________________________________________________________________________________________________________________________________________________________________
+    //HEALTHBAR CLASS
+    public class HealthBar {
+        private int startHealth; //Player health at the beginning
+        private int barHeight = 60; //height of the bar
+        private int barWidth = 400; //width of the bar
+        private int barFillPerLive; //width of the bar per health point
+        private int barCounter = 0; //counter for the health
+
+        /**
+         * Constructor
+         */
+        public HealthBar() {
+            this.startHealth = 10;
+            barFillPerLive = barWidth / startHealth;
+        }
+
+        /**
+         * Bar tick
+         */
+        public void tick() {
+            if (!(barCounter == startHealth)) {
+                barCounter = startHealth - health;
+            }
+        }
+
+        /**
+         * draws the bar
+         */
+        public void render(Graphics g) {
+            g.drawRect(100, 100, barWidth, barHeight);
+            g.setColor(Color.GRAY);
+            g.fillRect(100, 100, barWidth, barHeight);
+            g.setColor(Color.RED);
+            g.fillRect(100, 100, barWidth - barCounter * barFillPerLive, barHeight);
+        }
+
+    }
+    //___________________________________________________________________________________________________________________________________________________________________________________________________________________
+    //___________________________________________________________________________________________________________________________________________________________________________________________________________________
 }

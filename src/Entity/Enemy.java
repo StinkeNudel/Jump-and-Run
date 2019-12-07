@@ -13,8 +13,8 @@ import static Main.ArrayLists.enemys;
 
 public class Enemy extends Creature {
 
-    private int enemyHeight = 60;
-    private int enemyWidth = 60;
+    private int enemyHeight = 60; // Height of the Enemy
+    private int enemyWidth = 60; // Width of the Enemy
     private boolean notfalling = false;
     private boolean isThereABlockOnMyLeftSide = false;
     private boolean isThereABlockOnMyRightSide = false;
@@ -31,14 +31,10 @@ public class Enemy extends Creature {
         move();
         checkLeft();
         checkRight();
-
     }
 
     @Override
     public void render(Graphics g) {
-
-
-
     }
 
     private void checkBlocks() {
