@@ -15,8 +15,8 @@ import static Main.ArrayLists.enemys;
 import static Main.ArrayLists.player;
 
 public class Player extends Creature {
-    BufferedImage image = ImageLoader.loadImage("/Player_Front.png");
-    private int playerWidth = 96, playerHeight = 117;
+    BufferedImage image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
+    private int playerWidth = 68, playerHeight = 120;
     private boolean notfalling = false;
     private boolean jump = false;
     private double beforeJumpY;
@@ -27,6 +27,7 @@ public class Player extends Creature {
     private int offsetBeforeJump;
     private boolean jumpedAgainstBlock;
     private HealthBar healthBar;
+    private boolean movedRight;
 
 
     /**
@@ -84,29 +85,36 @@ public class Player extends Creature {
             }
         }
         if (game.getKeyHandler().a) {
-            image = ImageLoader.loadImage("/Player_Left.png");
+            image = ImageLoader.loadImage("/Player/player_left_up_openEyes.png");
             movingLeft = true;
             checkLeft();
             if (movingLeft) {
                 x = x - speed;
                 game.getGameCamera().move(-speed, 0);
                 movingLeft = false;
+                movedRight = false;
             }
         }
 
         if (game.getKeyHandler().d) {
-            image = ImageLoader.loadImage("/Player_Right.png");
+            image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
             movingRight = true;
             checkRight();
             if (movingRight) {
                 x = x + speed;
                 game.getGameCamera().move(speed, 0);
                 movingRight = false;
+                movedRight = true;
             }
         }
 
         if ((!game.getKeyHandler().d && !game.getKeyHandler().a) || game.getKeyHandler().d && game.getKeyHandler().a) {
-            image = ImageLoader.loadImage("/Player_Front.png");
+            if(!movedRight){
+                image = ImageLoader.loadImage("/Player/player_left_up_openEyes.png");
+            }
+            else{
+                image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
+            }
         }
     }
 
