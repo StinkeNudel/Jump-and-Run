@@ -31,8 +31,8 @@ public class Player extends Creature {
 
     int animationLeft = 0;
     int animationRight = 0;
-    int animationStand = 0;
-    int animationCounterLeft = 0, animationCounterRight = 0,  animationCounterStand = 0;
+    int animationStandLeft = 0, animationStandRight = 0;
+    int animationCounterLeft = 0, animationCounterRight = 0,  animationCounterStandLeft = 0, animationCounterStandRight = 0;
 
     /**
      * Constructor
@@ -105,7 +105,11 @@ public class Player extends Creature {
         }
 
         if (game.getKeyHandler().d) {
-            image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
+            animationCounterRight++;
+            if (animationCounterRight >= 3) {
+                animationRight();
+                animationCounterRight = 0;
+            }
             movingRight = true;
             checkRight();
             if (movingRight) {
@@ -375,6 +379,28 @@ public class Player extends Creature {
             case 3:
                 image = ImageLoader.loadImage("/Player/player_left_right_leg.png");
                 animationLeft = 0;
+                break;
+        }
+
+    }
+
+    public void animationRight() {
+        switch (animationRight) {
+            case 0:
+                image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
+                animationRight++;
+                break;
+            case 1:
+                image = ImageLoader.loadImage("/Player/player_right_left_leg.png");
+                animationRight++;
+                break;
+            case 2:
+                image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
+                animationRight++;
+                break;
+            case 3:
+                image = ImageLoader.loadImage("/Player/player_right_right_leg.png");
+                animationRight = 0;
                 break;
         }
 
