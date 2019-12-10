@@ -128,7 +128,12 @@ public class Player extends Creature {
                     animationCounterStandLeft = 0;
                 }
             } else {
-                image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
+                animationCounterStandRight++;
+                if (animationCounterStandRight >= 7) {
+                    animationStandRight();
+                    animationCounterStandRight = 0;
+                }
+
             }
         }
     }
@@ -434,6 +439,37 @@ public class Player extends Creature {
             case 5:
                 image = ImageLoader.loadImage("/Player/player_left_down_openEyes.png");
                 animationStandLeft = 0;
+                break;
+
+
+        }
+    }
+
+    public void animationStandRight() {
+        switch (animationStandRight) {
+            case 0:
+                image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
+                animationStandRight++;
+                break;
+            case 1:
+                image = ImageLoader.loadImage("/Player/player_right_down_openEyes.png");
+                animationStandRight++;
+                break;
+            case 2:
+                image = ImageLoader.loadImage("/Player/player_right_up_halfClosedEyes.png");
+                animationStandRight++;
+                break;
+            case 3:
+                image = ImageLoader.loadImage("/Player/player_down_noEyes.png");
+                animationStandRight++;
+                break;
+            case 4:
+                image = ImageLoader.loadImage("/Player/player_right_up_halfClosedEyes.png");
+                animationStandRight++;
+                break;
+            case 5:
+                image = ImageLoader.loadImage("/Player/player_right_down_openEyes.png");
+                animationStandRight = 0;
                 break;
 
 
