@@ -29,6 +29,10 @@ public class Player extends Creature {
     private HealthBar healthBar;
     private boolean movedRight;
 
+    int animationLeft = 0;
+    int animationRight = 0;
+    int animationStand = 0;
+    int animationCounterLeft = 0, animationCounterRight = 0,  animationCounterStand = 0;
 
     /**
      * Constructor
@@ -85,7 +89,11 @@ public class Player extends Creature {
             }
         }
         if (game.getKeyHandler().a) {
-            image = ImageLoader.loadImage("/Player/player_left_up_openEyes.png");
+            animationCounterLeft++;
+            if (animationCounterLeft >= 3) {
+                animationLeft();
+                animationCounterLeft = 0;
+            }
             movingLeft = true;
             checkLeft();
             if (movingLeft) {
@@ -342,6 +350,32 @@ public class Player extends Creature {
             g.fillRect(100, 100, barWidth, barHeight);
             g.setColor(Color.RED);
             g.fillRect(100, 100, barWidth - barCounter * barFillPerLive, barHeight);
+        }
+
+    }
+
+    /**
+     * animations
+     */
+
+    public void animationLeft() {
+        switch (animationLeft) {
+            case 0:
+                image = ImageLoader.loadImage("/Player/player_left_up_openEyes.png");
+                animationLeft++;
+                break;
+            case 1:
+                image = ImageLoader.loadImage("/Player/player_left_left_leg.png");
+                animationLeft++;
+                break;
+            case 2:
+                image = ImageLoader.loadImage("/Player/player_left_up_openEyes.png");
+                animationLeft++;
+                break;
+            case 3:
+                image = ImageLoader.loadImage("/Player/player_left_right_leg.png");
+                animationLeft = 0;
+                break;
         }
 
     }
