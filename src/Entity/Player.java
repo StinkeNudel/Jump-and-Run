@@ -32,7 +32,7 @@ public class Player extends Creature {
     int animationLeft = 0;
     int animationRight = 0;
     int animationStandLeft = 0, animationStandRight = 0;
-    int animationCounterLeft = 0, animationCounterRight = 0,  animationCounterStandLeft = 0, animationCounterStandRight = 0;
+    int animationCounterLeft = 0, animationCounterRight = 0, animationCounterStandLeft = 0, animationCounterStandRight = 0;
 
     /**
      * Constructor
@@ -121,10 +121,13 @@ public class Player extends Creature {
         }
 
         if ((!game.getKeyHandler().d && !game.getKeyHandler().a) || game.getKeyHandler().d && game.getKeyHandler().a) {
-            if(!movedRight){
-                image = ImageLoader.loadImage("/Player/player_left_up_openEyes.png");
-            }
-            else{
+            if (!movedRight) {
+                animationCounterStandLeft++;
+                if (animationCounterStandLeft >= 7) {
+                    animationStandLeft();
+                    animationCounterStandLeft = 0;
+                }
+            } else {
                 image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
             }
         }
@@ -404,6 +407,37 @@ public class Player extends Creature {
                 break;
         }
 
+    }
+
+    public void animationStandLeft() {
+        switch (animationStandLeft) {
+            case 0:
+                image = ImageLoader.loadImage("/Player/player_left_up_openEyes.png");
+                animationStandLeft++;
+                break;
+            case 1:
+                image = ImageLoader.loadImage("/Player/player_left_down_openEyes.png");
+                animationStandLeft++;
+                break;
+            case 2:
+                image = ImageLoader.loadImage("/Player/player_left_up_halfOpenEyes.png");
+                animationStandLeft++;
+                break;
+            case 3:
+                image = ImageLoader.loadImage("/Player/player_left_down_noEyes.png");
+                animationStandLeft++;
+                break;
+            case 4:
+                image = ImageLoader.loadImage("/Player/player_left_up_halfOpenEyes.png");
+                animationStandLeft++;
+                break;
+            case 5:
+                image = ImageLoader.loadImage("/Player/player_left_down_openEyes.png");
+                animationStandLeft = 0;
+                break;
+
+
+        }
     }
     //___________________________________________________________________________________________________________________________________________________________________________________________________________________
     //___________________________________________________________________________________________________________________________________________________________________________________________________________________
