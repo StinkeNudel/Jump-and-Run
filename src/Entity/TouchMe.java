@@ -11,11 +11,11 @@ import java.awt.image.BufferedImage;
 
 public class TouchMe extends Entity {
 
-    BufferedImage image = ImageLoader.loadImage("/noodle.jpg");
+    BufferedImage image = ImageLoader.loadImage("/door.png");
 
 
-    int touchMeWidth = 412;
-    int touchMeHeigth = 450;
+    int touchMeWidth = 64;
+    int touchMeHeigth = 128;
 
     private MouseHandler mouseHandler;
 
@@ -37,8 +37,9 @@ public class TouchMe extends Entity {
 
     public void checkPlayer() {
         if (x < MouseHandler.clickX && x + touchMeWidth > MouseHandler.clickX) {
-            if (y < MouseHandler.clickY && y + touchMeHeigth > MouseHandler.clickY) {
-                System.out.println("hello");
+            System.out.println("X funktioniert");
+            if (MouseHandler.clickY > y && MouseHandler.clickY < y + touchMeHeigth) {
+                System.out.println("Y funktioniert");
                 SaveWorld saveWorld = new SaveWorld(game);
                 World.setWorld(saveWorld);
                 MouseHandler.resetClicks();

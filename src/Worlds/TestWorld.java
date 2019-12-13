@@ -26,7 +26,7 @@ public class TestWorld extends World {
     private Player player;
     private Letter letter;
     private Enemy worm;
-    private TouchMe touchMe;
+    private Door door;
     int cloundAn = 0;
     private boolean background = true;
 
@@ -45,7 +45,7 @@ public class TestWorld extends World {
         worm = new Worm(game, 900, 90);
         ArrayLists.enemys.add(worm);
 
-        touchMe = new TouchMe(game, game.width / 2, game.height / 2);
+        door = new Door(game, game.width / 2, game.height - 230);
 
         game.getGameCamera().move(0, 0);
 
@@ -59,7 +59,7 @@ public class TestWorld extends World {
         player.tick();
         letter.tick();
         worm.tick();
-        touchMe.tick();
+        door.tick();
     }
 
     /**
@@ -99,7 +99,7 @@ public class TestWorld extends World {
         player.render(g);
         letter.render(g);
         worm.render(g);
-        touchMe.render(g);
+        door.render(g);
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
