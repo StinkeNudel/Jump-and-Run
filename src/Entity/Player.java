@@ -29,6 +29,7 @@ public class Player extends Creature {
     private HealthBar healthBar;
     private boolean movedRight;
 
+    int jumpAnimation = 0, animationJump = 0, waitForJump = 0;
     int animationLeft = 0;
     int animationRight = 0;
     int animationStandLeft = 0, animationStandRight = 0;
@@ -240,6 +241,12 @@ public class Player extends Creature {
      */
     private void jump() {
         if (jump) {
+
+            animationJump++;
+            if (animationJump >= 3) {
+                jumpAnimation();
+            }
+
             y = y - jumpSpeed;
             game.getGameCamera().move(0, -jumpSpeed);
 
@@ -262,6 +269,7 @@ public class Player extends Creature {
     private void gravity() {
         if (!notfalling) {
             y = y + 5;
+            fallAnimation();
             if (!jumpedAgainstBlock) {
                 game.getGameCamera().move(0, 5);
             }
@@ -475,6 +483,139 @@ public class Player extends Creature {
 
         }
     }
-    //___________________________________________________________________________________________________________________________________________________________________________________________________________________
-    //___________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    public void jumpAnimation() {
+        switch (jumpAnimation) {
+            case 0:
+                image = ImageLoader.loadImage("/Player/jump1.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 1:
+                image = ImageLoader.loadImage("/Player/jump2.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 2:
+                image = ImageLoader.loadImage("/Player/jump3.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 3:
+                image = ImageLoader.loadImage("/Player/jump4.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 4:
+                image = ImageLoader.loadImage("/Player/jump5.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 5:
+                image = ImageLoader.loadImage("/Player/jump6.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 6:
+                image = ImageLoader.loadImage("/Player/jump7.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 7:
+                image = ImageLoader.loadImage("/Player/jump8.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 8:
+                image = ImageLoader.loadImage("/Player/jump9.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+        }
+    }
+
+    public void fallAnimation() {
+        switch (jumpAnimation) {
+            case 9:
+                image = ImageLoader.loadImage("/Player/jump10.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 10:
+                image = ImageLoader.loadImage("/Player/jump11.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 11:
+                image = ImageLoader.loadImage("/Player/jump12.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 12:
+                image = ImageLoader.loadImage("/Player/jump13.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 13:
+                image = ImageLoader.loadImage("/Player/jump14.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    jumpAnimation = 0;
+                    waitForJump = 0;
+                    break;
+                }
+
+        }
+    }
 }
+
+//___________________________________________________________________________________________________________________________________________________________________________________________________________________
+//___________________________________________________________________________________________________________________________________________________________________________________________________________________
+
