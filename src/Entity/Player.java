@@ -245,6 +245,7 @@ public class Player extends Creature {
             animationJump++;
             if (animationJump >= 3) {
                 jumpAnimation();
+                image = ImageLoader.loadImage("/Player/jump9.png");
             }
 
             y = y - jumpSpeed;
@@ -270,6 +271,7 @@ public class Player extends Creature {
         if (!notfalling) {
             y = y + 5;
             fallAnimation();
+            image = ImageLoader.loadImage("/Player/jump14.png");
             if (!jumpedAgainstBlock) {
                 game.getGameCamera().move(0, 5);
             }
