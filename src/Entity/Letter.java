@@ -1,8 +1,11 @@
 package Entity;
 
 import GFX.ImageLoader;
+import Input.MouseHandler;
 import Main.ArrayLists;
 import Main.Game;
+import Worlds.ScrollWorld;
+import Worlds.World;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,7 +27,9 @@ public class Letter extends Entity {
     }
 
     public void tick() {
+
         move();
+        readMe();
     }
 
     public void render(Graphics g) {
@@ -112,7 +117,16 @@ public class Letter extends Entity {
     }
 
     public void readMe () {
-
+       if (x <= MouseHandler.clickX && x + w >= MouseHandler.clickX) {
+       System.out.println("X");
+       if (
+        y <= MouseHandler.clickY && y + h >= MouseHandler.clickY) {
+           System.out.println("Y");
+           ScrollWorld scrollWorld = new ScrollWorld(game);
+           World.setWorld(scrollWorld);
+           MouseHandler.resetClicks();
+       }
+       }
     }
 
 }

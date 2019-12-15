@@ -36,14 +36,16 @@ public class TouchMe extends Entity {
     }
 
     public void checkPlayer() {
-        if (x < MouseHandler.clickX && x + touchMeWidth > MouseHandler.clickX) {
-            System.out.println("X funktioniert");
-            if (MouseHandler.clickY > y && MouseHandler.clickY < y + touchMeHeigth) {
-                System.out.println("Y funktioniert");
-                SaveWorld saveWorld = new SaveWorld(game);
-                World.setWorld(saveWorld);
-                MouseHandler.resetClicks();
-            }
+        if (
+                MouseHandler.clickY > y && MouseHandler.clickY < y + touchMeHeigth
+                && x < MouseHandler.clickX && x + touchMeWidth > MouseHandler.clickX
+                ) {
+            //System.out.println("X funktioniert");
+            System.out.println("Y funktioniert");
+            SaveWorld saveWorld = new SaveWorld(game);
+            World.setWorld(saveWorld);
+            MouseHandler.resetClicks();
         }
     }
+
 }
