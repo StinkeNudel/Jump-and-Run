@@ -39,7 +39,7 @@ public class TestWorld extends World {
         super(game);
         player = new Player(game, game.width / 2, game.height - 500);
         ArrayLists.player.add(player);
-        letter = new Letter(game, game.width - 100, game.height / 2 - 240);
+        //letter = new Letter(game, game.width - 100, game.height / 2 - 240);
         generateBlocks();
 
         worm = new Worm(game, 900, 90);
@@ -57,7 +57,7 @@ public class TestWorld extends World {
      */
     public void tick() {
         player.tick();
-        letter.tick();
+        //letter.tick();
         worm.tick();
         door.tick();
     }
@@ -97,7 +97,7 @@ public class TestWorld extends World {
         g.drawImage(dirt, 0 - (int) (game.getGameCamera().getxOffset()), 0 + 980 - (int) (game.getGameCamera().getyOffset()), 10000, 10000, null);
 
         player.render(g);
-        letter.render(g);
+        //letter.render(g);
         worm.render(g);
         door.render(g);
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();

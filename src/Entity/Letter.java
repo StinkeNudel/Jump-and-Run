@@ -120,7 +120,7 @@ public class Letter extends Entity {
        if (x <= MouseHandler.clickX && x + w >= MouseHandler.clickX) {
        System.out.println("X");
        if (
-        y <= MouseHandler.clickY && y + h >= MouseHandler.clickY) {
+        y - h/2 <= MouseHandler.clickY && y + h >= MouseHandler.clickY) {
            System.out.println("Y");
            ScrollWorld scrollWorld = new ScrollWorld(game);
            World.setWorld(scrollWorld);

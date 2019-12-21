@@ -41,11 +41,15 @@ public class Door extends Entity {
     }
 
     public void openMe() {
-        if (y < MouseHandler.clickY && y + doorHeight > MouseHandler.clickY) {
-            System.out.println("Y funktioniert");
-            SaveWorld saveWorld = new SaveWorld(game);
-            World.setWorld(saveWorld);
-            MouseHandler.resetClicks();
+        if (x < MouseHandler.clickX && x + doorWidth > MouseHandler.clickX) {
+            System.out.println("x funktioniert");
+            if (
+           y + doorHeight / 2 < MouseHandler.clickY && y + doorHeight > MouseHandler.clickY) {
+                System.out.println("Y funktioniert");
+                SaveWorld saveWorld = new SaveWorld(game);
+                World.setWorld(saveWorld);
+                MouseHandler.resetClicks();
+            }
         }
     }
 

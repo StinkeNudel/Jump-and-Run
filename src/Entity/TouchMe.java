@@ -37,7 +37,7 @@ public class TouchMe extends Entity {
 
     public void checkPlayer() {
         if (
-                MouseHandler.clickY > y && MouseHandler.clickY < y + touchMeHeigth
+                MouseHandler.clickY >= y - touchMeHeigth/2 && MouseHandler.clickY <= y + touchMeHeigth
                 && x < MouseHandler.clickX && x + touchMeWidth > MouseHandler.clickX
                 ) {
             //System.out.println("X funktioniert");
