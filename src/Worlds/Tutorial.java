@@ -1,6 +1,5 @@
 package Worlds;
 
-import Blocks.Dirt;
 import Blocks.Grass;
 import Blocks.SolidBlocks;
 import Entity.Enemy;

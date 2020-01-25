@@ -1,6 +1,9 @@
 package Worlds;
 
-import Blocks.Dirt;
+import Background.Cloud1;
+import Background.Cloud2;
+import Background.Mountain;
+import Background.Tree;
 import Blocks.Grass;
 import Blocks.SolidBlocks;
 import Entity.*;
@@ -16,19 +19,11 @@ import java.util.ArrayList;
 
 public class TestWorld extends World {
 
-    private BufferedImage Image; //background image
-    BufferedImage tree = ImageLoader.loadImage("/Tree.png");
-    BufferedImage mountain = ImageLoader.loadImage("/Berg.png");
-    BufferedImage cloud1 = ImageLoader.loadImage("/Wolke1.png");
-    BufferedImage cloud2 = ImageLoader.loadImage("/Wolke2.png");
     BufferedImage dirt = ImageLoader.loadImage("/dirt.png");
 
     private Player player;
-    private Letter letter;
     private Enemy worm;
     private Door door;
-    int cloundAn = 0;
-    private boolean background = true;
 
     /**
      * Constructor
@@ -37,17 +32,16 @@ public class TestWorld extends World {
      */
     public TestWorld(Game game) {
         super(game);
+        generateBackground();
+        generateBlocks();
+
         player = new Player(game, game.width / 2, game.height - 500);
         ArrayLists.player.add(player);
-        //letter = new Letter(game, game.width - 100, game.height / 2 - 240);
-        generateBlocks();
 
         worm = new Worm(game, 900, 90);
         ArrayLists.enemys.add(worm);
 
         door = new Door(game, game.width / 2, game.height - 230);
-
-        game.getGameCamera().move(0, 0);
 
         saveGame();
     }
@@ -57,7 +51,6 @@ public class TestWorld extends World {
      */
     public void tick() {
         player.tick();
-        //letter.tick();
         worm.tick();
         door.tick();
     }
@@ -68,42 +61,84 @@ public class TestWorld extends World {
      * @param g Graphics Object
      */
     public void render(Graphics g) {
-        if (background) {
-            //render background
-            int treeX = -500;
-            int mountainX = -500;
-            int cloudX = -500;
-            g.setColor(Color.CYAN);
-            g.fillRect(0, 0, 10000, 10000);
-
-            for (int i = 0; i < 20; i++) {
-                mountainX += 600;
-                g.drawImage(mountain, mountainX - (int) (game.getGameCamera().getxOffset() / 8), (int) (game.height - 800 - game.getGameCamera().getyOffset()), 800, 800, null);
-            }
-            for (int i = 0; i < 20; i++) {
-                cloudX += 500;
-                g.drawImage(cloud1, cloudX - (int) (game.getGameCamera().getxOffset() / 4 + cloundAn), (int) (game.height - 1200 - game.getGameCamera().getyOffset()), 400, 400, null);
-                cloudX += 500;
-                g.drawImage(cloud2, cloudX - (int) (game.getGameCamera().getxOffset() / 4 + cloundAn), (int) (game.height - 1100 - game.getGameCamera().getyOffset()), 400, 400, null);
-            }
-            cloundAn += 1;
-            for (int i = 0; i < 20; i++) {
-                treeX += 300;
-                g.drawImage(tree, treeX - (int) (game.getGameCamera().getxOffset() / 4), (int) (game.height - 600 - game.getGameCamera().getyOffset()), 500, 500, null);
-            }
-        }
-
-        //render dirt
-        g.drawImage(dirt, 0 - (int) (game.getGameCamera().getxOffset()), 0 + 980 - (int) (game.getGameCamera().getyOffset()), 10000, 10000, null);
-
-        player.render(g);
-        //letter.render(g);
+        renderBackground(g);
         worm.render(g);
         door.render(g);
+        player.render(g);
+        renderBlocks(g);
+    }
+
+    private void renderBackground(Graphics g) {
+        g.setColor(Color.CYAN);
+        g.fillRect(0, 0, 10000, 10000);
+
+        ArrayList cloud1s = ArrayLists.cloud1s;
+        for (int w = 0; w < cloud1s.size(); w++) {
+            Cloud1 m = (Cloud1) cloud1s.get(w);
+            m.x -= 1;
+            m.render(g);
+        }
+
+        ArrayList mountains = ArrayLists.mountains;
+        for (int w = 0; w < mountains.size(); w++) {
+            Mountain m = (Mountain) mountains.get(w);
+            m.render(g);
+        }
+
+        g.drawImage(dirt, 0 - (int) (game.getGameCamera().getxOffset()), 0 + 980 - (int) (game.getGameCamera().getyOffset()), 10000, 10000, null);
+
+        ArrayList trees = ArrayLists.trees;
+        for (int w = 0; w < trees.size(); w++) {
+            Tree m = (Tree) trees.get(w);
+            m.render(g);
+        }
+
+        ArrayList cloud2s = ArrayLists.cloud2s;
+        for (int w = 0; w < cloud2s.size(); w++) {
+            Cloud2 m = (Cloud2) cloud2s.get(w);
+            m.x -= 1;
+            m.render(g);
+        }
+    }
+
+    private void generateBackground() {
+        int cloud1X = 0;
+        int cloud2X = 500;
+        for (int i = 0; i < 20; i++) {
+            Cloud1 z = new Cloud1(game, cloud1X, game.height - 1000);
+            ArrayLists.cloud1s.add(z);
+            cloud1X += 1000;
+        }
+        for (int i = 0; i < 20; i++) {
+            Cloud2 c = new Cloud2(game, cloud2X, game.height - 1050);
+            ArrayLists.cloud2s.add(c);
+            cloud2X += 1000;
+        }
+        int mountainX = -3000;
+        for (int i = 0; i < 20; i++) {
+            Mountain u = new Mountain(game, mountainX, game.height - 800);
+            ArrayLists.mountains.add(u);
+            mountainX += 800;
+        }
+
+        int treeX = -2000;
+        for (int i = 0; i < 20; i++) {
+            Tree t = new Tree(game, treeX, game.height - 600);
+            ArrayLists.trees.add(t);
+            treeX += 300;
+        }
+
+
+    }
+
+    private void renderBlocks(Graphics g){
+        //render blocks
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
-            m.render(g);
+            if (m.x > player.x - 1000 && m.x < player.x + 1000) {
+                m.render(g);
+            }
         }
     }
 
@@ -111,9 +146,9 @@ public class TestWorld extends World {
      * generates the Bocks in the World
      */
     public void generateBlocks() {
-        int BlockX = 100, BlockY = game.height - 100;
+        int BlockX = -3000, BlockY = game.height - 100;
 
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 1000; i++) {
             Grass z = new Grass(game, BlockX, BlockY);
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;

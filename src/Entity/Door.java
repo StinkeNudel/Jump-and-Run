@@ -13,14 +13,6 @@ public class Door extends Entity {
 
     BufferedImage image = ImageLoader.loadImage("/door.png");
 
-    /**
-     * Coordinate
-     *
-     * @param game Game Object
-     * @param x    X-Coordinate
-     * @param y    Y-Coordinate
-     */
-
     int doorWidth = 68;
     int doorHeight = 128;
 
@@ -31,27 +23,20 @@ public class Door extends Entity {
     @Override
     public void tick() {
         openMe();
-
     }
 
     @Override
     public void render(Graphics g) {
         g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), doorWidth, doorHeight, null);
-
     }
 
     public void openMe() {
-        if (x < MouseHandler.clickX && x + doorWidth > MouseHandler.clickX) {
-            System.out.println("x funktioniert");
-            if (
-           y + doorHeight / 2 < MouseHandler.clickY && y + doorHeight > MouseHandler.clickY) {
-                System.out.println("Y funktioniert");
+        if (x < MouseHandler.clickX + game.getGameCamera().getxOffset() && x + doorWidth > MouseHandler.clickX + game.getGameCamera().getxOffset()) {
+            if (y < MouseHandler.clickY + game.getGameCamera().getyOffset() && y + doorHeight > MouseHandler.clickY + game.getGameCamera().getyOffset()) {
                 SaveWorld saveWorld = new SaveWorld(game);
                 World.setWorld(saveWorld);
                 MouseHandler.resetClicks();
             }
         }
     }
-
-
 }

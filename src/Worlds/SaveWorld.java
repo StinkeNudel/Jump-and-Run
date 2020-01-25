@@ -1,9 +1,7 @@
 package Worlds;
 
 import Entity.Door;
-import Entity.TouchMe;
 import Main.Game;
-import javafx.scene.input.TouchEvent;
 
 import java.awt.*;
 
