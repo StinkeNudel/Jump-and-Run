@@ -1,22 +1,25 @@
-package Entity;
+package Entity.Doors;
 
+import Entity.Entity;
 import GFX.ImageLoader;
 import Input.MouseHandler;
+import Main.ArrayLists;
 import Main.Game;
 import Worlds.SaveWorld;
 import Worlds.World;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-public class Door extends Entity {
+public class DoorSaveRoom extends Entity {
 
     BufferedImage image = ImageLoader.loadImage("/door.png");
 
     int doorWidth = 68;
     int doorHeight = 128;
 
-    public Door(Game game, double x, double y) {
+    public DoorSaveRoom(Game game, double x, double y) {
         super(game, x, y);
     }
 
@@ -33,6 +36,8 @@ public class Door extends Entity {
     public void openMe() {
         if (x < MouseHandler.clickX + game.getGameCamera().getxOffset() && x + doorWidth > MouseHandler.clickX + game.getGameCamera().getxOffset()) {
             if (y < MouseHandler.clickY + game.getGameCamera().getyOffset() && y + doorHeight > MouseHandler.clickY + game.getGameCamera().getyOffset()) {
+                ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+                solidBlocks.clear();
                 SaveWorld saveWorld = new SaveWorld(game);
                 World.setWorld(saveWorld);
                 MouseHandler.resetClicks();

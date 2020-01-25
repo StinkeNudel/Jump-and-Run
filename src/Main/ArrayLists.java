@@ -24,6 +24,7 @@ public class ArrayLists {
 
     }
 
+
     public static ArrayList getSolidBlocks() {
         return solidBlocks;
     }

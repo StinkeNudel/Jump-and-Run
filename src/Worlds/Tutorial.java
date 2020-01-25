@@ -1,5 +1,9 @@
 package Worlds;
 
+import Background.Cloud1;
+import Background.Cloud2;
+import Background.Mountain;
+import Background.Tree;
 import Blocks.Grass;
 import Blocks.SolidBlocks;
 import Entity.Enemy;
@@ -16,16 +20,9 @@ import java.util.ArrayList;
 
 public class Tutorial extends World {
 
-
-    private BufferedImage Image; //background image
-    private BufferedImage tree = ImageLoader.loadImage("/Tree.png");
-    private BufferedImage mountain = ImageLoader.loadImage("/Berg.png");
-    private BufferedImage cloud1 = ImageLoader.loadImage("/Wolke1.png");
-    private BufferedImage cloud2 = ImageLoader.loadImage("/Wolke2.png");
     private BufferedImage dirt = ImageLoader.loadImage("/dirt.png");
     private Player player;
     private Enemy enemy;
-    private int cloundAn = 0;
 
     /**
      * constructor
@@ -34,65 +31,111 @@ public class Tutorial extends World {
      */
     public Tutorial(Game game) {
         super(game);
-        player = new Player(game, game.width / 2, game.height - 500);
-        ArrayLists.player.add(player);
+        generateBackground();
         generateBlocks();
 
+        player = new Player(game, game.width / 2, game.height - 500);
+        ArrayLists.player.add(player);
+
         enemy = new Enemy(game, 900, 90);
-        game.getGameCamera().move(0, 0);
+
         saveGame();
+
     }
 
     /**
      * tick World
      */
     public void tick() {
-
         player.tick();
         enemy.tick();
-
     }
 
     /**
      * render World
+     *
      * @param g Graphic Object
      */
     public void render(Graphics g) {
-        //render background
-        int treeX = -500;
-        int mountainX = -500;
-        int cloudX = -500;
+        renderBackground(g);
+        player.render(g);
+        enemy.render(g);
+        renderBlocks(g);
+    }
+
+
+    private void renderBackground(Graphics g) {
         g.setColor(Color.CYAN);
         g.fillRect(0, 0, 10000, 10000);
 
-        for (int i = 0; i < 20; i++) {
-            mountainX += 600;
-            g.drawImage(mountain, mountainX - (int) (game.getGameCamera().getxOffset() / 8), (int) (game.height - 800 - game.getGameCamera().getyOffset()), 800, 800, null);
-        }
-        for (int i = 0; i < 20; i++) {
-            cloudX += 500;
-            g.drawImage(cloud1, cloudX - (int) (game.getGameCamera().getxOffset() / 4 + cloundAn), (int) (game.height - 1200 - game.getGameCamera().getyOffset()), 400, 400, null);
-            cloudX += 500;
-            g.drawImage(cloud2, cloudX - (int) (game.getGameCamera().getxOffset() / 4 + cloundAn), (int) (game.height - 1100 - game.getGameCamera().getyOffset()), 400, 400, null);
-        }
-        cloundAn += 1;
-        for (int i = 0; i < 20; i++) {
-            treeX += 300;
-            g.drawImage(tree, treeX - (int) (game.getGameCamera().getxOffset() / 4), (int) (game.height - 600 - game.getGameCamera().getyOffset()), 500, 500, null);
+        ArrayList cloud1s = ArrayLists.cloud1s;
+        for (int w = 0; w < cloud1s.size(); w++) {
+            Cloud1 m = (Cloud1) cloud1s.get(w);
+            m.x -= 1;
+            m.render(g);
         }
 
-        //render dirt
-        g.drawImage(dirt, 0 - (int) (game.getGameCamera().getxOffset()), 0 + 980 - (int)(game.getGameCamera().getyOffset()), 10000, 10000, null);
+        ArrayList mountains = ArrayLists.mountains;
+        for (int w = 0; w < mountains.size(); w++) {
+            Mountain m = (Mountain) mountains.get(w);
+            m.render(g);
+        }
 
-        player.render(g);
-        enemy.render(g);
-        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-        for (int w = 0; w < solidBlocks.size(); w++) {
-            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+        g.drawImage(dirt, 0 - (int) (game.getGameCamera().getxOffset()), 0 + 980 - (int) (game.getGameCamera().getyOffset()), 10000, 10000, null);
+
+        ArrayList trees = ArrayLists.trees;
+        for (int w = 0; w < trees.size(); w++) {
+            Tree m = (Tree) trees.get(w);
+            m.render(g);
+        }
+
+        ArrayList cloud2s = ArrayLists.cloud2s;
+        for (int w = 0; w < cloud2s.size(); w++) {
+            Cloud2 m = (Cloud2) cloud2s.get(w);
+            m.x -= 1;
             m.render(g);
         }
     }
 
+    private void generateBackground() {
+        int cloud1X = 0;
+        int cloud2X = 500;
+        for (int i = 0; i < 20; i++) {
+            Cloud1 z = new Cloud1(game, cloud1X, game.height - 1000);
+            ArrayLists.cloud1s.add(z);
+            cloud1X += 1000;
+        }
+        for (int i = 0; i < 20; i++) {
+            Cloud2 c = new Cloud2(game, cloud2X, game.height - 1050);
+            ArrayLists.cloud2s.add(c);
+            cloud2X += 1000;
+        }
+        int mountainX = -3000;
+        for (int i = 0; i < 20; i++) {
+            Mountain u = new Mountain(game, mountainX, game.height - 800);
+            ArrayLists.mountains.add(u);
+            mountainX += 800;
+        }
+
+        int treeX = -2000;
+        for (int i = 0; i < 20; i++) {
+            Tree t = new Tree(game, treeX, game.height - 600);
+            ArrayLists.trees.add(t);
+            treeX += 300;
+        }
+
+
+    }
+
+    private void renderBlocks(Graphics g) {
+        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+        for (int w = 0; w < solidBlocks.size(); w++) {
+            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+            if (m.x > player.x - 1100 && m.x < player.x + 1000) {
+                m.render(g);
+            }
+        }
+    }
 
     /**
      * generates Blocks of the World
@@ -185,7 +228,7 @@ public class Tutorial extends World {
     /**
      * saves in SafeFile
      */
-    private void saveGame(){
+    private void saveGame() {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("D:\\Workspace\\Jump-and-Run\\src\\SaveFile"));
             bw.write("0");

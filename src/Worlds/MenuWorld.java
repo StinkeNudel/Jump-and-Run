@@ -95,7 +95,7 @@ public class MenuWorld extends World {
         }
 
         if (MouseHandler.clickX > game.width / 2 - 200 && MouseHandler.clickX < game.width / 2 - 200 + 400 && MouseHandler.clickY > game.height / 2 + 100 && MouseHandler.clickY < game.height / 2 + 100 + 100) {
-            Tutorial tutorial = new Tutorial(game);
+            SaveWorld tutorial = new SaveWorld(game);
             setWorld(tutorial);
             MouseHandler.resetClicks();
         }

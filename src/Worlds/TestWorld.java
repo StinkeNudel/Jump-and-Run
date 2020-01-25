@@ -7,6 +7,7 @@ import Background.Tree;
 import Blocks.Grass;
 import Blocks.SolidBlocks;
 import Entity.*;
+import Entity.Doors.DoorSaveRoom;
 import GFX.ImageLoader;
 import Main.ArrayLists;
 import Main.Game;
@@ -23,7 +24,7 @@ public class TestWorld extends World {
 
     private Player player;
     private Enemy worm;
-    private Door door;
+    private DoorSaveRoom doorSaveRoom;
 
     /**
      * Constructor
@@ -35,14 +36,14 @@ public class TestWorld extends World {
         generateBackground();
         generateBlocks();
 
-        player = new Player(game, game.width / 2, game.height - 500);
+        player = new Player(game, game.width / 2, game.height - 221);
         ArrayLists.player.add(player);
 
         worm = new Worm(game, 900, 90);
         ArrayLists.enemys.add(worm);
 
-        door = new Door(game, game.width / 2, game.height - 230);
-
+        doorSaveRoom = new DoorSaveRoom(game, game.width / 2, game.height - 225);
+        game.getGameCamera().setyOffset(300);
         saveGame();
     }
 
@@ -52,7 +53,7 @@ public class TestWorld extends World {
     public void tick() {
         player.tick();
         worm.tick();
-        door.tick();
+        doorSaveRoom.tick();
     }
 
     /**
@@ -63,7 +64,7 @@ public class TestWorld extends World {
     public void render(Graphics g) {
         renderBackground(g);
         worm.render(g);
-        door.render(g);
+        doorSaveRoom.render(g);
         player.render(g);
         renderBlocks(g);
     }
@@ -132,11 +133,10 @@ public class TestWorld extends World {
     }
 
     private void renderBlocks(Graphics g){
-        //render blocks
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
-            if (m.x > player.x - 1000 && m.x < player.x + 1000) {
+            if (m.x > player.x - 1100 && m.x < player.x + 1000) {
                 m.render(g);
             }
         }
