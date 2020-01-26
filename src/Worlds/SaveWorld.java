@@ -1,16 +1,9 @@
 package Worlds;
 
-import Background.Cloud1;
-import Background.Cloud2;
-import Background.Mountain;
-import Background.Tree;
-import Blocks.Grass;
 import Blocks.SolidBlocks;
 import Blocks.Stone;
 import Entity.Doors.DoorSaveRoom;
-import Entity.Enemy;
 import Entity.Player;
-import Entity.Worm;
 import Main.ArrayLists;
 import Main.Game;
 

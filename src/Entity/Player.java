@@ -12,10 +12,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static Main.ArrayLists.enemys;
-import static Main.ArrayLists.player;
 
 public class Player extends Creature {
-    BufferedImage image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
+    private BufferedImage image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
     private int playerWidth = 68, playerHeight = 120;
     private boolean notfalling = false;
     private boolean jump = false;
@@ -29,11 +28,11 @@ public class Player extends Creature {
     private HealthBar healthBar;
     private boolean movedRight;
 
-    int jumpAnimation = 0, animationJump = 0, waitForJump = 0;
-    int animationLeft = 0;
-    int animationRight = 0;
-    int animationStandLeft = 0, animationStandRight = 0;
-    int animationCounterLeft = 0, animationCounterRight = 0, animationCounterStandLeft = 0, animationCounterStandRight = 0;
+    private int jumpAnimation = 0, animationJump = 0, waitForJump = 0;
+    private int animationLeft = 0;
+    private int animationRight = 0;
+    private int animationStandLeft = 0, animationStandRight = 0;
+    private int animationCounterLeft = 0, animationCounterRight = 0, animationCounterStandLeft = 0, animationCounterStandRight = 0;
 
     /**
      * Constructor
@@ -336,8 +335,6 @@ public class Player extends Creature {
     }
 
 
-    //___________________________________________________________________________________________________________________________________________________________________________________________________________________
-    //___________________________________________________________________________________________________________________________________________________________________________________________________________________
     //HEALTHBAR CLASS
     public class HealthBar {
         private int startHealth; //Player health at the beginning
@@ -375,78 +372,60 @@ public class Player extends Creature {
         }
 
     }
-    //___________________________________________________________________________________________________________________________________________________________________________________________________________________
-//___________________________________________________________________________________________________________________________________________________________________________________________________________________
 
     /**
      * animations
      */
 
-    public void animationLeft() {
+    private void animationLeft() {
         switch (animationLeft) {
             case 0:
+            case 2:
                 image = ImageLoader.loadImage("/Player/player_left_up_openEyes.png");
-                animationLeft++;
                 break;
             case 1:
                 image = ImageLoader.loadImage("/Player/player_left_left_leg.png");
-                animationLeft++;
-                break;
-            case 2:
-                image = ImageLoader.loadImage("/Player/player_left_up_openEyes.png");
-                animationLeft++;
                 break;
             case 3:
                 image = ImageLoader.loadImage("/Player/player_left_right_leg.png");
                 animationLeft = 0;
                 break;
         }
-
+        animationLeft++;
     }
 
-    public void animationRight() {
+    private void animationRight() {
         switch (animationRight) {
             case 0:
+            case 2:
                 image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
-                animationRight++;
                 break;
             case 1:
                 image = ImageLoader.loadImage("/Player/player_right_left_leg.png");
-                animationRight++;
-                break;
-            case 2:
-                image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
-                animationRight++;
                 break;
             case 3:
                 image = ImageLoader.loadImage("/Player/player_right_right_leg.png");
                 animationRight = 0;
                 break;
         }
+        animationRight++;
 
     }
 
-    public void animationStandLeft() {
+    private void animationStandLeft() {
         switch (animationStandLeft) {
             case 0:
                 image = ImageLoader.loadImage("/Player/player_left_up_openEyes.png");
-                animationStandLeft++;
                 break;
             case 1:
                 image = ImageLoader.loadImage("/Player/player_left_down_openEyes.png");
-                animationStandLeft++;
                 break;
             case 2:
+            case 4:
                 image = ImageLoader.loadImage("/Player/player_left_up_halfOpenEyes.png");
-                animationStandLeft++;
                 break;
             case 3:
                 image = ImageLoader.loadImage("/Player/player_left_down_noEyes.png");
-                animationStandLeft++;
-                break;
-            case 4:
-                image = ImageLoader.loadImage("/Player/player_left_up_halfOpenEyes.png");
-                animationStandLeft++;
                 break;
             case 5:
                 image = ImageLoader.loadImage("/Player/player_left_down_openEyes.png");
@@ -455,29 +434,23 @@ public class Player extends Creature {
 
 
         }
+        animationStandLeft++;
     }
 
-    public void animationStandRight() {
+    private void animationStandRight() {
         switch (animationStandRight) {
             case 0:
                 image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
-                animationStandRight++;
                 break;
             case 1:
                 image = ImageLoader.loadImage("/Player/player_right_down_openEyes.png");
-                animationStandRight++;
                 break;
             case 2:
+            case 4:
                 image = ImageLoader.loadImage("/Player/player_right_up_halfClosedEyes.png");
-                animationStandRight++;
                 break;
             case 3:
                 image = ImageLoader.loadImage("/Player/player_down_noEyes.png");
-                animationStandRight++;
-                break;
-            case 4:
-                image = ImageLoader.loadImage("/Player/player_right_up_halfClosedEyes.png");
-                animationStandRight++;
                 break;
             case 5:
                 image = ImageLoader.loadImage("/Player/player_right_down_openEyes.png");
@@ -486,6 +459,7 @@ public class Player extends Creature {
 
 
         }
+        animationStandRight++;
     }
 
     public void jumpAnimation() {

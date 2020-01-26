@@ -4,7 +4,7 @@ import Background.Cloud1;
 import Background.Cloud2;
 import Background.Mountain;
 import Background.Tree;
-import Blocks.Grass;
+import Blocks.GrassBlock;
 import Blocks.SolidBlocks;
 import Entity.Enemy;
 import Entity.Player;
@@ -145,78 +145,78 @@ public class Tutorial extends World {
                 sBlockY = game.height + 988;
 
         for (int i = 0; i < 46; i++) {
-            Grass z = new Grass(game, BlockX, BlockY);
+            GrassBlock z = new GrassBlock(game, BlockX, BlockY);
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
         }
 
         //dirt
-        Grass a = new Grass(game, 29 * 64, game.height - 164);
+        GrassBlock a = new GrassBlock(game, 29 * 64, game.height - 164);
         ArrayLists.solidBlocks.add(a);
 
-        Grass b = new Grass(game, 29 * 64, game.height - 228);
+        GrassBlock b = new GrassBlock(game, 29 * 64, game.height - 228);
         ArrayLists.solidBlocks.add(b);
 
-        Grass c = new Grass(game, 30 * 64, game.height - 228);
+        GrassBlock c = new GrassBlock(game, 30 * 64, game.height - 228);
         ArrayLists.solidBlocks.add(c);
 
         for (int i = 0; i < 5; i++) {
-            Grass d = new Grass(game, dBlockX, game.height - 292);
+            GrassBlock d = new GrassBlock(game, dBlockX, game.height - 292);
             ArrayLists.solidBlocks.add(d);
             dBlockX = dBlockX + 64;
         }
 
         //dirt
-        Grass e = new Grass(game, 32 * 64, game.height - 292);
+        GrassBlock e = new GrassBlock(game, 32 * 64, game.height - 292);
         ArrayLists.solidBlocks.add(e);
 
         //dirt
-        Grass f = new Grass(game, 33 * 64, game.height - 292);
+        GrassBlock f = new GrassBlock(game, 33 * 64, game.height - 292);
         ArrayLists.solidBlocks.add(f);
 
-        Grass g = new Grass(game, 34 * 64, game.height - 292);
+        GrassBlock g = new GrassBlock(game, 34 * 64, game.height - 292);
         ArrayLists.solidBlocks.add(g);
 
-        Grass h = new Grass(game, 32 * 64, game.height - 356);
+        GrassBlock h = new GrassBlock(game, 32 * 64, game.height - 356);
         ArrayLists.solidBlocks.add(h);
 
-        Grass i = new Grass(game, 33 * 64, game.height - 356);
+        GrassBlock i = new GrassBlock(game, 33 * 64, game.height - 356);
         ArrayLists.solidBlocks.add(i);
 
-        Grass j = new Grass(game, 37 * 64, game.height - 164);
+        GrassBlock j = new GrassBlock(game, 37 * 64, game.height - 164);
         ArrayLists.solidBlocks.add(j);
 
         //dirt
-        Grass k = new Grass(game, 42 * 64, game.height - 164);
+        GrassBlock k = new GrassBlock(game, 42 * 64, game.height - 164);
         ArrayLists.solidBlocks.add(k);
 
-        Grass l = new Grass(game, 42 * 64, game.height - 228);
+        GrassBlock l = new GrassBlock(game, 42 * 64, game.height - 228);
         ArrayLists.solidBlocks.add(l);
 
-        Grass m = new Grass(game, 45 * 64, game.height - 36);
+        GrassBlock m = new GrassBlock(game, 45 * 64, game.height - 36);
         ArrayLists.solidBlocks.add(m);
 
-        Grass n = new Grass(game, 46 * 64, game.height - 36);
+        GrassBlock n = new GrassBlock(game, 46 * 64, game.height - 36);
         ArrayLists.solidBlocks.add(n);
-        Grass o = new Grass(game, 46 * 64, game.height + 28);
+        GrassBlock o = new GrassBlock(game, 46 * 64, game.height + 28);
         ArrayLists.solidBlocks.add(o);
-        Grass p = new Grass(game, 46 * 64, game.height + 92);
+        GrassBlock p = new GrassBlock(game, 46 * 64, game.height + 92);
         ArrayLists.solidBlocks.add(p);
 
         for (int z = 0; z < 15; z++) {
-            Grass q = new Grass(game, 47 * 64, qBlockY);
+            GrassBlock q = new GrassBlock(game, 47 * 64, qBlockY);
             ArrayLists.solidBlocks.add(q);
             qBlockY = qBlockY + 64;
         }
 
         for (int z = 0; z < 8; z++) {
-            Grass r = new Grass(game, rBlockX, game.height + 1052);
+            GrassBlock r = new GrassBlock(game, rBlockX, game.height + 1052);
             ArrayLists.solidBlocks.add(r);
             rBlockX = rBlockX + 64;
         }
 
         for (int z = 0; z < 18; z++) {
-            Grass s = new Grass(game, 51 * 64, sBlockY);
+            GrassBlock s = new GrassBlock(game, 51 * 64, sBlockY);
             ArrayLists.solidBlocks.add(s);
             sBlockY = sBlockY - 64;
         }

@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Mountain extends Entity {
-    BufferedImage image = ImageLoader.loadImage("/Berg.png");
+    BufferedImage image = ImageLoader.loadImage("/Background/Berg.png");
 
     /**
      * Coordinate

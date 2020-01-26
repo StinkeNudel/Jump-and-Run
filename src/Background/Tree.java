@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Tree extends Entity {
-    BufferedImage image = ImageLoader.loadImage("/Tree.png");
+    BufferedImage image = ImageLoader.loadImage("/Background/Tree.png");
 
     /**
      * Coordinate

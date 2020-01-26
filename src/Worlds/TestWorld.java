@@ -1,10 +1,7 @@
 package Worlds;
 
-import Background.Cloud1;
-import Background.Cloud2;
-import Background.Mountain;
-import Background.Tree;
-import Blocks.Grass;
+import Background.*;
+import Blocks.GrassBlock;
 import Blocks.SolidBlocks;
 import Entity.*;
 import Entity.Doors.DoorSaveRoom;
@@ -20,11 +17,13 @@ import java.util.ArrayList;
 
 public class TestWorld extends World {
 
-    BufferedImage dirt = ImageLoader.loadImage("/dirt.png");
+    BufferedImage dirt = ImageLoader.loadImage("/Blocks/DirtBlock.png");
 
     private Player player;
     private Enemy worm;
     private DoorSaveRoom doorSaveRoom;
+    private Grass grass;
+    private Rose rose;
 
     /**
      * Constructor
@@ -42,6 +41,10 @@ public class TestWorld extends World {
         worm = new Worm(game, 900, 90);
         ArrayLists.enemys.add(worm);
 
+        grass = new Grass(game, game.width / 2 + 200, game.height - 225);
+
+        rose = new Rose(game, game.width / 2 + 300, game.height - 225);
+
         doorSaveRoom = new DoorSaveRoom(game, game.width / 2, game.height - 225);
         game.getGameCamera().setyOffset(300);
         saveGame();
@@ -54,6 +57,8 @@ public class TestWorld extends World {
         player.tick();
         worm.tick();
         doorSaveRoom.tick();
+        grass.tick();
+        rose.tick();
     }
 
     /**
@@ -66,19 +71,14 @@ public class TestWorld extends World {
         worm.render(g);
         doorSaveRoom.render(g);
         player.render(g);
+        grass.render(g);
         renderBlocks(g);
+        rose.render(g);
     }
 
     private void renderBackground(Graphics g) {
         g.setColor(Color.CYAN);
         g.fillRect(0, 0, 10000, 10000);
-
-        ArrayList cloud1s = ArrayLists.cloud1s;
-        for (int w = 0; w < cloud1s.size(); w++) {
-            Cloud1 m = (Cloud1) cloud1s.get(w);
-            m.x -= 1;
-            m.render(g);
-        }
 
         ArrayList mountains = ArrayLists.mountains;
         for (int w = 0; w < mountains.size(); w++) {
@@ -91,6 +91,14 @@ public class TestWorld extends World {
         ArrayList trees = ArrayLists.trees;
         for (int w = 0; w < trees.size(); w++) {
             Tree m = (Tree) trees.get(w);
+            m.render(g);
+        }
+
+
+        ArrayList cloud1s = ArrayLists.cloud1s;
+        for (int w = 0; w < cloud1s.size(); w++) {
+            Cloud1 m = (Cloud1) cloud1s.get(w);
+            m.x -= 1;
             m.render(g);
         }
 
@@ -132,7 +140,7 @@ public class TestWorld extends World {
 
     }
 
-    private void renderBlocks(Graphics g){
+    private void renderBlocks(Graphics g) {
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
@@ -149,7 +157,7 @@ public class TestWorld extends World {
         int BlockX = -3000, BlockY = game.height - 100;
 
         for (int i = 0; i < 1000; i++) {
-            Grass z = new Grass(game, BlockX, BlockY);
+            GrassBlock z = new GrassBlock(game, BlockX, BlockY);
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
         }

@@ -6,8 +6,8 @@ import Main.Game;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Grass extends SolidBlocks {
-    private BufferedImage image = ImageLoader.loadImage("/grass_block.png");
+public class DirtBlock extends SolidBlocks {
+    private BufferedImage image = ImageLoader.loadImage("/Blocks/DirtBlock.png"); //Image for the Class
 
     /**
      * Constructor
@@ -16,7 +16,7 @@ public class Grass extends SolidBlocks {
      * @param x    X-Coordinate
      * @param y    Y-Coordinate
      */
-    public Grass(Game game, double x, double y) {
+    public DirtBlock(Game game, double x, double y) {
         super(game, x, y);
     }
 
@@ -28,6 +28,7 @@ public class Grass extends SolidBlocks {
 
     /**
      * render Class
+     *
      * @param g Game Object
      */
     public void render(Graphics g) {

@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Cloud2 extends Entity {
-    BufferedImage image = ImageLoader.loadImage("/Wolke2.png");
+    BufferedImage image = ImageLoader.loadImage("/Background/Wolke2.png");
 
     /**
      * Coordinate
