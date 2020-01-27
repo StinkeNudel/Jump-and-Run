@@ -24,9 +24,11 @@ public class Player extends Creature {
     private boolean movingRight, movingLeft;
     private boolean touchingEnemy = false;
     private int offsetBeforeJump;
-    private boolean jumpedAgainstBlock;
     private HealthBar healthBar;
     private boolean movedRight;
+    private int xOnScreen, yOnScreen;
+
+    private int cameraXMove, getCameraYMove;
 
     private int jumpAnimation = 0, animationJump = 0, waitForJump = 0;
     private int animationLeft = 0;
@@ -60,6 +62,7 @@ public class Player extends Creature {
         lowerHealth();
         die();
         checkUp();
+        moveCamera();
 
         //HealthBar
         healthBar.tick();
@@ -98,7 +101,6 @@ public class Player extends Creature {
             checkLeft();
             if (movingLeft) {
                 x = x - speed;
-                game.getGameCamera().move(-speed, 0);
                 movingLeft = false;
                 movedRight = false;
             }
@@ -114,7 +116,6 @@ public class Player extends Creature {
             checkRight();
             if (movingRight) {
                 x = x + speed;
-                game.getGameCamera().move(speed, 0);
                 movingRight = false;
                 movedRight = true;
             }
@@ -151,12 +152,10 @@ public class Player extends Creature {
             BlockY = m.getY();
             if (y + playerHeight > BlockY - 2 && ((BlockX > x && BlockX < x + playerWidth)) && y + playerHeight < BlockY + 64) {
                 notfalling = true;
-                jumpedAgainstBlock = false;
                 y = BlockY - playerHeight;
                 return;
             } else if (y + playerHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth)) && !(y + playerHeight > BlockY + 64)) {
                 notfalling = true;
-                jumpedAgainstBlock = false;
                 y = BlockY - playerHeight;
                 return;
             } else {
@@ -179,13 +178,11 @@ public class Player extends Creature {
             if (jump && y < BlockY + 64 && y > BlockY && ((BlockX > x && BlockX < x + playerWidth))) {
                 jump = false;
                 y = BlockY + 64 + 1;
-                jumpedAgainstBlock = true;
                 game.getGameCamera().setyOffset(offsetBeforeJump);
             }
             if (jump && y < BlockY + 64 && y > BlockY && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth))) {
                 jump = false;
                 y = BlockY + 64 + 1;
-                jumpedAgainstBlock = true;
                 game.getGameCamera().setyOffset(offsetBeforeJump);
 
             }
@@ -248,7 +245,6 @@ public class Player extends Creature {
             }
 
             y = y - jumpSpeed;
-            game.getGameCamera().move(0, -jumpSpeed);
 
             if (y < beforeJumpY - 100) {
                 jumpSpeed = 20;
@@ -271,9 +267,6 @@ public class Player extends Creature {
             y = y + 5;
             fallAnimation();
             image = ImageLoader.loadImage("/Player/jump14.png");
-            if (!jumpedAgainstBlock) {
-                game.getGameCamera().move(0, 5);
-            }
         }
     }
 
@@ -334,6 +327,27 @@ public class Player extends Creature {
         }
     }
 
+    private void moveCamera() {
+        xOnScreen = (int) (x - game.getGameCamera().getxOffset());
+        yOnScreen = (int) (y - game.getGameCamera().getyOffset());
+        if(yOnScreen <= 300){
+            game.getGameCamera().move(0, -3);
+        }
+        if(yOnScreen >= 700 && 900 > yOnScreen){
+            game.getGameCamera().move(0, 3);
+        }
+        else if(yOnScreen >= 900){
+            game.getGameCamera().move(0, 5);
+        }
+
+        if(xOnScreen >= 1020){
+            game.getGameCamera().move(5, 0);
+
+        }
+        if(xOnScreen <= 900){
+            game.getGameCamera().move(-5, 0);
+        }
+    }
 
     //HEALTHBAR CLASS
     public class HealthBar {

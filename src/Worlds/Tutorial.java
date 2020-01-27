@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class Tutorial extends World {
 
-    private BufferedImage dirt = ImageLoader.loadImage("/dirt.png");
+    private BufferedImage dirt = ImageLoader.loadImage("/Blocks/DirtBlock.png");
     private Player player;
     private Enemy enemy;
 
