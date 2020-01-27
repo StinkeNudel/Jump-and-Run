@@ -21,6 +21,7 @@ public class Game implements Runnable {
     private BufferStrategy bs;
     private Graphics g;//Graphics object
 
+    public static int FPS;
 
     private KeyHandler keyHandler; //KeyListener
 
@@ -97,14 +98,13 @@ public class Game implements Runnable {
      */
     public void run() {
         init();
-
+        int ticks = 0;
         int fps = 60;
         double timePerTick = 1000000000 / fps;
         double delta = 0;
         long now;
         long lastTime = System.nanoTime();
         long timer = 0;
-        int ticks = 0;
 
         while (running) {
             now = System.nanoTime();
@@ -121,6 +121,7 @@ public class Game implements Runnable {
 
             if (timer >= 1000000000) {
                 System.out.println("FPS: " + ticks);
+                FPS = ticks;
                 ticks = 0;
                 timer = 0;
             }

@@ -1,18 +1,22 @@
 package Worlds;
 
 import Blocks.SolidBlocks;
-import Blocks.Stone;
+import Blocks.StoneBlock;
 import Entity.Doors.DoorSaveRoom;
 import Entity.Player;
+import GFX.ImageLoader;
 import Main.ArrayLists;
 import Main.Game;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class SaveWorld extends World {
+
+    private BufferedImage image = ImageLoader.loadImage("/Blocks/StoneBlock.png");
 
     private Player player;
     private DoorSaveRoom doorSaveRoom;
@@ -49,12 +53,13 @@ public class SaveWorld extends World {
      * @param g Graphics Object
      */
     public void render(Graphics g) {
+        g.drawImage(image, -1000 - (int) (game.getGameCamera().getxOffset()), -1000- (int) (game.getGameCamera().getyOffset()), 6000, 6000, null);
         doorSaveRoom.render(g);
         player.render(g);
         renderBlocks(g);
     }
 
-    private void renderBlocks(Graphics g){
+    private void renderBlocks(Graphics g) {
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
@@ -70,10 +75,29 @@ public class SaveWorld extends World {
     public void generateBlocks() {
         int BlockX = game.width / 2 - 500, BlockY = game.height - 100;
 
-        for (int i = 0; i < 19; i++) {
-            Stone z = new Stone(game, BlockX, BlockY);
+        for (int i = 0; i < 20; i++) {
+            StoneBlock z = new StoneBlock(game, BlockX, BlockY);
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
+        }
+        BlockX -= 64;
+        BlockY = BlockY - 64;
+        for (int i = 0; i < 4; i++) {
+            StoneBlock z = new StoneBlock(game, BlockX, BlockY);
+            ArrayLists.solidBlocks.add(z);
+            BlockY = BlockY - 64;
+        }
+        for (int i = 0; i < 21; i++) {
+            StoneBlock z = new StoneBlock(game, BlockX, BlockY);
+            ArrayLists.solidBlocks.add(z);
+            BlockX = BlockX - 64;
+        }
+        BlockX = BlockX + 64;
+        BlockY = BlockY + 64;
+        for (int i = 0; i < 5; i++) {
+            StoneBlock z = new StoneBlock(game, BlockX, BlockY);
+            ArrayLists.solidBlocks.add(z);
+            BlockY = BlockY + 64;
         }
     }
 

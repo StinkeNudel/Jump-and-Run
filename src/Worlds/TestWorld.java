@@ -24,6 +24,7 @@ public class TestWorld extends World {
     private DoorSaveRoom doorSaveRoom;
     private Grass grass;
     private Rose rose;
+    private int FPS;
 
     /**
      * Constructor
@@ -74,6 +75,8 @@ public class TestWorld extends World {
         grass.render(g);
         renderBlocks(g);
         rose.render(g);
+        FPS = game.FPS;
+        g.drawString(String.valueOf(FPS), 10, 10);
     }
 
     private void renderBackground(Graphics g) {
