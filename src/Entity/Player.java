@@ -27,8 +27,7 @@ public class Player extends Creature {
     private HealthBar healthBar;
     private boolean movedRight;
     private int xOnScreen, yOnScreen;
-
-    private int cameraXMove, getCameraYMove;
+    private int jumpCounter;
 
     private int jumpAnimation = 0, animationJump = 0, waitForJump = 0;
     private int animationLeft = 0;
@@ -50,24 +49,22 @@ public class Player extends Creature {
         healthBar = new HealthBar();
     }
 
-
     /**
      * ticks the Player
      */
     public void tick() {
         input();
         checkBlocks();
+        moveCamera();
         gravity();
         jump();
         lowerHealth();
         die();
         checkUp();
-        moveCamera();
 
         //HealthBar
         healthBar.tick();
     }
-
 
     /**
      * renders the Player
@@ -78,7 +75,6 @@ public class Player extends Creature {
         g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), playerWidth, playerHeight, null);
         healthBar.render(g);
     }
-
 
     /**
      * Keyboard input
@@ -139,7 +135,6 @@ public class Player extends Creature {
         }
     }
 
-
     /**
      * checks Blocks below
      */
@@ -163,7 +158,6 @@ public class Player extends Creature {
             }
         }
     }
-
 
     /**
      * checks Blocks above
@@ -189,7 +183,6 @@ public class Player extends Creature {
         }
     }
 
-
     /**
      * checks Blocks right
      */
@@ -209,7 +202,6 @@ public class Player extends Creature {
             }
         }
     }
-
 
     /**
      * check Blocks left
@@ -231,7 +223,6 @@ public class Player extends Creature {
         }
     }
 
-
     /**
      * Player will jump
      */
@@ -243,33 +234,35 @@ public class Player extends Creature {
                 jumpAnimation();
                 image = ImageLoader.loadImage("/Player/jump9.png");
             }
-
-            y = y - jumpSpeed;
-
-            if (y < beforeJumpY - 100) {
-                jumpSpeed = 20;
-
+            if (jumpCounter < 5) {
+                y = y - 30;
+            } else if (jumpCounter < 10) {
+                y = y - 20;
+            } else if (jumpCounter < 15) {
+                y = y - 10;
+            } else if (jumpCounter < 20) {
+                y = y - 5;
             }
+            jumpCounter++;
+        }
 
-            if (y < beforeJumpY - 200) {
-                jumpSpeed = 40;
-                jump = false;
-            }
+        if (jumpCounter >= 20) {
+            jumpSpeed = 40;
+            jumpCounter = 0;
+            jump = false;
         }
     }
-
 
     /**
      * player moves down to create gravity
      */
     private void gravity() {
         if (!notfalling) {
-            y = y + 5;
+            y = y + 8;
             fallAnimation();
             image = ImageLoader.loadImage("/Player/jump14.png");
         }
     }
-
 
     /**
      * Player will loose lifes if he touches an Enemy
@@ -316,7 +309,6 @@ public class Player extends Creature {
         }
     }
 
-
     /**
      * Player will die if life equals 0
      */
@@ -330,61 +322,22 @@ public class Player extends Creature {
     private void moveCamera() {
         xOnScreen = (int) (x - game.getGameCamera().getxOffset());
         yOnScreen = (int) (y - game.getGameCamera().getyOffset());
-        if(yOnScreen <= 300){
+        if (yOnScreen <= 300) {
             game.getGameCamera().move(0, -3);
         }
-        if(yOnScreen >= 700 && 900 > yOnScreen){
+        if (yOnScreen >= 700 && 900 > yOnScreen) {
             game.getGameCamera().move(0, 3);
-        }
-        else if(yOnScreen >= 900){
-            game.getGameCamera().move(0, 5);
+        } else if (yOnScreen >= 900) {
+            game.getGameCamera().move(0, 8);
         }
 
-        if(xOnScreen >= 1020){
+        if (xOnScreen >= 1020) {
             game.getGameCamera().move(5, 0);
 
         }
-        if(xOnScreen <= 900){
+        if (xOnScreen <= 900) {
             game.getGameCamera().move(-5, 0);
         }
-    }
-
-    //HEALTHBAR CLASS
-    public class HealthBar {
-        private int startHealth; //Player health at the beginning
-        private int barHeight = 60; //height of the bar
-        private int barWidth = 400; //width of the bar
-        private int barFillPerLive; //width of the bar per health point
-        private int barCounter = 0; //counter for the health
-
-        /**
-         * Constructor
-         */
-        public HealthBar() {
-            this.startHealth = 10;
-            barFillPerLive = barWidth / startHealth;
-        }
-
-        /**
-         * Bar tick
-         */
-        public void tick() {
-            if (!(barCounter == startHealth)) {
-                barCounter = startHealth - health;
-            }
-        }
-
-        /**
-         * draws the bar
-         */
-        public void render(Graphics g) {
-            g.drawRect(100, 100, barWidth, barHeight);
-            g.setColor(Color.GRAY);
-            g.fillRect(100, 100, barWidth, barHeight);
-            g.setColor(Color.RED);
-            g.fillRect(100, 100, barWidth - barCounter * barFillPerLive, barHeight);
-        }
-
     }
 
     /**
@@ -606,7 +559,42 @@ public class Player extends Creature {
 
         }
     }
+
+    //HEALTHBAR CLASS
+    public class HealthBar {
+        private int startHealth; //Player health at the beginning
+        private int barHeight = 60; //height of the bar
+        private int barWidth = 400; //width of the bar
+        private int barFillPerLive; //width of the bar per health point
+        private int barCounter = 0; //counter for the health
+
+        /**
+         * Constructor
+         */
+        public HealthBar() {
+            this.startHealth = 10;
+            barFillPerLive = barWidth / startHealth;
+        }
+
+        /**
+         * Bar tick
+         */
+        public void tick() {
+            if (!(barCounter == startHealth)) {
+                barCounter = startHealth - health;
+            }
+        }
+
+        /**
+         * draws the bar
+         */
+        public void render(Graphics g) {
+            g.drawRect(100, 100, barWidth, barHeight);
+            g.setColor(Color.GRAY);
+            g.fillRect(100, 100, barWidth, barHeight);
+            g.setColor(Color.RED);
+            g.fillRect(100, 100, barWidth - barCounter * barFillPerLive, barHeight);
+        }
+
+    }
 }
-
-
-
