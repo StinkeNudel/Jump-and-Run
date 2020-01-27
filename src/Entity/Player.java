@@ -15,16 +15,13 @@ import static Main.ArrayLists.enemys;
 
 public class Player extends Creature {
     private BufferedImage image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
+    private HealthBar healthBar;
     private int playerWidth = 68, playerHeight = 120;
     private boolean notfalling = false;
     private boolean jump = false;
-    private double beforeJumpY;
-    private int jumpSpeed = 40;
     private int speed = 5;
     private boolean movingRight, movingLeft;
     private boolean touchingEnemy = false;
-    private int offsetBeforeJump;
-    private HealthBar healthBar;
     private boolean movedRight;
     private int xOnScreen, yOnScreen;
     private int jumpCounter;
@@ -82,9 +79,7 @@ public class Player extends Creature {
     private void input() {
         if (game.getKeyHandler().space) {
             if (notfalling && !jump) {
-                offsetBeforeJump = (int) game.getGameCamera().getyOffset();
                 jump = true;
-                beforeJumpY = y;
             }
         }
         if (game.getKeyHandler().a) {
@@ -172,12 +167,10 @@ public class Player extends Creature {
             if (jump && y < BlockY + 64 && y > BlockY && ((BlockX > x && BlockX < x + playerWidth))) {
                 jump = false;
                 y = BlockY + 64 + 1;
-                game.getGameCamera().setyOffset(offsetBeforeJump);
             }
             if (jump && y < BlockY + 64 && y > BlockY && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth))) {
                 jump = false;
                 y = BlockY + 64 + 1;
-                game.getGameCamera().setyOffset(offsetBeforeJump);
 
             }
         }
@@ -247,7 +240,6 @@ public class Player extends Creature {
         }
 
         if (jumpCounter >= 20) {
-            jumpSpeed = 40;
             jumpCounter = 0;
             jump = false;
         }
