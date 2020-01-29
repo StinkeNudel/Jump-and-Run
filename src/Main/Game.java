@@ -4,6 +4,7 @@ import GFX.GameCamera;
 import Worlds.MenuWorld;
 import Display.Display;
 import Input.KeyHandler;
+import Worlds.SaveWorld;
 import Worlds.World;
 
 import java.awt.*;
@@ -51,6 +52,7 @@ public class Game implements Runnable {
      */
     private void tick() {
         keyHandler.tick();
+        input();
         if (World.getWorld() != null)
             World.getWorld().tick();
     }
@@ -71,12 +73,21 @@ public class Game implements Runnable {
         if (World.getWorld() != null) {
             World.getWorld().render(g);
         }
+        g.setColor(Color.GREEN);
+        g.drawString(String.valueOf(FPS), 10, 10);
         //EndDrawing
 
         bs.show();
         g.dispose();
     }
 
+    private void input() {
+        if (keyHandler.b) {
+            MenuWorld menuWorld = new MenuWorld(this);
+            World.setWorld(menuWorld);
+            ArrayLists.solidBlocks.clear();
+        }
+    }
 
     /**
      * initial Method
@@ -120,7 +131,6 @@ public class Game implements Runnable {
             }
 
             if (timer >= 1000000000) {
-                System.out.println("FPS: " + ticks);
                 FPS = ticks;
                 ticks = 0;
                 timer = 0;

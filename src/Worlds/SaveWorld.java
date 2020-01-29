@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class SaveWorld extends World {
 
-    private BufferedImage image = ImageLoader.loadImage("/Blocks/StoneBlock.png");
+    private BufferedImage image = ImageLoader.loadImage("/Blocks/DirtBlock.png");
 
     private Player player;
     private DoorSaveRoom doorSaveRoom;

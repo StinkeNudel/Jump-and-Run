@@ -288,6 +288,7 @@ public class Player extends Creature {
                     || EnemyLeftX > x && EnemyLeftX < x + playerWidth
                     && EnemyLeftY > y && EnemyLeftY < y + playerWidth) {
                 if (!touchingEnemy) {
+                    System.out.println("JO");
                     health--;
                     touchingEnemy = true;
                 }

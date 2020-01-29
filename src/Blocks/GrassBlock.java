@@ -1,13 +1,16 @@
 package Blocks;
 
 import GFX.ImageLoader;
+import Main.ArrayLists;
 import Main.Game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class GrassBlock extends SolidBlocks {
-    private BufferedImage image = ImageLoader.loadImage("/Blocks/GrassBlock.png");
+    private BufferedImage grass = ImageLoader.loadImage("/Blocks/GrassBlock.png");
+    private BufferedImage dirt = ImageLoader.loadImage("/Blocks/DirtBlock.png");
 
     /**
      * Constructor
@@ -28,9 +31,12 @@ public class GrassBlock extends SolidBlocks {
 
     /**
      * render Class
+     *
      * @param g Game Object
      */
     public void render(Graphics g) {
-        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), 64, 64, null);
+        g.drawImage(grass, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), 64, 64, null);
     }
 }
+
+

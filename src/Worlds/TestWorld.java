@@ -68,15 +68,13 @@ public class TestWorld extends World {
      * @param g Graphics Object
      */
     public void render(Graphics g) {
-        renderBackground(g);
+       // renderBackground(g);
         worm.render(g);
         doorSaveRoom.render(g);
         player.render(g);
         grass.render(g);
         renderBlocks(g);
         rose.render(g);
-        FPS = game.FPS;
-        g.drawString(String.valueOf(FPS), 10, 10);
     }
 
     private void renderBackground(Graphics g) {

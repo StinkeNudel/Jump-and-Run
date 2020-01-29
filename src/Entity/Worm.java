@@ -47,63 +47,42 @@ public class Worm extends Enemy {
                 animation++;
                 break;
             case 2:
+            case 16:
                 image = ImageLoader.loadImage("/Worm/worm3.png");
                 animation++;
                 break;
             case 3:
+            case 15:
                 image = ImageLoader.loadImage("/Worm/worm4.png");
                 animation++;
                 break;
             case 4:
+            case 14:
                 image = ImageLoader.loadImage("/Worm/worm5.png");
                 animation++;
                 break;
             case 5:
+            case 13:
                 image = ImageLoader.loadImage("/Worm/worm6.png");
                 animation++;
                 break;
             case 6:
+            case 12:
                 image = ImageLoader.loadImage("/Worm/worm7.png");
                 animation++;
                 break;
             case 7:
+            case 11:
                 image = ImageLoader.loadImage("/Worm/worm8.png");
                 animation++;
                 break;
             case 8:
+            case 10:
                 image = ImageLoader.loadImage("/Worm/worm9.png");
                 animation++;
                 break;
             case 9:
                 image = ImageLoader.loadImage("/Worm/worm10.png");
-                animation++;
-                break;
-            case 10:
-                image = ImageLoader.loadImage("/Worm/worm9.png");
-                animation++;
-                break;
-            case 11:
-                image = ImageLoader.loadImage("/Worm/worm8.png");
-                animation++;
-                break;
-            case 12:
-                image = ImageLoader.loadImage("/Worm/worm7.png");
-                animation++;
-                break;
-            case 13:
-                image = ImageLoader.loadImage("/Worm/worm6.png");
-                animation++;
-                break;
-            case 14:
-                image = ImageLoader.loadImage("/Worm/worm5.png");
-                animation++;
-                break;
-            case 15:
-                image = ImageLoader.loadImage("/Worm/worm4.png");
-                animation++;
-                break;
-            case 16:
-                image = ImageLoader.loadImage("/Worm/worm3.png");
                 animation++;
                 break;
             case 17:

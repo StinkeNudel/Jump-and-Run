@@ -4,6 +4,7 @@ import Background.Cloud1;
 import Background.Cloud2;
 import Background.Mountain;
 import Background.Tree;
+import Blocks.DirtBlock;
 import Blocks.GrassBlock;
 import Blocks.SolidBlocks;
 import Entity.Enemy;
@@ -31,7 +32,7 @@ public class Tutorial extends World {
      */
     public Tutorial(Game game) {
         super(game);
-        generateBackground();
+        //generateBackground();
         generateBlocks();
 
         player = new Player(game, game.width / 2, game.height - 500);
@@ -151,31 +152,26 @@ public class Tutorial extends World {
         }
 
         //dirt
-        GrassBlock a = new GrassBlock(game, 29 * 64, game.height - 164);
+        DirtBlock a = new DirtBlock(game, 29 * 64, game.height - 164);
         ArrayLists.solidBlocks.add(a);
 
         GrassBlock b = new GrassBlock(game, 29 * 64, game.height - 228);
         ArrayLists.solidBlocks.add(b);
 
-        GrassBlock c = new GrassBlock(game, 30 * 64, game.height - 228);
+        DirtBlock c = new DirtBlock(game, 30 * 64, game.height - 228);
         ArrayLists.solidBlocks.add(c);
 
         for (int i = 0; i < 5; i++) {
-            GrassBlock d = new GrassBlock(game, dBlockX, game.height - 292);
-            ArrayLists.solidBlocks.add(d);
+            if (i == 2 || i == 3) {
+                DirtBlock d = new DirtBlock(game, dBlockX, game.height - 292);
+                ArrayLists.solidBlocks.add(d);
+            } else {
+                GrassBlock d = new GrassBlock(game, dBlockX, game.height - 292);
+                ArrayLists.solidBlocks.add(d);
+            }
             dBlockX = dBlockX + 64;
         }
 
-        //dirt
-        GrassBlock e = new GrassBlock(game, 32 * 64, game.height - 292);
-        ArrayLists.solidBlocks.add(e);
-
-        //dirt
-        GrassBlock f = new GrassBlock(game, 33 * 64, game.height - 292);
-        ArrayLists.solidBlocks.add(f);
-
-        GrassBlock g = new GrassBlock(game, 34 * 64, game.height - 292);
-        ArrayLists.solidBlocks.add(g);
 
         GrassBlock h = new GrassBlock(game, 32 * 64, game.height - 356);
         ArrayLists.solidBlocks.add(h);
@@ -186,8 +182,11 @@ public class Tutorial extends World {
         GrassBlock j = new GrassBlock(game, 37 * 64, game.height - 164);
         ArrayLists.solidBlocks.add(j);
 
+        DirtBlock e = new DirtBlock(game, 37 * 64, game.height - 100);
+        ArrayLists.solidBlocks.add(e);
+
         //dirt
-        GrassBlock k = new GrassBlock(game, 42 * 64, game.height - 164);
+        DirtBlock k = new DirtBlock(game, 42 * 64, game.height - 164);
         ArrayLists.solidBlocks.add(k);
 
         GrassBlock l = new GrassBlock(game, 42 * 64, game.height - 228);
@@ -200,7 +199,7 @@ public class Tutorial extends World {
         ArrayLists.solidBlocks.add(n);
         GrassBlock o = new GrassBlock(game, 46 * 64, game.height + 28);
         ArrayLists.solidBlocks.add(o);
-        GrassBlock p = new GrassBlock(game, 46 * 64, game.height + 92);
+        DirtBlock p = new DirtBlock(game, 46 * 64, game.height + 92);
         ArrayLists.solidBlocks.add(p);
 
         for (int z = 0; z < 15; z++) {
