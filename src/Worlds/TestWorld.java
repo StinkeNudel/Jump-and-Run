@@ -20,6 +20,7 @@ public class TestWorld extends World {
     BufferedImage dirt = ImageLoader.loadImage("/Blocks/DirtBlock.png");
 
     private Player player;
+    private Worm worm;
 
     private DoorSaveRoom doorSaveRoom;
 
@@ -37,6 +38,10 @@ public class TestWorld extends World {
         player = new Player(game, game.width / 2, game.height - 221);
         ArrayLists.player.add(player);
 
+        worm = new Worm(game, game.width / 2 + 500, game.height - 500);
+        ArrayLists.enemys.add(worm);
+
+
         doorSaveRoom = new DoorSaveRoom(game, game.width / 2, game.height - 225);
         game.getGameCamera().setyOffset(300);
         saveGame();
@@ -47,6 +52,7 @@ public class TestWorld extends World {
      */
     public void tick() {
         player.tick();
+        worm.tick();
         doorSaveRoom.tick();
     }
 
@@ -59,6 +65,7 @@ public class TestWorld extends World {
         renderBackground(g);
         doorSaveRoom.render(g);
         player.render(g);
+        worm.render(g);
         renderBlocks(g);
     }
 

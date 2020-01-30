@@ -3,6 +3,8 @@ package Blocks;
 import Entity.Entity;
 import Main.Game;
 
+import java.awt.*;
+
 public abstract class SolidBlocks extends Entity {
 
     /**
@@ -14,5 +16,9 @@ public abstract class SolidBlocks extends Entity {
      */
     public SolidBlocks(Game game, double x, double y) {
         super(game, x, y);
+    }
+
+    public Rectangle getBounds(){
+        return new Rectangle((int) x, (int) y, 64, 64);
     }
 }
