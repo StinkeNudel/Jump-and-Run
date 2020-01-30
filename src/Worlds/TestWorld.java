@@ -20,11 +20,9 @@ public class TestWorld extends World {
     BufferedImage dirt = ImageLoader.loadImage("/Blocks/DirtBlock.png");
 
     private Player player;
-    private Enemy worm;
+
     private DoorSaveRoom doorSaveRoom;
-    private Grass grass;
-    private Rose rose;
-    private int FPS;
+
 
     /**
      * Constructor
@@ -39,13 +37,6 @@ public class TestWorld extends World {
         player = new Player(game, game.width / 2, game.height - 221);
         ArrayLists.player.add(player);
 
-        worm = new Worm(game, 900, 90);
-        ArrayLists.enemys.add(worm);
-
-        grass = new Grass(game, game.width / 2 + 200, game.height - 225);
-
-        rose = new Rose(game, game.width / 2 + 300, game.height - 225);
-
         doorSaveRoom = new DoorSaveRoom(game, game.width / 2, game.height - 225);
         game.getGameCamera().setyOffset(300);
         saveGame();
@@ -56,10 +47,7 @@ public class TestWorld extends World {
      */
     public void tick() {
         player.tick();
-        worm.tick();
         doorSaveRoom.tick();
-        grass.tick();
-        rose.tick();
     }
 
     /**
@@ -69,14 +57,9 @@ public class TestWorld extends World {
      */
     public void render(Graphics g) {
         renderBackground(g);
-        worm.render(g);
         doorSaveRoom.render(g);
         player.render(g);
-        grass.render(g);
         renderBlocks(g);
-        rose.render(g);
-        FPS = game.FPS;
-        g.drawString(String.valueOf(FPS), 10, 10);
     }
 
     private void renderBackground(Graphics g) {

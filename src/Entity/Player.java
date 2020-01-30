@@ -16,7 +16,7 @@ import static Main.ArrayLists.enemys;
 public class Player extends Creature {
     private BufferedImage image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
     private HealthBar healthBar;
-    private int playerWidth = 68, playerHeight = 120;
+    private int width = 68, height = 120;
     private boolean notfalling = false;
     private boolean jump = false;
     private int speed = 5;
@@ -46,6 +46,10 @@ public class Player extends Creature {
         healthBar = new HealthBar();
     }
 
+    public Rectangle getBounds() {
+        return new Rectangle((int) x, (int) y, width, height);
+    }
+
     /**
      * ticks the Player
      */
@@ -69,7 +73,7 @@ public class Player extends Creature {
      * @param g Graphics Object
      */
     public void render(Graphics g) {
-        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), playerWidth, playerHeight, null);
+        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
         healthBar.render(g);
     }
 
@@ -140,13 +144,13 @@ public class Player extends Creature {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-            if (y + playerHeight > BlockY - 2 && ((BlockX > x && BlockX < x + playerWidth)) && y + playerHeight < BlockY + 64) {
+            if (y + height > BlockY - 2 && ((BlockX > x && BlockX < x + width)) && y + height < BlockY + 64) {
                 notfalling = true;
-                y = BlockY - playerHeight;
+                y = BlockY - height;
                 return;
-            } else if (y + playerHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth)) && !(y + playerHeight > BlockY + 64)) {
+            } else if (y + height > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + width)) && !(y + height > BlockY + 64)) {
                 notfalling = true;
-                y = BlockY - playerHeight;
+                y = BlockY - height;
                 return;
             } else {
                 notfalling = false;
@@ -164,11 +168,11 @@ public class Player extends Creature {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-            if (jump && y < BlockY + 64 && y > BlockY && ((BlockX > x && BlockX < x + playerWidth))) {
+            if (jump && y < BlockY + 64 && y > BlockY && ((BlockX > x && BlockX < x + width))) {
                 jump = false;
                 y = BlockY + 64 + 1;
             }
-            if (jump && y < BlockY + 64 && y > BlockY && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth))) {
+            if (jump && y < BlockY + 64 && y > BlockY && ((BlockX + 64 > x && BlockX + 64 < x + width))) {
                 jump = false;
                 y = BlockY + 64 + 1;
 
@@ -186,10 +190,10 @@ public class Player extends Creature {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-            if ((y + playerHeight > BlockY && y + playerHeight < BlockY + 64
-                    || y + playerHeight / 2 > BlockY && y + playerHeight / 2 < BlockY + 64
+            if ((y + height > BlockY && y + height < BlockY + 64
+                    || y + height / 2 > BlockY && y + height / 2 < BlockY + 64
                     || y > BlockY && y < BlockY + 64)
-                    && x + playerWidth + speed >= BlockX && !(x + playerWidth > BlockX + 64)) {
+                    && x + width + speed >= BlockX && !(x + width > BlockX + 64)) {
                 movingRight = false;
                 return;
             }
@@ -206,8 +210,8 @@ public class Player extends Creature {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-            if ((y + playerHeight > BlockY && y + playerHeight < BlockY + 64
-                    || y + playerHeight / 2 > BlockY && y + playerHeight / 2 < BlockY + 64
+            if ((y + height > BlockY && y + height < BlockY + 64
+                    || y + height / 2 > BlockY && y + height / 2 < BlockY + 64
                     || y > BlockY && y < BlockY + 64)
                     && x - speed <= BlockX + 64 && !(x < BlockX)) {
                 movingLeft = false;
@@ -279,14 +283,14 @@ public class Player extends Creature {
             EnemyLeftX = m.getX() + offset;
             EnemyLeftY = m.getY() + 64;
 
-            if (EnemyUpX > x && EnemyUpX < x + playerWidth
-                    && EnemyUpY > y && EnemyUpY < y + playerWidth ||
-                    EnemyDownX > x && EnemyDownX < x + playerWidth
-                            && EnemyDownY > y && EnemyDownY < y + playerWidth ||
-                    EnemyRightX > x && EnemyRightX < x + playerWidth
-                            && EnemyRightY > y && EnemyRightY < y + playerWidth
-                    || EnemyLeftX > x && EnemyLeftX < x + playerWidth
-                    && EnemyLeftY > y && EnemyLeftY < y + playerWidth) {
+            if (EnemyUpX > x && EnemyUpX < x + width
+                    && EnemyUpY > y && EnemyUpY < y + width ||
+                    EnemyDownX > x && EnemyDownX < x + width
+                            && EnemyDownY > y && EnemyDownY < y + width ||
+                    EnemyRightX > x && EnemyRightX < x + width
+                            && EnemyRightY > y && EnemyRightY < y + width
+                    || EnemyLeftX > x && EnemyLeftX < x + width
+                    && EnemyLeftY > y && EnemyLeftY < y + width) {
                 if (!touchingEnemy) {
                     health--;
                     touchingEnemy = true;
