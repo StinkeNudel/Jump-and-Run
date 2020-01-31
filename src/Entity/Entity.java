@@ -7,6 +7,7 @@ import java.awt.*;
 public abstract class Entity {
 
     public double x, y; // Coordinates
+    public int width, height;
     protected Game game; //Game Object
 
     /**
@@ -33,6 +34,10 @@ public abstract class Entity {
      * @param g Graphics g
      */
     public abstract void render(Graphics g);
+
+    public Rectangle getBounds() {
+        return new Rectangle((int) x, (int) y, width, height);
+    }
 
     public double getX() {
         return x;

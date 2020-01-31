@@ -10,13 +10,13 @@ public class Worm extends Enemy {
 
     BufferedImage image = ImageLoader.loadImage("/Worm/worm1.png");
 
-    private int enemyHeight = 64;
-    private int enemyWidth = 20;
     private int animation = 0;
     private int animationCounter;
 
     public Worm(Game game, double x, double y) {
         super(game, x, y);
+        width = 20;
+        height = 64;
     }
 
     @Override
@@ -31,9 +31,7 @@ public class Worm extends Enemy {
     }
 
     public void render(Graphics g) {
-        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), enemyWidth, enemyHeight, null);
-
-
+        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
     }
 
     public void animation() {

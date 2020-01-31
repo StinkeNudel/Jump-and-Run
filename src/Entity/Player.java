@@ -16,15 +16,14 @@ import static Main.ArrayLists.enemys;
 public class Player extends Creature {
     private BufferedImage image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
     private HealthBar healthBar;
-    private int playerWidth = 68, playerHeight = 120;
-    private boolean notfalling = false;
+    private boolean falling = false;
     private boolean jump = false;
     private int speed = 5;
     private boolean movingRight, movingLeft;
-    private boolean touchingEnemy = false;
     private boolean movedRight;
     private int xOnScreen, yOnScreen;
     private int jumpCounter;
+    private long hitDelay = System.currentTimeMillis();
 
     private int jumpAnimation = 0, animationJump = 0, waitForJump = 0;
     private int animationLeft = 0;
@@ -42,6 +41,8 @@ public class Player extends Creature {
     public Player(Game game, double x, double y) {
         super(game, x, y);
         this.game = game;
+        width = 68;
+        height = 120;
         health = 10;
         healthBar = new HealthBar();
     }
@@ -51,13 +52,12 @@ public class Player extends Creature {
      */
     public void tick() {
         input();
-        checkBlocks();
+        checkBlockCollision();
         moveCamera();
         gravity();
         jump();
         lowerHealth();
         die();
-        checkUp();
 
         //HealthBar
         healthBar.tick();
@@ -69,7 +69,7 @@ public class Player extends Creature {
      * @param g Graphics Object
      */
     public void render(Graphics g) {
-        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), playerWidth, playerHeight, null);
+        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
         healthBar.render(g);
     }
 
@@ -78,7 +78,7 @@ public class Player extends Creature {
      */
     private void input() {
         if (game.getKeyHandler().space) {
-            if (notfalling && !jump) {
+            if (!falling && !jump) {
                 jump = true;
             }
         }
@@ -89,7 +89,7 @@ public class Player extends Creature {
                 animationCounterLeft = 0;
             }
             movingLeft = true;
-            checkLeft();
+            checkBlockCollision();
             if (movingLeft) {
                 x = x - speed;
                 movingLeft = false;
@@ -104,7 +104,7 @@ public class Player extends Creature {
                 animationCounterRight = 0;
             }
             movingRight = true;
-            checkRight();
+            checkBlockCollision();
             if (movingRight) {
                 x = x + speed;
                 movingRight = false;
@@ -125,96 +125,54 @@ public class Player extends Creature {
                     animationStandRight();
                     animationCounterStandRight = 0;
                 }
-
             }
         }
     }
 
-    /**
-     * checks Blocks below
-     */
-    private void checkBlocks() {
-        double BlockX, BlockY;
+    private void checkBlockCollision() {
+        falling = true;
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
-            BlockX = m.getX();
-            BlockY = m.getY();
-            if (y + playerHeight > BlockY - 2 && ((BlockX > x && BlockX < x + playerWidth)) && y + playerHeight < BlockY + 64) {
-                notfalling = true;
-                y = BlockY - playerHeight;
-                return;
-            } else if (y + playerHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth)) && !(y + playerHeight > BlockY + 64)) {
-                notfalling = true;
-                y = BlockY - playerHeight;
-                return;
-            } else {
-                notfalling = false;
+
+            if (this.getBoundsDown().intersects(m.getBounds())) {
+                falling = false;
+            }
+            if (movingRight) {
+                if (this.getBoundsRight().intersects(m.getBounds())) {
+                    movingRight = false;
+                }
+            }
+            if (movingLeft) {
+                if (this.getBoundsLeft().intersects(m.getBounds())) {
+                    movingLeft = false;
+                }
+            }
+            if (jump) {
+                if (this.getBoundsTop().intersects(m.getBounds())) {
+                    jump = false;
+                    falling = true;
+                }
             }
         }
     }
 
-    /**
-     * checks Blocks above
-     */
-    private void checkUp() {
-        double BlockX, BlockY;
-        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-        for (int w = 0; w < solidBlocks.size(); w++) {
-            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
-            BlockX = m.getX();
-            BlockY = m.getY();
-            if (jump && y < BlockY + 64 && y > BlockY && ((BlockX > x && BlockX < x + playerWidth))) {
-                jump = false;
-                y = BlockY + 64 + 1;
-            }
-            if (jump && y < BlockY + 64 && y > BlockY && ((BlockX + 64 > x && BlockX + 64 < x + playerWidth))) {
-                jump = false;
-                y = BlockY + 64 + 1;
-
-            }
-        }
+    public Rectangle getBoundsRight() {
+        return new Rectangle((int) x + 5, (int) y + 5, width, height - 10);
     }
 
-    /**
-     * checks Blocks right
-     */
-    private void checkRight() {
-        double BlockX, BlockY;
-        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-        for (int w = 0; w < solidBlocks.size(); w++) {
-            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
-            BlockX = m.getX();
-            BlockY = m.getY();
-            if ((y + playerHeight > BlockY && y + playerHeight < BlockY + 64
-                    || y + playerHeight / 2 > BlockY && y + playerHeight / 2 < BlockY + 64
-                    || y > BlockY && y < BlockY + 64)
-                    && x + playerWidth + speed >= BlockX && !(x + playerWidth > BlockX + 64)) {
-                movingRight = false;
-                return;
-            }
-        }
+    public Rectangle getBoundsLeft() {
+        return new Rectangle((int) x - 5, (int) y, width, height);
     }
 
-    /**
-     * check Blocks left
-     */
-    private void checkLeft() {
-        double BlockX, BlockY;
-        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-        for (int w = 0; w < solidBlocks.size(); w++) {
-            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
-            BlockX = m.getX();
-            BlockY = m.getY();
-            if ((y + playerHeight > BlockY && y + playerHeight < BlockY + 64
-                    || y + playerHeight / 2 > BlockY && y + playerHeight / 2 < BlockY + 64
-                    || y > BlockY && y < BlockY + 64)
-                    && x - speed <= BlockX + 64 && !(x < BlockX)) {
-                movingLeft = false;
-                return;
-            }
-        }
+    public Rectangle getBoundsTop() {
+        return new Rectangle((int) x, (int) y + 1, width, height / 2);
     }
+
+    public Rectangle getBoundsDown() {
+        return new Rectangle((int) x, (int) y + height / 2 + 5, width, height / 2);
+    }
+
 
     /**
      * Player will jump
@@ -249,7 +207,7 @@ public class Player extends Creature {
      * player moves down to create gravity
      */
     private void gravity() {
-        if (!notfalling) {
+        if (falling) {
             y = y + 8;
             fallAnimation();
             image = ImageLoader.loadImage("/Player/jump14.png");
@@ -260,43 +218,13 @@ public class Player extends Creature {
      * Player will loose lifes if he touches an Enemy
      */
     public void lowerHealth() {
-        int noTouchingEnemies = 0;
-        int offset = 25;
-        double EnemyUpX, EnemyUpY;
-        double EnemyDownX, EnemyDownY;
-        double EnemyRightX, EnemyRightY;
-        double EnemyLeftX, EnemyLeftY;
         ArrayList enemies = ArrayLists.getEnemys();
         for (int w = 0; w < enemies.size(); w++) {
             Enemy m = (Enemy) enemies.get(w);
-
-            EnemyUpX = m.getX() + 64;
-            EnemyUpY = m.getY() + offset;
-            EnemyDownX = m.getX() + 64;
-            EnemyDownY = m.getY() + 128 - offset;
-            EnemyRightX = m.getX() + 128 - offset;
-            EnemyRightY = m.getY() + 64;
-            EnemyLeftX = m.getX() + offset;
-            EnemyLeftY = m.getY() + 64;
-
-            if (EnemyUpX > x && EnemyUpX < x + playerWidth
-                    && EnemyUpY > y && EnemyUpY < y + playerWidth ||
-                    EnemyDownX > x && EnemyDownX < x + playerWidth
-                            && EnemyDownY > y && EnemyDownY < y + playerWidth ||
-                    EnemyRightX > x && EnemyRightX < x + playerWidth
-                            && EnemyRightY > y && EnemyRightY < y + playerWidth
-                    || EnemyLeftX > x && EnemyLeftX < x + playerWidth
-                    && EnemyLeftY > y && EnemyLeftY < y + playerWidth) {
-                if (!touchingEnemy) {
-                    System.out.println("JO");
+            if (this.getBounds().intersects(m.getBounds())) {
+                if (System.currentTimeMillis() - hitDelay > 1000) {
                     health--;
-                    touchingEnemy = true;
-                }
-
-            } else {
-                noTouchingEnemies++;
-                if (enemys.size() == noTouchingEnemies) {
-                    touchingEnemy = false;
+                    hitDelay = System.currentTimeMillis();
                 }
             }
         }

@@ -14,14 +14,12 @@ public class Letter extends Entity {
 
     private Game game;
     private int scrollImage;
-    private int w = 104;
-    private int h = 128;
-
-
 
     public Letter(Game game, double x, double y) {
         super(game, x, y);
         this.game = game;
+        width = 104;
+        height = 128;
     }
 
     public void tick() {
@@ -32,7 +30,7 @@ public class Letter extends Entity {
 
     public void render(Graphics g) {
 
-        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), w, h, null);
+        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
     }
 
     public void move() {
@@ -45,68 +43,68 @@ public class Letter extends Entity {
         } else {
             switch (scrollImage) { //switch ist für die Scroll-Animation
                 case 0:
-                    w = 130;
-                    h = 160;
+                    width = 130;
+                    height = 160;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-11.png.png");
                     scrollImage++;
                     break;
                 case 1:
-                    w = 156;
-                    h = 192;
+                    width = 156;
+                    height = 192;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-10.png.png");
                     scrollImage++;
                     break;
                 case 2:
-                    w = 182;
-                    h = 224;
+                    width = 182;
+                    height = 224;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-9.png.png");
                     scrollImage++;
                     break;
                 case 3:
-                    w = 208;
-                    h = 256;
+                    width = 208;
+                    height = 256;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-8.png.png");
                     scrollImage++;
                     break;
                 case 4:
-                    w = 234;
-                    h = 288;
+                    width = 234;
+                    height = 288;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-7.png.png");
                     scrollImage++;
                     break;
                 case 5:
-                    w = 260;
-                    h = 320;
+                    width = 260;
+                    height = 320;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-6.png.png");
                     scrollImage++;
                     break;
                 case 6:
-                    w = 286;
-                    h = 352;
+                    width = 286;
+                    height = 352;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-5.png.png");
                     scrollImage++;
                     break;
                 case 7:
-                    w = 312;
-                    h = 384;
+                    width = 312;
+                    height = 384;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-4.png.png");
                     scrollImage++;
                     break;
                 case 8:
-                    w = 338;
-                    h = 416;
+                    width = 338;
+                    height = 416;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-3.png.png");
                     scrollImage++;
                     break;
                 case 9:
-                    w = 364;
-                    h = 448;
+                    width = 364;
+                    height = 448;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-2.png.png");
                     scrollImage++;
                     break;
                 case 10:
-                    w = 390;
-                    h = 480;
+                    width = 390;
+                    height = 480;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-1.png.png");
                     scrollImage++;
                     break;
@@ -115,10 +113,10 @@ public class Letter extends Entity {
     }
 
     public void readMe () {
-       if (x <= MouseHandler.clickX && x + w >= MouseHandler.clickX) {
+       if (x <= MouseHandler.clickX && x + width >= MouseHandler.clickX) {
        System.out.println("X");
        if (
-        y - h/2 <= MouseHandler.clickY && y + h >= MouseHandler.clickY) {
+        y - height /2 <= MouseHandler.clickY && y + height >= MouseHandler.clickY) {
            System.out.println("Y");
            ScrollWorld scrollWorld = new ScrollWorld(game);
            World.setWorld(scrollWorld);

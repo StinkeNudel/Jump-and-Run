@@ -1,20 +1,15 @@
 package Entity;
 
 import Blocks.SolidBlocks;
-import GFX.ImageLoader;
 import Main.ArrayLists;
 import Main.Game;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
-import static Main.ArrayLists.enemys;
 
 public class Enemy extends Creature {
 
-    private int enemyHeight = 60; // Height of the Enemy
-    private int enemyWidth = 60; // Width of the Enemy
+
     private boolean notfalling = false;
     private boolean isThereABlockOnMyLeftSide = false;
     private boolean isThereABlockOnMyRightSide = false;
@@ -22,6 +17,8 @@ public class Enemy extends Creature {
 
     public Enemy(Game game, double x, double y) {
         super(game, x, y);
+        width = 60;
+        height = 60;
     }
 
     @Override
@@ -44,13 +41,13 @@ public class Enemy extends Creature {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-            if (y + enemyHeight > BlockY - 2 && ((BlockX > x && BlockX < x + enemyWidth + 10))) {
+            if (y + height > BlockY - 2 && ((BlockX > x && BlockX < x + width + 10))) {
                 notfalling = true;
-                y = BlockY - enemyHeight;
+                y = BlockY - height;
                 return;
-            } else if (y + enemyHeight > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + enemyWidth + 10))) {
+            } else if (y + height > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + width + 10))) {
                 notfalling = true;
-                y = BlockY - enemyHeight;
+                y = BlockY - height;
                 return;
             }
         }
@@ -65,10 +62,10 @@ public class Enemy extends Creature {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-            if ((y + enemyHeight > BlockY && y + enemyHeight < BlockY + 64
-                    || y + enemyHeight / 2 > BlockY && y + enemyHeight / 2 < BlockY + 64
+            if ((y + height > BlockY && y + height < BlockY + 64
+                    || y + height / 2 > BlockY && y + height / 2 < BlockY + 64
                     || y > BlockY && y < BlockY + 64)
-                    && x + enemyWidth + speed >= BlockX && !(x + enemyWidth > BlockX + 64)) {
+                    && x + width + speed >= BlockX && !(x + width > BlockX + 64)) {
                 isThereABlockOnMyRightSide = true;
                 isThereABlockOnMyLeftSide = false;
                 return;
@@ -83,8 +80,8 @@ public class Enemy extends Creature {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
             BlockX = m.getX();
             BlockY = m.getY();
-            if ((y + enemyHeight > BlockY && y + enemyHeight < BlockY + 64
-                    || y + enemyHeight / 2 > BlockY && y + enemyHeight / 2 < BlockY + 64
+            if ((y + height > BlockY && y + height < BlockY + 64
+                    || y + height / 2 > BlockY && y + height / 2 < BlockY + 64
                     || y > BlockY && y < BlockY + 64)
                     && x - speed <= BlockX + 64 && !(x < BlockX)) {
                 isThereABlockOnMyLeftSide = true;
