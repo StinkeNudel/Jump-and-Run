@@ -14,10 +14,10 @@ import java.util.ArrayList;
 
 public class DoorSaveRoom extends Entity {
 
-    BufferedImage image = ImageLoader.loadImage("/door.png");
+    private BufferedImage image = ImageLoader.loadImage("/door.png");
 
-    int doorWidth = 68;
-    int doorHeight = 128;
+    private int doorWidth = 68;
+    private int doorHeight = 128;
 
     public DoorSaveRoom(Game game, double x, double y) {
         super(game, x, y);
@@ -33,7 +33,7 @@ public class DoorSaveRoom extends Entity {
         g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), doorWidth, doorHeight, null);
     }
 
-    public void openMe() {
+    private void openMe() {
         if (x < MouseHandler.clickX + game.getGameCamera().getxOffset() && x + doorWidth > MouseHandler.clickX + game.getGameCamera().getxOffset()) {
             if (y < MouseHandler.clickY + game.getGameCamera().getyOffset() && y + doorHeight > MouseHandler.clickY + game.getGameCamera().getyOffset()) {
                 ArrayList solidBlocks = ArrayLists.getSolidBlocks();

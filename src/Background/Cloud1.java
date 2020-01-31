@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Cloud1 extends Entity {
-    BufferedImage image = ImageLoader.loadImage("/Background/Wolke1.png");
+    private BufferedImage image = ImageLoader.loadImage("/Background/Wolke1.png");
 
     /**
      * Coordinate
@@ -33,13 +33,13 @@ public class Cloud1 extends Entity {
     public void render(Graphics g) {
 
         ArrayList player = ArrayLists.getPlayer();
-        for (int w = 0; w < player.size(); w++) {
-            Player m = (Player) player.get(w);
+        for (Object o : player) {
+            Player m = (Player) o;
             double playerX = m.getX();
 
             int drawAtX = (int) x - (int) (game.getGameCamera().getxOffset() / 4);
             int drawAtY = (int) (y - game.getGameCamera().getyOffset());
-            if (drawAtX > playerX - game.getGameCamera().getxOffset() - 1350 && drawAtX < playerX - game.getGameCamera().getxOffset()+ 970)
+            if (drawAtX > playerX - game.getGameCamera().getxOffset() - 1350 && drawAtX < playerX - game.getGameCamera().getxOffset() + 970)
                 g.drawImage(image, drawAtX, drawAtY, 400, 400, null);
         }
     }

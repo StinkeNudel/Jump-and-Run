@@ -73,7 +73,7 @@ public class Game implements Runnable {
         if (World.getWorld() != null) {
             World.getWorld().render(g);
         }
-        g.setColor(Color.GREEN);
+        g.setColor(Color.red);
         g.drawString(String.valueOf(FPS), 10, 10);
         //EndDrawing
 

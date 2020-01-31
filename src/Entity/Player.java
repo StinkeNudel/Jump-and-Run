@@ -11,17 +11,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static Main.ArrayLists.enemys;
-
 public class Player extends Creature {
     private BufferedImage image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
     private HealthBar healthBar;
     private boolean falling = false;
     private boolean jump = false;
-    private int speed = 5;
     private boolean movingRight, movingLeft;
     private boolean movedRight;
-    private int xOnScreen, yOnScreen;
     private int jumpCounter;
     private long hitDelay = System.currentTimeMillis();
 
@@ -45,6 +41,7 @@ public class Player extends Creature {
         height = 120;
         health = 10;
         healthBar = new HealthBar();
+        movedRight = true;
     }
 
     /**
@@ -54,10 +51,8 @@ public class Player extends Creature {
         input();
         checkBlockCollision();
         moveCamera();
-        gravity();
-        jump();
-        lowerHealth();
-        die();
+        movement();
+        checkEnemy();
 
         //HealthBar
         healthBar.tick();
@@ -69,8 +64,17 @@ public class Player extends Creature {
      * @param g Graphics Object
      */
     public void render(Graphics g) {
-        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
+        if (movingRight || movedRight) {
+            g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
+        } else {
+            g.drawImage(image, (int) (x - game.getGameCamera().getxOffset() + 30), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
+        }
         healthBar.render(g);
+        //g.drawRect((int) (getBoundsTop().x - game.getGameCamera().getxOffset()), (int) (getBoundsTop().y - game.getGameCamera().getyOffset()), getBoundsTop().width, getBoundsTop().height);
+        //g.drawRect((int) (getBoundsDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsDown().y - game.getGameCamera().getyOffset()), getBoundsDown().width, getBoundsDown().height);
+        //g.setColor(Color.GREEN);
+        //g.drawRect((int) (getBoundsLeft().x - game.getGameCamera().getxOffset()), (int) (getBoundsLeft().y - game.getGameCamera().getyOffset()), getBoundsLeft().width, getBoundsLeft().height);
+        //g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
     }
 
     /**
@@ -83,33 +87,13 @@ public class Player extends Creature {
             }
         }
         if (game.getKeyHandler().a) {
-            animationCounterLeft++;
-            if (animationCounterLeft >= 3) {
-                animationLeft();
-                animationCounterLeft = 0;
-            }
             movingLeft = true;
-            checkBlockCollision();
-            if (movingLeft) {
-                x = x - speed;
-                movingLeft = false;
-                movedRight = false;
-            }
+            movedRight = false;
         }
 
         if (game.getKeyHandler().d) {
-            animationCounterRight++;
-            if (animationCounterRight >= 3) {
-                animationRight();
-                animationCounterRight = 0;
-            }
             movingRight = true;
-            checkBlockCollision();
-            if (movingRight) {
-                x = x + speed;
-                movingRight = false;
-                movedRight = true;
-            }
+            movingLeft = false;
         }
 
         if ((!game.getKeyHandler().d && !game.getKeyHandler().a) || game.getKeyHandler().d && game.getKeyHandler().a) {
@@ -129,14 +113,23 @@ public class Player extends Creature {
         }
     }
 
+    /**
+     * checks for Blocks collision
+     * always checks for blocks below
+     * checks for Blocks left and right if moving
+     * checks for Blocks above if jumping
+     */
     private void checkBlockCollision() {
         falling = true;
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-        for (int w = 0; w < solidBlocks.size(); w++) {
-            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+        for (Object solidBlock : solidBlocks) {
+            SolidBlocks m = (SolidBlocks) solidBlock;
 
             if (this.getBoundsDown().intersects(m.getBounds())) {
                 falling = false;
+                if (y + 119 != m.y) {
+                    y = m.y - 119;
+                }
             }
             if (movingRight) {
                 if (this.getBoundsRight().intersects(m.getBounds())) {
@@ -157,22 +150,96 @@ public class Player extends Creature {
         }
     }
 
-    public Rectangle getBoundsRight() {
-        return new Rectangle((int) x + 5, (int) y + 5, width, height - 10);
+    /**
+     * Player will loose lifes if he touches an Enemy
+     */
+    private void checkEnemy() {
+        ArrayList enemies = ArrayLists.getEnemys();
+        for (Object enemy : enemies) {
+            Enemy m = (Enemy) enemy;
+            if (this.getBounds().intersects(m.getBounds())) {
+                if (System.currentTimeMillis() - hitDelay > 1000) {
+                    health--;
+                    hitDelay = System.currentTimeMillis();
+                    if (health == 0) {
+                        Defeat defeat = new Defeat(game);
+                        World.setWorld(defeat);
+                    }
+                }
+            }
+        }
     }
 
-    public Rectangle getBoundsLeft() {
-        return new Rectangle((int) x - 5, (int) y, width, height);
+    private void moveCamera() {
+        int xOnScreen = (int) (x - game.getGameCamera().getxOffset());
+        int yOnScreen = (int) (y - game.getGameCamera().getyOffset());
+        if (yOnScreen <= 300) {
+            game.getGameCamera().move(0, -3);
+        }
+        if (yOnScreen >= 700 && 900 > yOnScreen) {
+            game.getGameCamera().move(0, 3);
+        } else if (yOnScreen >= 900) {
+            game.getGameCamera().move(0, 8);
+        }
+
+        if (xOnScreen >= 1020) {
+            game.getGameCamera().move(5, 0);
+
+        }
+        if (xOnScreen <= 900) {
+            game.getGameCamera().move(-5, 0);
+        }
     }
 
-    public Rectangle getBoundsTop() {
-        return new Rectangle((int) x, (int) y + 1, width, height / 2);
-    }
 
-    public Rectangle getBoundsDown() {
-        return new Rectangle((int) x, (int) y + height / 2 + 5, width, height / 2);
-    }
+    //Movement
 
+    /**
+     * handles the movement of the Player
+     * gravity()
+     * jump()
+     * checks if movingRight = true or movingLeft = true
+     */
+    private void movement() {
+        gravity();
+        jump();
+
+        int speed = 5;
+        if (movingRight) {
+            animationCounterRight++;
+            if (animationCounterRight >= 3) {
+                if (!falling) {
+                    animationRight();
+                }
+                animationCounterRight = 0;
+            }
+            checkBlockCollision();
+            if (movingRight) {
+                x = x + speed;
+                movingRight = false;
+                movedRight = true;
+            }
+        }
+
+        if (movingLeft) {
+            animationCounterLeft++;
+            if (animationCounterLeft >= 3) {
+                if (!falling) {
+                    animationLeft();
+                }
+                animationCounterLeft = 0;
+            }
+            movingLeft = true;
+            movedRight = false;
+            checkBlockCollision();
+            if (movingLeft) {
+                x = x - speed;
+                movingLeft = false;
+                movedRight = false;
+
+            }
+        }
+    }
 
     /**
      * Player will jump
@@ -214,57 +281,26 @@ public class Player extends Creature {
         }
     }
 
-    /**
-     * Player will loose lifes if he touches an Enemy
-     */
-    public void lowerHealth() {
-        ArrayList enemies = ArrayLists.getEnemys();
-        for (int w = 0; w < enemies.size(); w++) {
-            Enemy m = (Enemy) enemies.get(w);
-            if (this.getBounds().intersects(m.getBounds())) {
-                if (System.currentTimeMillis() - hitDelay > 1000) {
-                    health--;
-                    hitDelay = System.currentTimeMillis();
-                }
-            }
-        }
+
+    //Hitboxes
+    private Rectangle getBoundsRight() {
+        return new Rectangle((int) x + 60, (int) y + 15, width - 60, height - 30);
     }
 
-    /**
-     * Player will die if life equals 0
-     */
-    public void die() {
-        if (health == 0) {
-            Defeat defeat = new Defeat(game);
-            World.setWorld(defeat);
-        }
+    private Rectangle getBoundsLeft() {
+        return new Rectangle((int) x + 30, (int) y + 15, width - 60, height - 30);
     }
 
-    private void moveCamera() {
-        xOnScreen = (int) (x - game.getGameCamera().getxOffset());
-        yOnScreen = (int) (y - game.getGameCamera().getyOffset());
-        if (yOnScreen <= 300) {
-            game.getGameCamera().move(0, -3);
-        }
-        if (yOnScreen >= 700 && 900 > yOnScreen) {
-            game.getGameCamera().move(0, 3);
-        } else if (yOnScreen >= 900) {
-            game.getGameCamera().move(0, 8);
-        }
-
-        if (xOnScreen >= 1020) {
-            game.getGameCamera().move(5, 0);
-
-        }
-        if (xOnScreen <= 900) {
-            game.getGameCamera().move(-5, 0);
-        }
+    private Rectangle getBoundsTop() {
+        return new Rectangle((int) x + 35, (int) y + 1, width - 40, height / 2 - 30);
     }
 
-    /**
-     * animations
-     */
+    private Rectangle getBoundsDown() {
+        return new Rectangle((int) x + 35, (int) y + height / 2 + 5, width - 40, height / 2 - 5);
+    }
 
+
+    //Animations
     private void animationLeft() {
         switch (animationLeft) {
             case 0:
@@ -350,7 +386,7 @@ public class Player extends Creature {
         animationStandRight++;
     }
 
-    public void jumpAnimation() {
+    private void jumpAnimation() {
         switch (jumpAnimation) {
             case 0:
                 image = ImageLoader.loadImage("/Player/jump1.png");
@@ -434,7 +470,7 @@ public class Player extends Creature {
         }
     }
 
-    public void fallAnimation() {
+    private void fallAnimation() {
         switch (jumpAnimation) {
             case 9:
                 image = ImageLoader.loadImage("/Player/jump10.png");
@@ -481,10 +517,10 @@ public class Player extends Creature {
         }
     }
 
+
     //HEALTHBAR CLASS
     public class HealthBar {
         private int startHealth; //Player health at the beginning
-        private int barHeight = 60; //height of the bar
         private int barWidth = 400; //width of the bar
         private int barFillPerLive; //width of the bar per health point
         private int barCounter = 0; //counter for the health
@@ -492,7 +528,7 @@ public class Player extends Creature {
         /**
          * Constructor
          */
-        public HealthBar() {
+        private HealthBar() {
             this.startHealth = 10;
             barFillPerLive = barWidth / startHealth;
         }
@@ -510,6 +546,8 @@ public class Player extends Creature {
          * draws the bar
          */
         public void render(Graphics g) {
+            //height of the bar
+            int barHeight = 60;
             g.drawRect(100, 100, barWidth, barHeight);
             g.setColor(Color.GRAY);
             g.fillRect(100, 100, barWidth, barHeight);

@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Worm extends Enemy {
 
-    BufferedImage image = ImageLoader.loadImage("/Worm/worm1.png");
+    private BufferedImage image = ImageLoader.loadImage("/Worm/worm1.png");
 
     private int animation = 0;
     private int animationCounter;
@@ -34,7 +34,7 @@ public class Worm extends Enemy {
         g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
     }
 
-    public void animation() {
+    private void animation() {
         switch (animation) {
             case 0:
                 image = ImageLoader.loadImage("/Worm/worm1.png");

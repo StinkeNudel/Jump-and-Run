@@ -33,7 +33,7 @@ public class Letter extends Entity {
         g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
     }
 
-    public void move() {
+    private void move() {
 
         /**
          * Scroll fliegt in die Mitte und rollt sich dann aus
@@ -112,7 +112,7 @@ public class Letter extends Entity {
         }
     }
 
-    public void readMe () {
+    private void readMe() {
        if (x <= MouseHandler.clickX && x + width >= MouseHandler.clickX) {
        System.out.println("X");
        if (

@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Tree extends Entity {
-    BufferedImage image = ImageLoader.loadImage("/Background/Tree.png");
+    private BufferedImage image = ImageLoader.loadImage("/Background/Tree.png");
 
     /**
      * Coordinate
@@ -31,8 +31,8 @@ public class Tree extends Entity {
     @Override
     public void render(Graphics g) {
         ArrayList player = ArrayLists.getPlayer();
-        for (int w = 0; w < player.size(); w++) {
-            Player m = (Player) player.get(w);
+        for (Object o : player) {
+            Player m = (Player) o;
             double playerX = m.getX();
 
             int drawAtX = (int) x - (int) (game.getGameCamera().getxOffset() / 4);

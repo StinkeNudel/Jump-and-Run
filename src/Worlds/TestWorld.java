@@ -65,9 +65,9 @@ public class TestWorld extends World {
        renderBackground(g);
         worm.render(g);
         doorSaveRoom.render(g);
-        player.render(g);
         worm.render(g);
         renderBlocks(g);
+        player.render(g);
     }
 
     private void renderBackground(Graphics g) {

@@ -1,16 +1,13 @@
 package Blocks;
 
 import GFX.ImageLoader;
-import Main.ArrayLists;
 import Main.Game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class GrassBlock extends SolidBlocks {
     private BufferedImage grass = ImageLoader.loadImage("/Blocks/GrassBlock.png");
-    private BufferedImage dirt = ImageLoader.loadImage("/Blocks/DirtBlock.png");
 
     /**
      * Constructor

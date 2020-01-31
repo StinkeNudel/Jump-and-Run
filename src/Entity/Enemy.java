@@ -37,8 +37,8 @@ public class Enemy extends Creature {
     private void checkBlocks() {
         double BlockX, BlockY;
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-        for (int w = 0; w < solidBlocks.size(); w++) {
-            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+        for (Object solidBlock : solidBlocks) {
+            SolidBlocks m = (SolidBlocks) solidBlock;
             BlockX = m.getX();
             BlockY = m.getY();
             if (y + height > BlockY - 2 && ((BlockX > x && BlockX < x + width + 10))) {
@@ -58,8 +58,8 @@ public class Enemy extends Creature {
     private void checkRight() {
         double BlockX, BlockY;
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-        for (int w = 0; w < solidBlocks.size(); w++) {
-            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+        for (Object solidBlock : solidBlocks) {
+            SolidBlocks m = (SolidBlocks) solidBlock;
             BlockX = m.getX();
             BlockY = m.getY();
             if ((y + height > BlockY && y + height < BlockY + 64
@@ -76,8 +76,8 @@ public class Enemy extends Creature {
     private void checkLeft() {
         double BlockX, BlockY;
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-        for (int w = 0; w < solidBlocks.size(); w++) {
-            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+        for (Object solidBlock : solidBlocks) {
+            SolidBlocks m = (SolidBlocks) solidBlock;
             BlockX = m.getX();
             BlockY = m.getY();
             if ((y + height > BlockY && y + height < BlockY + 64
@@ -92,7 +92,7 @@ public class Enemy extends Creature {
     }
 
 
-    public void move() {
+    private void move() {
         if (!isThereABlockOnMyLeftSide) {
             x = x - speed;
         } else {

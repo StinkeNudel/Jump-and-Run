@@ -59,9 +59,9 @@ public class Tutorial extends World {
      */
     public void render(Graphics g) {
         renderBackground(g);
-        player.render(g);
         enemy.render(g);
         renderBlocks(g);
+        player.render(g);
     }
 
 
