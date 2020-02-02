@@ -151,7 +151,7 @@ public class Player extends Creature {
     }
 
     /**
-     * Player will loose lifes if he touches an Enemy
+     * Player will loose health if he touches an Enemy
      */
     private void checkEnemy() {
         ArrayList enemies = ArrayLists.getEnemys();
@@ -521,9 +521,10 @@ public class Player extends Creature {
     //HEALTHBAR CLASS
     public class HealthBar {
         private int startHealth; //Player health at the beginning
-        private int barWidth = 400; //width of the bar
+        private int barWidth = 230; //width of the bar
         private int barFillPerLive; //width of the bar per health point
         private int barCounter = 0; //counter for the health
+        private BufferedImage barImage = ImageLoader.loadImage("/HealthBar.png");
 
         /**
          * Constructor
@@ -546,13 +547,15 @@ public class Player extends Creature {
          * draws the bar
          */
         public void render(Graphics g) {
-            //height of the bar
             int barHeight = 60;
+            //height of the bar
             g.drawRect(100, 100, barWidth, barHeight);
             g.setColor(Color.GRAY);
             g.fillRect(100, 100, barWidth, barHeight);
-            g.setColor(Color.RED);
+            Color barRed = new Color(164, 0, 0);
+            g.setColor(barRed);
             g.fillRect(100, 100, barWidth - barCounter * barFillPerLive, barHeight);
+            g.drawImage(barImage, 70, 80, 290, 100, null);
         }
 
     }
