@@ -7,7 +7,7 @@ import java.awt.*;
 public abstract class Entity {
 
     public double x, y; // Coordinates
-    public int width, height;
+    public int width, height; //width and height of the Entity
     protected Game game; //Game Object
 
     /**
@@ -35,14 +35,23 @@ public abstract class Entity {
      */
     public abstract void render(Graphics g);
 
+    /**
+     * returns a Rectangle that has the size of the Entity
+     */
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, width, height);
     }
 
+    /**
+     * return the x-Coordinate
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * return the y-Coordinate
+     */
     public double getY() {
         return y;
     }

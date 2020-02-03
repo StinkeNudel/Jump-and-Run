@@ -75,7 +75,7 @@ public class MenuWorld extends World {
      */
     private void loadFile() {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("D:\\Workspace\\Jump-and-Run\\src\\SaveFile"));
+            BufferedReader br = new BufferedReader(new FileReader("src\\SaveFile"));
             checkpoint = Integer.parseInt(br.readLine());
             System.out.println("yo" + checkpoint);
             br.close();
@@ -95,7 +95,7 @@ public class MenuWorld extends World {
         }
 
         if (MouseHandler.clickX > game.width / 2 - 200 && MouseHandler.clickX < game.width / 2 - 200 + 400 && MouseHandler.clickY > game.height / 2 + 100 && MouseHandler.clickY < game.height / 2 + 100 + 100) {
-            Tutorial tutorial = new Tutorial(game);
+            World1 tutorial = new World1(game);
             setWorld(tutorial);
             MouseHandler.resetClicks();
         }

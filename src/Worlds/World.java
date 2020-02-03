@@ -6,6 +6,9 @@ import java.awt.*;
 
 public abstract class World {
 
+    int width;
+    int height;
+
     private static World currentWorld = null;
 
     public static void setWorld(World world){

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Enemy extends Creature {
 
 
-    private boolean notfalling = false;
+    private boolean falling = false;
     private boolean isThereABlockOnMyLeftSide = false;
     private boolean isThereABlockOnMyRightSide = false;
     private int speed = 2;
@@ -35,23 +35,18 @@ public class Enemy extends Creature {
     }
 
     private void checkBlocks() {
-        double BlockX, BlockY;
+        falling = true;
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (Object solidBlock : solidBlocks) {
             SolidBlocks m = (SolidBlocks) solidBlock;
-            BlockX = m.getX();
-            BlockY = m.getY();
-            if (y + height > BlockY - 2 && ((BlockX > x && BlockX < x + width + 10))) {
-                notfalling = true;
-                y = BlockY - height;
-                return;
-            } else if (y + height > BlockY - 2 && ((BlockX + 64 > x && BlockX + 64 < x + width + 10))) {
-                notfalling = true;
-                y = BlockY - height;
-                return;
+
+            if (this.getBounds().intersects(m.getBounds())) {
+                falling = false;
+                if (y + 59 != m.y) {
+                    y = m.y - 59;
+                }
             }
         }
-        notfalling = false;
     }
 
 
@@ -102,7 +97,7 @@ public class Enemy extends Creature {
 
 
     private void falling() {
-        if (!notfalling) {
+        if (falling) {
             y = y + 10;
         }
     }

@@ -21,15 +21,15 @@ public class Game implements Runnable {
 
     private BufferStrategy bs;
     private Graphics g;//Graphics object
+public static int blockSize;
+
 
     public static int FPS;
 
     private KeyHandler keyHandler; //KeyListener
-
     private GameCamera gameCamera;
 
     //Worlds
-    private World gameWorld;
     public World menuWorld;
 
     /**
@@ -44,6 +44,7 @@ public class Game implements Runnable {
         this.height = height;
         this.title = title;
         keyHandler = new KeyHandler();
+        blockSize = width/30;
     }
 
 

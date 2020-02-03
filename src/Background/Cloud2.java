@@ -12,10 +12,10 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Cloud2 extends Entity {
-    private BufferedImage image = ImageLoader.loadImage("/Background/Wolke2.png");
+    private BufferedImage image = ImageLoader.loadImage("/Background/Wolke2.png");//Image of the Object
 
     /**
-     * Coordinate
+     * Constructor
      *
      * @param game Game Object
      * @param x    X-Coordinate
@@ -25,10 +25,18 @@ public class Cloud2 extends Entity {
         super(game, x, y);
     }
 
+    /**
+     * tick
+     */
     @Override
     public void tick() {
     }
 
+    /**
+     * renders Cloud1s in range if the player
+     *
+     * @param g Graphics g
+     */
     @Override
     public void render(Graphics g) {
 

@@ -6,6 +6,8 @@ import Main.Game;
 import java.awt.*;
 
 public abstract class SolidBlocks extends Entity {
+    public int width = game.blockSize;
+    public int height = game.blockSize;
 
     /**
      * Constructor
@@ -18,7 +20,7 @@ public abstract class SolidBlocks extends Entity {
         super(game, x, y);
     }
 
-    public Rectangle getBounds(){
-        return new Rectangle((int) x, (int) y, 64, 64);
+    public Rectangle getBounds() {
+        return new Rectangle((int) x, (int) y, width, height);
     }
 }

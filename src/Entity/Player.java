@@ -12,18 +12,18 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Player extends Creature {
-    private BufferedImage image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
-    private HealthBar healthBar;
-    private boolean falling = false;
-    private boolean jump = false;
-    private boolean movingRight, movingLeft;
-    private boolean movedRight;
-    private int jumpCounter;
-    private long hitDelay = System.currentTimeMillis();
+    private BufferedImage image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png"); // Image of the Player
+    private HealthBar healthBar; // HealthBar of the Player
+    private boolean falling = false; //decides if the Player is falling or not
+    private boolean jump = false; //shows if the Player is jumping atm (not including the fall after the jump)
+    private boolean movingRight, movingLeft; //the direction the player is moving at
+    private boolean movedRight; //true if the player moved right before he stopped
+    private int jumpCounter; //times the duration of the jump
+    private long hitDelay = System.currentTimeMillis(); //delay the taken damage
 
-    private int jumpAnimation = 0, animationJump = 0, waitForJump = 0;
-    private int animationLeft = 0;
-    private int animationRight = 0;
+    private int jumpAnimation = 0, animationJump = 0, waitForJump = 0; //JumpAnimation
+    private int animationLeft = 0; //Walking left animation
+    private int animationRight = 0; //walking right animation
     private int animationStandLeft = 0, animationStandRight = 0;
     private int animationCounterLeft = 0, animationCounterRight = 0, animationCounterStandLeft = 0, animationCounterStandRight = 0;
 
@@ -37,8 +37,8 @@ public class Player extends Creature {
     public Player(Game game, double x, double y) {
         super(game, x, y);
         this.game = game;
-        width = 68;
-        height = 120;
+        width = game.width/28;
+        height = game.height/9;
         health = 10;
         healthBar = new HealthBar();
         movedRight = true;
