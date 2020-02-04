@@ -70,11 +70,11 @@ public class Player extends Creature {
             g.drawImage(image, (int) (x - game.getGameCamera().getxOffset() + 30), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
         }
         healthBar.render(g);
-        //g.drawRect((int) (getBoundsTop().x - game.getGameCamera().getxOffset()), (int) (getBoundsTop().y - game.getGameCamera().getyOffset()), getBoundsTop().width, getBoundsTop().height);
-        //g.drawRect((int) (getBoundsDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsDown().y - game.getGameCamera().getyOffset()), getBoundsDown().width, getBoundsDown().height);
-        //g.setColor(Color.GREEN);
-        //g.drawRect((int) (getBoundsLeft().x - game.getGameCamera().getxOffset()), (int) (getBoundsLeft().y - game.getGameCamera().getyOffset()), getBoundsLeft().width, getBoundsLeft().height);
-        //g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
+        g.drawRect((int) (getBoundsTop().x - game.getGameCamera().getxOffset()), (int) (getBoundsTop().y - game.getGameCamera().getyOffset()), getBoundsTop().width, getBoundsTop().height);
+        g.drawRect((int) (getBoundsDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsDown().y - game.getGameCamera().getyOffset()), getBoundsDown().width, getBoundsDown().height);
+        g.setColor(Color.GREEN);
+        g.drawRect((int) (getBoundsLeft().x - game.getGameCamera().getxOffset()), (int) (getBoundsLeft().y - game.getGameCamera().getyOffset()), getBoundsLeft().width, getBoundsLeft().height);
+        g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
     }
 
     /**
@@ -127,8 +127,8 @@ public class Player extends Creature {
 
             if (this.getBoundsDown().intersects(m.getBounds())) {
                 falling = false;
-                if (y + 119 != m.y) {
-                    y = m.y - 119;
+                if (y + (height-1) != m.y) {
+                    y = m.y - (height -1);
                 }
             }
             if (movingRight) {
@@ -284,19 +284,19 @@ public class Player extends Creature {
 
     //Hitboxes
     private Rectangle getBoundsRight() {
-        return new Rectangle((int) x + 60, (int) y + 15, width - 60, height - 30);
+        return new Rectangle((int) x + game.width/30, (int) y + game.height/72, width - game.width/32, height - game.height/36);
     }
 
     private Rectangle getBoundsLeft() {
-        return new Rectangle((int) x + 30, (int) y + 15, width - 60, height - 30);
+        return new Rectangle((int) x + game.width/64, (int) y + game.height/72, width - game.width/32, height - game.height/36);
     }
 
     private Rectangle getBoundsTop() {
-        return new Rectangle((int) x + 35, (int) y + 1, width - 40, height / 2 - 30);
+        return new Rectangle((int) x + game.width/55, (int) y + 1, width - game.width/48, height / 2 - game.height/36);
     }
 
     private Rectangle getBoundsDown() {
-        return new Rectangle((int) x + 35, (int) y + height / 2 + 5, width - 40, height / 2 - 5);
+        return new Rectangle((int) x + game.width/55, (int) y + height / 2 + 5, width - game.width/48, height / 2 - 5);
     }
 
 
@@ -333,7 +333,6 @@ public class Player extends Creature {
                 break;
         }
         animationRight++;
-
     }
 
     private void animationStandLeft() {
