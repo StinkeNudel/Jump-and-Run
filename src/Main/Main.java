@@ -10,7 +10,7 @@ public class Main {
         double height = screenSize.height;
         System.out.println("height" + height);
         System.out.println("width" + width);
-        Game game = new Game("Adventure", (int) width, (int) height);
+        Game game = new Game("Wir wissen noch nicht wie es heißen soll. Was aber wirklich interessant ist, ist, wie viel Text hier oben reinpasst                                                                   HI                                                       ah hier ist Ende", (int) width, (int) height);
         game.start();
     }
 }

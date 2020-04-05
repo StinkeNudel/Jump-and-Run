@@ -1,5 +1,6 @@
 package Entity;
 
+import Blocks.BackBlock;
 import Blocks.SolidBlocks;
 import GFX.ImageLoader;
 import Main.ArrayLists;
@@ -18,6 +19,8 @@ public class Player extends Creature {
     private boolean jump = false; //shows if the Player is jumping atm (not including the fall after the jump)
     private boolean movingRight, movingLeft; //the direction the player is moving at
     private boolean movedRight; //true if the player moved right before he stopped
+    private boolean fullLadder = false; //true if the player stand at a ladder
+    private boolean topLadder = false; //true if the player stand at a ladder
     private int jumpCounter; //times the duration of the jump
     private long hitDelay = System.currentTimeMillis(); //delay the taken damage
 
@@ -37,8 +40,8 @@ public class Player extends Creature {
     public Player(Game game, double x, double y) {
         super(game, x, y);
         this.game = game;
-        width = game.width/28;
-        height = game.height/9;
+        width = game.width / 28;
+        height = game.height / 9;
         health = 10;
         healthBar = new HealthBar();
         movedRight = true;
@@ -48,8 +51,9 @@ public class Player extends Creature {
      * ticks the Player
      */
     public void tick() {
-        input();
         checkBlockCollision();
+        checkLadder();
+        input();
         moveCamera();
         movement();
         checkEnemy();
@@ -70,11 +74,12 @@ public class Player extends Creature {
             g.drawImage(image, (int) (x - game.getGameCamera().getxOffset() + 30), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
         }
         healthBar.render(g);
-        g.drawRect((int) (getBoundsTop().x - game.getGameCamera().getxOffset()), (int) (getBoundsTop().y - game.getGameCamera().getyOffset()), getBoundsTop().width, getBoundsTop().height);
-        g.drawRect((int) (getBoundsDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsDown().y - game.getGameCamera().getyOffset()), getBoundsDown().width, getBoundsDown().height);
-        g.setColor(Color.GREEN);
-        g.drawRect((int) (getBoundsLeft().x - game.getGameCamera().getxOffset()), (int) (getBoundsLeft().y - game.getGameCamera().getyOffset()), getBoundsLeft().width, getBoundsLeft().height);
-        g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
+        //g.drawRect((int) (getBoundsTop().x - game.getGameCamera().getxOffset()), (int) (getBoundsTop().y - game.getGameCamera().getyOffset()), getBoundsTop().width, getBoundsTop().height);
+        //g.drawRect((int) (getBoundsDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsDown().y - game.getGameCamera().getyOffset()), getBoundsDown().width, getBoundsDown().height);
+        //g.setColor(Color.GREEN);
+        //g.drawRect((int) (getBoundsLeft().x - game.getGameCamera().getxOffset()), (int) (getBoundsLeft().y - game.getGameCamera().getyOffset()), getBoundsLeft().width, getBoundsLeft().height);
+        //g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
+        //g.drawRect((int) (getBoundsLadderDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsLadderDown().y - game.getGameCamera().getyOffset()), getBoundsLadderDown().width, getBoundsLadderDown().height);
     }
 
     /**
@@ -94,6 +99,17 @@ public class Player extends Creature {
         if (game.getKeyHandler().d) {
             movingRight = true;
             movingLeft = false;
+        }
+
+        if (game.getKeyHandler().w) {
+            if (fullLadder) {
+                y = y - 5;
+            }
+        }
+        if (game.getKeyHandler().s) {
+            if (topLadder || topLadder) {
+                y = y + 5;
+            }
         }
 
         if ((!game.getKeyHandler().d && !game.getKeyHandler().a) || game.getKeyHandler().d && game.getKeyHandler().a) {
@@ -127,8 +143,8 @@ public class Player extends Creature {
 
             if (this.getBoundsDown().intersects(m.getBounds())) {
                 falling = false;
-                if (y + (height-1) != m.y) {
-                    y = m.y - (height -1);
+                if (y + (height - 1) != m.y) {
+                    y = m.y - (height - 1);
                 }
             }
             if (movingRight) {
@@ -146,6 +162,39 @@ public class Player extends Creature {
                     jump = false;
                     falling = true;
                 }
+            }
+        }
+        ArrayList backBlocks = ArrayLists.getBackBlocks();
+        for (Object backBlock : backBlocks) {
+            BackBlock m = (BackBlock) backBlock;
+            if (m.type.equals("ladder")) {
+                if (this.getBoundsLadderDown().intersects(m.getBounds())) {
+                    falling = false;
+                }
+            }
+
+        }
+
+    }
+
+    private void checkLadder() {
+        ArrayList backBlocks = ArrayLists.getBackBlocks();
+        for (Object backBlock : backBlocks) {
+            BackBlock m = (BackBlock) backBlock;
+            if (m.type.equals("ladder") && this.getBoundsDown().intersects(m.getBounds()) && m.type.equals("ladder") && this.getBoundsLadderDown().intersects(m.getBounds())) {
+                fullLadder = true;
+                topLadder = true;
+                falling = false;
+                return;
+            } else {
+                fullLadder = false;
+            }
+            if (m.type.equals("ladder") && getBoundsLadderDown().intersects(m.getBounds())) {
+                topLadder = true;
+                falling = false;
+                return;
+            } else {
+                topLadder = false;
             }
         }
     }
@@ -245,12 +294,18 @@ public class Player extends Creature {
      * Player will jump
      */
     private void jump() {
-        if (jump) {
+        if (jump && !fullLadder) {
 
             animationJump++;
             if (animationJump >= 3) {
-                jumpAnimation();
-                image = ImageLoader.loadImage("/Player/jump9.png");
+                if (movingRight || movedRight) {
+                    jumpAnimation();
+                    //image = ImageLoader.loadImage("/Player/jump9.png");
+                } else if (movingLeft || !movedRight) {
+                    jumpAnimationLeft();
+                    //image = ImageLoader.loadImage("/Player/jump9Left.png");
+                }
+
             }
             if (jumpCounter < 5) {
                 y = y - 30;
@@ -276,27 +331,36 @@ public class Player extends Creature {
     private void gravity() {
         if (falling) {
             y = y + 8;
-            fallAnimation();
-            image = ImageLoader.loadImage("/Player/jump14.png");
+            if (movingRight || movedRight) {
+                fallAnimation();
+                image = ImageLoader.loadImage("/Player/jump14.png");
+            } else if (movingLeft || !movedRight) {
+                fallAnimationLeft();
+                image = ImageLoader.loadImage("/Player/jump14Left.png");
+            }
         }
     }
 
 
     //Hitboxes
     private Rectangle getBoundsRight() {
-        return new Rectangle((int) x + game.width/30, (int) y + game.height/72, width - game.width/32, height - game.height/36);
+        return new Rectangle((int) x + game.width / 30, (int) y + game.height / 72, width - game.width / 32, height - game.height / 36);
     }
 
     private Rectangle getBoundsLeft() {
-        return new Rectangle((int) x + game.width/64, (int) y + game.height/72, width - game.width/32, height - game.height/36);
+        return new Rectangle((int) x + game.width / 64, (int) y + game.height / 72, width - game.width / 32, height - game.height / 36);
     }
 
     private Rectangle getBoundsTop() {
-        return new Rectangle((int) x + game.width/55, (int) y + 1, width - game.width/48, height / 2 - game.height/36);
+        return new Rectangle((int) x + game.width / 55, (int) y + 1, width - game.width / 48, height / 2 - game.height / 36);
     }
 
     private Rectangle getBoundsDown() {
-        return new Rectangle((int) x + game.width/55, (int) y + height / 2 + 5, width - game.width/48, height / 2 - 5);
+        return new Rectangle((int) x + game.width / 55, (int) y + height / 2 + 5, width - game.width / 48, height / 2 - 5);
+    }
+
+    private Rectangle getBoundsLadderDown() {
+        return new Rectangle((int) x + game.width / 55, (int) y + height / 2 + 10, width - game.width / 48, height / 2 - 5);
     }
 
 
@@ -466,6 +530,93 @@ public class Player extends Creature {
                     waitForJump = 0;
                     break;
                 }
+
+        }
+
+
+    }
+
+    private void jumpAnimationLeft() {
+        switch (jumpAnimation) {
+            case 0:
+                image = ImageLoader.loadImage("/Player/jump1Left.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 1:
+                image = ImageLoader.loadImage("/Player/jump2Left.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 2:
+                image = ImageLoader.loadImage("/Player/jump3Left.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 3:
+                image = ImageLoader.loadImage("/Player/jump4Left.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 4:
+                image = ImageLoader.loadImage("/Player/jump5Left.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 5:
+                image = ImageLoader.loadImage("/Player/jump6Left.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 6:
+                image = ImageLoader.loadImage("/Player/jump7Left.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 7:
+                image = ImageLoader.loadImage("/Player/jump8Left.png");
+                waitForJump++;
+
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 8:
+                image = ImageLoader.loadImage("/Player/jump9Left.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
         }
     }
 
@@ -513,6 +664,52 @@ public class Player extends Creature {
                     break;
                 }
 
+        }
+    }
+
+    private void fallAnimationLeft() {
+        switch (jumpAnimation) {
+            case 9:
+                image = ImageLoader.loadImage("/Player/jump10Left.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 10:
+                image = ImageLoader.loadImage("/Player/jump11Left.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 11:
+                image = ImageLoader.loadImage("/Player/jump12Left.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 12:
+                image = ImageLoader.loadImage("/Player/jump13Left.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    waitForJump = 0;
+                    break;
+                }
+            case 13:
+                image = ImageLoader.loadImage("/Player/jump14Left.png");
+                waitForJump++;
+                if (waitForJump >= 9) {
+                    jumpAnimation++;
+                    jumpAnimation = 0;
+                    waitForJump = 0;
+                    break;
+                }
         }
     }
 

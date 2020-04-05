@@ -10,6 +10,7 @@ public class ArrayLists {
     public static ArrayList mountains; //list of mountains
     public static ArrayList trees; //list of trees
     public static ArrayList cloud2s; //list of cloud2s
+    public static ArrayList backBlocks;
 
 
 
@@ -21,7 +22,7 @@ public class ArrayLists {
         mountains = new ArrayList();
         trees = new ArrayList();
         cloud2s = new ArrayList();
-
+        backBlocks = new ArrayList();
     }
 
 
@@ -33,5 +34,11 @@ public class ArrayLists {
         return player;
     }
 
-    public static ArrayList getEnemys() {return enemys;}
+    public static ArrayList getBackBlocks() {
+        return backBlocks;
+    }
+
+    public static ArrayList getEnemys() {
+        return enemys;
+    }
 }

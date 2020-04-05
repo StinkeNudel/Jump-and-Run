@@ -14,7 +14,7 @@ public class Block extends SolidBlocks {
     private BufferedImage wood = ImageLoader.loadImage("/Blocks/WoodBlock.png");
     private BufferedImage platform = ImageLoader.loadImage("/Blocks/PlatformBlock.png");
 
-    private String type;
+    public String type;
 
     /**
      * Constructor

@@ -89,18 +89,30 @@ public class MenuWorld extends World {
     public void input() {
 
         if (MouseHandler.clickX > game.width / 2 - 200 && MouseHandler.clickX < game.width / 2 - 200 + 400 && MouseHandler.clickY > game.height / 2 - 50 && MouseHandler.clickY < game.height / 2 - 50 + 100) {
+            ArrayLists.trees.clear();
+            ArrayLists.cloud1s.clear();
+            ArrayLists.cloud2s.clear();
+            ArrayLists.mountains.clear();
             TestWorld testWorld = new TestWorld(game);
             setWorld(testWorld);
             MouseHandler.resetClicks();
         }
 
         if (MouseHandler.clickX > game.width / 2 - 200 && MouseHandler.clickX < game.width / 2 - 200 + 400 && MouseHandler.clickY > game.height / 2 + 100 && MouseHandler.clickY < game.height / 2 + 100 + 100) {
+            ArrayLists.trees.clear();
+            ArrayLists.cloud1s.clear();
+            ArrayLists.cloud2s.clear();
+            ArrayLists.mountains.clear();
             World1 tutorial = new World1(game);
             setWorld(tutorial);
             MouseHandler.resetClicks();
         }
 
         if (MouseHandler.clickX > game.width / 2 - 200 && MouseHandler.clickX < game.width / 2 - 200 + 400 && MouseHandler.clickY > game.height / 2 + 250 && MouseHandler.clickY < game.height / 2 + 250 + 100) {
+            ArrayLists.trees.clear();
+            ArrayLists.cloud1s.clear();
+            ArrayLists.cloud2s.clear();
+            ArrayLists.mountains.clear();
             loadFile();
             switch (checkpoint) {
                 case 0:
