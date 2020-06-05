@@ -199,6 +199,15 @@ public class Player extends Creature {
         }
     }
 
+
+    /**
+     * check if player standing next to an Item, when click 'E'
+     */
+
+    public void collectItem() {
+
+    }
+
     /**
      * Player will loose health if he touches an Enemy
      */
