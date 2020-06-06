@@ -25,6 +25,7 @@ public class TestWorld extends World {
 
     private DoorSaveRoom doorSaveRoom;
     private Item item;
+    private Schwurbel schwurbel;
 
 
     /**
@@ -36,6 +37,7 @@ public class TestWorld extends World {
         super(game);
         generateBackground();
         generateBlocks();
+        generateSchwurbel();
 
         player = new Player(game, game.width / 2, game.height - 221);
         ArrayLists.player.add(player);
@@ -50,6 +52,8 @@ public class TestWorld extends World {
         item = new Item(game, game.width / 2 + 150, game.height - 180);
         ArrayLists.items.add(item);
 
+
+
         saveGame();
     }
 
@@ -60,6 +64,7 @@ public class TestWorld extends World {
         player.tick();
         worm.tick();
         doorSaveRoom.tick();
+        schwurbel.tick();
     }
 
     /**
@@ -74,6 +79,7 @@ public class TestWorld extends World {
         worm.render(g);
         renderBlocks(g);
         player.render(g);
+        schwurbel.render(g);
 
         ArrayList items = ArrayLists.items;
         for (int w = 0; w < items.size(); w++) {
@@ -167,6 +173,14 @@ public class TestWorld extends World {
             ArrayLists.solidBlocks.add(z);
             BlockX = BlockX + 64;
         }
+    }
+
+    public void generateSchwurbel() {
+        int schwurbelLives = 1;
+         if(schwurbelLives < 100) {
+             schwurbel = new Schwurbel(game, game.width / 2 + 200, game.height - 221);
+             schwurbelLives++;
+         }
     }
 
     /**
