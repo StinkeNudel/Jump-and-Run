@@ -1,11 +1,19 @@
 package Blocks;
 
 import Entity.Entity;
+import GFX.ImageLoader;
 import Main.Game;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Item extends Entity {
+
+    private BufferedImage item = ImageLoader.loadImage("/noodle.jpg");
+
+    int width = 300;
+    int height = 300;
+
     /**
      * Coordinate
      *
@@ -24,6 +32,12 @@ public class Item extends Entity {
 
     @Override
     public void render(Graphics g) {
+        //g.drawImage(item, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), 64, 64, null);
+        g.setColor(Color.blue);
+        g.drawRect((int) (getBounds().x - game.getGameCamera().getxOffset()), (int) (getBounds().y - game.getGameCamera().getyOffset()), getBounds().width, getBounds().height);
 
     }
+
+
+
 }

@@ -1,6 +1,7 @@
 package Entity;
 
 import Blocks.BackBlock;
+import Blocks.Item;
 import Blocks.SolidBlocks;
 import GFX.ImageLoader;
 import Main.ArrayLists;
@@ -78,7 +79,7 @@ public class Player extends Creature {
         //g.drawRect((int) (getBoundsDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsDown().y - game.getGameCamera().getyOffset()), getBoundsDown().width, getBoundsDown().height);
         //g.setColor(Color.GREEN);
         //g.drawRect((int) (getBoundsLeft().x - game.getGameCamera().getxOffset()), (int) (getBoundsLeft().y - game.getGameCamera().getyOffset()), getBoundsLeft().width, getBoundsLeft().height);
-        //g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
+        g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
         //g.drawRect((int) (getBoundsLadderDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsLadderDown().y - game.getGameCamera().getyOffset()), getBoundsLadderDown().width, getBoundsLadderDown().height);
     }
 
@@ -126,6 +127,11 @@ public class Player extends Creature {
                     animationCounterStandRight = 0;
                 }
             }
+        }
+
+        if (game.getKeyHandler().e) {
+            collectItem();
+            System.out.println("schwurbelSCHWURBEL");
         }
     }
 
@@ -205,7 +211,14 @@ public class Player extends Creature {
      */
 
     public void collectItem() {
-
+        ArrayList items = ArrayLists.getItems();
+        for (Object item : items) {
+            Item q = (Item) item;
+            if (this.getBoundsRight().intersects(q.getBounds())) {
+                    items.remove(q);
+                    System.out.println("schwurbel");
+            }
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ import Background.Mountain;
 import Background.Tree;
 import Blocks.DirtBlock;
 import Blocks.GrassBlock;
+import Blocks.Item;
 import Blocks.SolidBlocks;
 import Entity.Enemy;
 import Entity.Player;
@@ -40,6 +41,8 @@ public class Tutorial extends World {
 
         enemy = new Enemy(game, 900, 90);
 
+
+
         saveGame();
 
     }
@@ -62,6 +65,7 @@ public class Tutorial extends World {
         enemy.render(g);
         renderBlocks(g);
         player.render(g);
+
     }
 
 

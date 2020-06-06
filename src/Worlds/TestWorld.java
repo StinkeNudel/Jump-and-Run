@@ -2,6 +2,7 @@ package Worlds;
 
 import Background.*;
 import Blocks.GrassBlock;
+import Blocks.Item;
 import Blocks.SolidBlocks;
 import Entity.*;
 import Entity.Doors.DoorSaveRoom;
@@ -23,6 +24,7 @@ public class TestWorld extends World {
     private Worm worm;
 
     private DoorSaveRoom doorSaveRoom;
+    private Item item;
 
 
     /**
@@ -44,6 +46,10 @@ public class TestWorld extends World {
 
         doorSaveRoom = new DoorSaveRoom(game, game.width / 2, game.height - 225);
         game.getGameCamera().setyOffset(300);
+
+        item = new Item(game, game.width / 2 + 150, game.height - 180);
+        ArrayLists.items.add(item);
+
         saveGame();
     }
 
@@ -68,6 +74,12 @@ public class TestWorld extends World {
         worm.render(g);
         renderBlocks(g);
         player.render(g);
+
+        ArrayList items = ArrayLists.items;
+        for (int w = 0; w < items.size(); w++) {
+            Item q = (Item) items.get(w);
+            q.render(g);
+        }
     }
 
     private void renderBackground(Graphics g) {
