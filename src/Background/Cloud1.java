@@ -47,8 +47,8 @@ public class Cloud1 extends Entity {
 
             int drawAtX = (int) x - (int) (game.getGameCamera().getxOffset() / 4);
             int drawAtY = (int) (y - game.getGameCamera().getyOffset());
-            if (drawAtX > playerX - game.getGameCamera().getxOffset() - 1350 && drawAtX < playerX - game.getGameCamera().getxOffset() + 970)
-                g.drawImage(image, drawAtX, drawAtY, 400, 400, null);
+            if (drawAtX > playerX - game.getGameCamera().getxOffset() - game.blockSize*21.09375 && drawAtX < playerX - game.getGameCamera().getxOffset() + game.blockSize*15.15625)
+                g.drawImage(image, drawAtX, drawAtY, (int)(game.blockSize*6.25), (int)(game.blockSize*6.25), null);
         }
     }
 }

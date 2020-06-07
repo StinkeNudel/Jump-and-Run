@@ -1,9 +1,7 @@
 package Worlds;
 
 import Background.*;
-import Blocks.GrassBlock;
-import Blocks.Item;
-import Blocks.SolidBlocks;
+import Blocks.*;
 import Entity.*;
 import Entity.Doors.DoorSaveRoom;
 import GFX.ImageLoader;
@@ -13,20 +11,21 @@ import Main.Game;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class TestWorld extends World {
 
-    BufferedImage dirt = ImageLoader.loadImage("/Blocks/DirtBlock.png");
+    private final Player player;
+    private final Worm worm;
 
-    private Player player;
-    private Worm worm;
-
-    private DoorSaveRoom doorSaveRoom;
-    private Item key;
-    private Item shoe;
+    private final DoorSaveRoom doorSaveRoom;
+    private final Item key;
+    private final Item shoe;
     private Schwurbel schwurbel;
 
 
@@ -37,26 +36,23 @@ public class TestWorld extends World {
      */
     public TestWorld(Game game) {
         super(game);
-        generateBackground();
-        generateBlocks();
-        //schwurbelnator();
+        loadFile();
 
-        player = new Player(game, game.width / 2, game.height - 221);
+        player = new Player(game, game.width / 2, game.height - (int) (Game.blockSize * 3.453125));
         ArrayLists.player.add(player);
 
-        worm = new Worm(game, game.width / 2 + 500, game.height - 500);
+        worm = new Worm(game, game.width / 2 + (int) (Game.blockSize * 7.8125), game.height - (int) (Game.blockSize * 7.8125));
         ArrayLists.enemys.add(worm);
 
 
-        doorSaveRoom = new DoorSaveRoom(game, game.width / 2, game.height - 225);
-        game.getGameCamera().setyOffset(300);
+        doorSaveRoom = new DoorSaveRoom(game, game.width / 2, game.height - (int) (Game.blockSize * 3.515625));
+        game.getGameCamera().setyOffset((int) (Game.blockSize * 4.6875));
 
-        key = new Item(game, game.width / 2 + 150, game.height - 180, "key");
+        key = new Item(game, game.width / 2 + (int) (Game.blockSize * 2.34375), game.height - (int) (Game.blockSize * 2.8125), "key");
         ArrayLists.items.add(key);
 
-        shoe = new Item(game, game.width / 2 + 250, game.height - 180, "shoe");
+        shoe = new Item(game, game.width / 2 + (int) (Game.blockSize * 3.90625), game.height - (int) (Game.blockSize * 2.8125), "shoe");
         ArrayLists.items.add(shoe);
-
 
         saveGame();
     }
@@ -83,11 +79,11 @@ public class TestWorld extends World {
      * @param g Graphics Object
      */
     public void render(Graphics g) {
-       renderBackground(g);
+        g.setColor(Color.CYAN);
+        g.fillRect(0, 0, 10000, 10000);
         worm.render(g);
         doorSaveRoom.render(g);
         worm.render(g);
-        renderBlocks(g);
         player.render(g);
 
         ArrayList schwurbels = ArrayLists.schwurbels;
@@ -96,7 +92,6 @@ public class TestWorld extends World {
             q.render(g);
         }
 
-
         ArrayList items = ArrayLists.items;
         for (int w = 0; w < items.size(); w++) {
             Item q = (Item) items.get(w);
@@ -104,105 +99,46 @@ public class TestWorld extends World {
         }
     }
 
-    private void renderBackground(Graphics g) {
-        g.setColor(Color.CYAN);
-        g.fillRect(0, 0, 10000, 10000);
-
-        ArrayList mountains = ArrayLists.mountains;
-        for (int w = 0; w < mountains.size(); w++) {
-            Mountain m = (Mountain) mountains.get(w);
-            m.render(g);
-        }
-
-        g.drawImage(dirt, 0 - (int) (game.getGameCamera().getxOffset()), 0 + 980 - (int) (game.getGameCamera().getyOffset()), 10000, 10000, null);
-
-        ArrayList trees = ArrayLists.trees;
-        for (int w = 0; w < trees.size(); w++) {
-            Tree m = (Tree) trees.get(w);
-            m.render(g);
-        }
-
-
-        ArrayList cloud1s = ArrayLists.cloud1s;
-        for (int w = 0; w < cloud1s.size(); w++) {
-            Cloud1 m = (Cloud1) cloud1s.get(w);
-            m.x -= 1;
-            m.render(g);
-        }
-
-        ArrayList cloud2s = ArrayLists.cloud2s;
-        for (int w = 0; w < cloud2s.size(); w++) {
-            Cloud2 m = (Cloud2) cloud2s.get(w);
-            m.x -= 1;
-            m.render(g);
-        }
-    }
-
-    private void generateBackground() {
-        int cloud1X = 0;
-        int cloud2X = 500;
-        for (int i = 0; i < 20; i++) {
-            Cloud1 z = new Cloud1(game, cloud1X, game.height - 1000);
-            ArrayLists.cloud1s.add(z);
-            cloud1X += 1000;
-        }
-        for (int i = 0; i < 20; i++) {
-            Cloud2 c = new Cloud2(game, cloud2X, game.height - 1050);
-            ArrayLists.cloud2s.add(c);
-            cloud2X += 1000;
-        }
-        int mountainX = -3000;
-        for (int i = 0; i < 20; i++) {
-            Mountain u = new Mountain(game, mountainX, game.height - 800);
-            ArrayLists.mountains.add(u);
-            mountainX += 800;
-        }
-
-        int treeX = -2000;
-        for (int i = 0; i < 20; i++) {
-            Tree t = new Tree(game, treeX, game.height - 600);
-            ArrayLists.trees.add(t);
-            treeX += 300;
-        }
-
-
-    }
-
-    private void renderBlocks(Graphics g) {
-        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-        for (int w = 0; w < solidBlocks.size(); w++) {
-            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
-            if (m.x > player.x - 1100 && m.x < player.x + 1000) {
-                m.render(g);
-            }
-        }
-    }
-
-    /**
-     * generates the Bocks in the World
-     */
-    public void generateBlocks() {
-        int BlockX = -3000, BlockY = game.height - 100;
-
-        for (int i = 0; i < 1000; i++) {
-            GrassBlock z = new GrassBlock(game, BlockX, BlockY);
-            ArrayLists.solidBlocks.add(z);
-            BlockX = BlockX + 64;
-        }
-    }
-
     public void schwurbelnator() {
         ArrayList schwurbels = ArrayLists.getSchwurbels();
-        int schwurbelX = game.width/2 + 200, schwurbelY = game.height -221, idk;
+        int schwurbelX = game.width / 2 + (int)(game.blockSize*3.125), schwurbelY = game.height - (int)(game.blockSize*3.453125), idk;
 
         Random random = new Random();
 
         idk = random.nextInt(30);
-         for (int howToSchwurbel = 0; howToSchwurbel < 300; howToSchwurbel++) {
-             schwurbel = new Schwurbel(game, schwurbelX + idk, schwurbelY + idk);
-             schwurbels.add(schwurbel);
-             idk = random.nextInt(30);
-         }
+        for (int howToSchwurbel = 0; howToSchwurbel < 300; howToSchwurbel++) {
+            schwurbel = new Schwurbel(game, schwurbelX + idk, schwurbelY + idk);
+            schwurbels.add(schwurbel);
+            idk = random.nextInt(30);
+        }
+    }
+
+    private void loadFile() {
+        File file = new File("res\\Worlds\\TestWorld");
+        width = 96;
+        height = 27;
+        String type;
+        Scanner s;
+
+        try {
+            s = new Scanner(file);
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    type = s.next();
+                    if (type.equals("N")) {
+                        //NOTHING
+                    } else if (type.equals("l") || type.equals("s") || type.equals("d")) {
+                        BackBlock b = new BackBlock(game, x * Game.blockSize, y * Game.blockSize, type);
+                        ArrayLists.backBlocks.add(b);
+                    } else {
+                        Block b = new Block(game, x * Game.blockSize, y * Game.blockSize, type);
+                        ArrayLists.solidBlocks.add(b);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

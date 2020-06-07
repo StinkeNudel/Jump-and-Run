@@ -13,12 +13,10 @@ public class Enemy extends Creature {
     private boolean falling = false;
     private boolean isThereABlockOnMyLeftSide = false;
     private boolean isThereABlockOnMyRightSide = false;
-    private int speed = 2;
+    private double speed = game.blockSize*0.03125;
 
     public Enemy(Game game, double x, double y) {
         super(game, x, y);
-        width = 60;
-        height = 60;
     }
 
     @Override
@@ -42,8 +40,8 @@ public class Enemy extends Creature {
 
             if (this.getBounds().intersects(m.getBounds())) {
                 falling = false;
-                if (y + 59 != m.y) {
-                    y = m.y - 59;
+                if (y + game.blockSize*0.921875 != m.y) {
+                    y = m.y - game.blockSize*0.921875;
                 }
             }
         }
@@ -57,10 +55,10 @@ public class Enemy extends Creature {
             SolidBlocks m = (SolidBlocks) solidBlock;
             BlockX = m.getX();
             BlockY = m.getY();
-            if ((y + height > BlockY && y + height < BlockY + 64
-                    || y + height / 2 > BlockY && y + height / 2 < BlockY + 64
-                    || y > BlockY && y < BlockY + 64)
-                    && x + width + speed >= BlockX && !(x + width > BlockX + 64)) {
+            if ((y + height > BlockY && y + height < BlockY + game.blockSize
+                    || y + height / 2 > BlockY && y + height / 2 < BlockY + game.blockSize
+                    || y > BlockY && y < BlockY + game.blockSize)
+                    && x + width + speed >= BlockX && !(x + width > BlockX + game.blockSize)) {
                 isThereABlockOnMyRightSide = true;
                 isThereABlockOnMyLeftSide = false;
                 return;
@@ -75,10 +73,10 @@ public class Enemy extends Creature {
             SolidBlocks m = (SolidBlocks) solidBlock;
             BlockX = m.getX();
             BlockY = m.getY();
-            if ((y + height > BlockY && y + height < BlockY + 64
-                    || y + height / 2 > BlockY && y + height / 2 < BlockY + 64
-                    || y > BlockY && y < BlockY + 64)
-                    && x - speed <= BlockX + 64 && !(x < BlockX)) {
+            if ((y + height > BlockY && y + height < BlockY + game.blockSize
+                    || y + height / 2 > BlockY && y + height / 2 < BlockY + game.blockSize
+                    || y > BlockY && y < BlockY + game.blockSize)
+                    && x - speed <= BlockX + game.blockSize && !(x < BlockX)) {
                 isThereABlockOnMyLeftSide = true;
                 isThereABlockOnMyRightSide = false;
                 return;
@@ -98,7 +96,7 @@ public class Enemy extends Creature {
 
     private void falling() {
         if (falling) {
-            y = y + 10;
+            y = y + game.blockSize*0.15625;
         }
     }
 

@@ -42,7 +42,7 @@ movement();
             double playerX = m.getX();
 
             int drawAtX = (int) x - (int) (game.getGameCamera().getxOffset() / 8);
-            if (drawAtX > playerX - game.getGameCamera().getxOffset() - 3000 && drawAtX < playerX - game.getGameCamera().getxOffset() + 970) {
+            if (drawAtX > playerX - game.getGameCamera().getxOffset() - game.blockSize*46.875 && drawAtX < playerX - game.getGameCamera().getxOffset() + game.blockSize*15.15625) {
                 switch (color) {
                     case 0:
                         g.setColor(color1);
@@ -54,7 +54,7 @@ movement();
                         g.setColor(color3);
                         break;
                 }
-                g.fillRect((int) x, (int) y, 7, 7);
+                g.fillRect((int) x, (int) y, (int)(game.blockSize*0.109375), (int)(game.blockSize*0.109375));
 
             }
         }

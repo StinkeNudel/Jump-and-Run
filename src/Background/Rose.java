@@ -23,7 +23,7 @@ public class Rose extends Entity {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), 128, 128, null);
+        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), game.blockSize*2, game.blockSize*2, null);
     }
 
     private void animation() {

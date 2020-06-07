@@ -18,12 +18,11 @@ public class Letter extends Entity {
     public Letter(Game game, double x, double y) {
         super(game, x, y);
         this.game = game;
-        width = 104;
-        height = 128;
+        width = (int)(game.blockSize*1.625);
+        height = game.blockSize*2;
     }
 
     public void tick() {
-
         move();
         readMe();
     }
@@ -38,73 +37,73 @@ public class Letter extends Entity {
         /**
          * Scroll fliegt in die Mitte und rollt sich dann aus
          */
-        if (x >= game.width / 2 - 195) {
-            x = x - 4;
+        if (x >= game.width / 2 - game.blockSize*3.046875) {
+            x = x - game.blockSize*0.0625;
         } else {
             switch (scrollImage) { //switch ist für die Scroll-Animation
                 case 0:
-                    width = 130;
-                    height = 160;
+                    width = (int)(game.blockSize*2.03125);
+                    height = (int)(game.blockSize*2.5);
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-11.png.png");
                     scrollImage++;
                     break;
                 case 1:
-                    width = 156;
-                    height = 192;
+                    width = (int)(game.blockSize*2.4375);
+                    height = (int)(game.blockSize*3.03125);
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-10.png.png");
                     scrollImage++;
                     break;
                 case 2:
-                    width = 182;
-                    height = 224;
+                    width = (int)(game.blockSize*2.84375);
+                    height = (int)(game.blockSize*3.5);
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-9.png.png");
                     scrollImage++;
                     break;
                 case 3:
-                    width = 208;
-                    height = 256;
+                    width = (int)(game.blockSize*3.25);
+                    height = (int)(game.blockSize*4);
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-8.png.png");
                     scrollImage++;
                     break;
                 case 4:
-                    width = 234;
-                    height = 288;
+                    width = (int)(game.blockSize*3.65625);
+                    height = (int)(game.blockSize*4.5);
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-7.png.png");
                     scrollImage++;
                     break;
                 case 5:
-                    width = 260;
-                    height = 320;
+                    width = (int)(game.blockSize*4.0625);
+                    height = (int)(game.blockSize*5);
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-6.png.png");
                     scrollImage++;
                     break;
                 case 6:
-                    width = 286;
-                    height = 352;
+                    width = (int)(game.blockSize*4.46875);
+                    height = (int)(game.blockSize*5.5);
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-5.png.png");
                     scrollImage++;
                     break;
                 case 7:
-                    width = 312;
-                    height = 384;
+                    width = (int)(game.blockSize*4.875);
+                    height = game.blockSize*6;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-4.png.png");
                     scrollImage++;
                     break;
                 case 8:
-                    width = 338;
-                    height = 416;
+                    width = (int)(game.blockSize*5.28125);
+                    height = (int)(game.blockSize*6.5);
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-3.png.png");
                     scrollImage++;
                     break;
                 case 9:
-                    width = 364;
-                    height = 448;
+                    width = (int)(game.blockSize*5.6875);
+                    height = game.blockSize*4;
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-2.png.png");
                     scrollImage++;
                     break;
                 case 10:
-                    width = 390;
-                    height = 480;
+                    width = (int)(game.blockSize*6.09375);
+                    height = (int)(game.blockSize*7.5);
                     image = ImageLoader.loadImage("/Scroll/Scroll_Open-1.png.png");
                     scrollImage++;
                     break;

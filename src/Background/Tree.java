@@ -37,8 +37,8 @@ public class Tree extends Entity {
 
             int drawAtX = (int) x - (int) (game.getGameCamera().getxOffset() / 4);
             int drawAtY = (int) (y - game.getGameCamera().getyOffset());
-            if (drawAtX > playerX - game.getGameCamera().getxOffset() - 2000 && drawAtX < playerX - game.getGameCamera().getxOffset() + 970)
-                g.drawImage(image, drawAtX, drawAtY, 500, 500, null);
+            if (drawAtX > playerX - game.getGameCamera().getxOffset() - game.blockSize*31.25 && drawAtX < playerX - game.getGameCamera().getxOffset() + game.blockSize*15.15625)
+                g.drawImage(image, drawAtX, drawAtY, (int)(game.blockSize*7.8125), (int)(game.blockSize*7.8125), null);
         }
     }
 }

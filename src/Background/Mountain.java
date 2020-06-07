@@ -38,8 +38,8 @@ public class Mountain extends Entity {
 
             int drawAtX = (int) x - (int) (game.getGameCamera().getxOffset() / 8);
             int drawAtY = (int) (y - game.getGameCamera().getyOffset());
-            if (drawAtX > playerX - game.getGameCamera().getxOffset() - 3000 && drawAtX < playerX - game.getGameCamera().getxOffset() + 970)
-                g.drawImage(image, drawAtX, drawAtY, 800, 800, null);
+            if (drawAtX > playerX - game.getGameCamera().getxOffset() - game.blockSize*46.875 && drawAtX < playerX - game.getGameCamera().getxOffset() + game.blockSize*15.15625)
+                g.drawImage(image, drawAtX, drawAtY, (int)(game.blockSize*12.8), (int)(game.blockSize*12.8), null);
         }
     }
 }

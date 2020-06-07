@@ -15,8 +15,8 @@ public class Worm extends Enemy {
 
     public Worm(Game game, double x, double y) {
         super(game, x, y);
-        width = 20;
-        height = 64;
+        width = game.blockSize;
+        height = game.blockSize;
     }
 
     @Override

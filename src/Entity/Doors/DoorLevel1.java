@@ -16,8 +16,8 @@ public class DoorLevel1 extends Entity {
 
     private BufferedImage image = ImageLoader.loadImage("/door.png");
 
-    private int doorWidth = 68;
-    private int doorHeight = 128;
+    private int doorWidth = game.blockSize;
+    private int doorHeight = game.blockSize*2;
 
     public DoorLevel1(Game game, double x, double y) {
         super(game, x, y);
