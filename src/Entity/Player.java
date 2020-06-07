@@ -212,9 +212,9 @@ public class Player extends Creature {
 
     public void collectItem() {
         ArrayList items = ArrayLists.getItems();
-        for (Object item : items) {
-            Item q = (Item) item;
-            if (this.getBoundsRight().intersects(q.getBounds())) {
+        for (int w = 0; w < items.size(); w++) {
+            Item q = (Item) items.get(w);
+            if (this.getBounds().intersects(q.getBounds())) {
                     items.remove(q);
                     System.out.println("schwurbel");
             }

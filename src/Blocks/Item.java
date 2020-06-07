@@ -11,8 +11,6 @@ public class Item extends Entity {
 
     private BufferedImage item = ImageLoader.loadImage("/noodle.jpg");
 
-    int width = 300;
-    int height = 300;
 
     /**
      * Coordinate
@@ -23,6 +21,9 @@ public class Item extends Entity {
      */
     public Item(Game game, double x, double y) {
         super(game, x, y);
+
+        width = 64;
+        height = 64;
     }
 
     @Override

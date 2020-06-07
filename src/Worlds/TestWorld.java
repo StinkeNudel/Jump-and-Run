@@ -25,7 +25,7 @@ public class TestWorld extends World {
     private Worm worm;
 
     private DoorSaveRoom doorSaveRoom;
-    private Item item;
+    private Item item, item2, item3;
     private Schwurbel schwurbel;
 
 
@@ -38,7 +38,7 @@ public class TestWorld extends World {
         super(game);
         generateBackground();
         generateBlocks();
-        schwurbelnator();
+        //schwurbelnator();
 
         player = new Player(game, game.width / 2, game.height - 221);
         ArrayLists.player.add(player);
@@ -50,9 +50,12 @@ public class TestWorld extends World {
         doorSaveRoom = new DoorSaveRoom(game, game.width / 2, game.height - 225);
         game.getGameCamera().setyOffset(300);
 
-        item = new Item(game, game.width / 2 + 150, game.height - 180);
-        ArrayLists.items.add(item);
-
+        int woop = 0;
+        for(int i = 0; i < 3; i++) {
+            item = new Item(game, game.width / 2 + 150 + woop, game.height - 180);
+            ArrayLists.items.add(item);
+            woop = woop + 100;
+        }
 
 
         saveGame();
