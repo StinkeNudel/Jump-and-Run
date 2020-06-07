@@ -85,6 +85,7 @@ public class TestWorld extends World {
         doorSaveRoom.render(g);
         worm.render(g);
         player.render(g);
+        renderBlocks(g);
 
         ArrayList schwurbels = ArrayLists.schwurbels;
         for (int w = 0; w < schwurbels.size(); w++) {
@@ -96,6 +97,16 @@ public class TestWorld extends World {
         for (int w = 0; w < items.size(); w++) {
             Item q = (Item) items.get(w);
             q.render(g);
+        }
+    }
+
+    private void renderBlocks(Graphics g) {
+        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+        for (int w = 0; w < solidBlocks.size(); w++) {
+            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
+            if (m.x > player.x - 1100 && m.x < player.x + 1100) {
+                m.render(g);
+            }
         }
     }
 
