@@ -44,7 +44,7 @@ public class Game implements Runnable {
         this.height = height;
         this.title = title;
         keyHandler = new KeyHandler();
-        blockSize = width / 35;
+        blockSize = width / 30;
     }
 
 
@@ -87,6 +87,8 @@ public class Game implements Runnable {
             MenuWorld menuWorld = new MenuWorld(this);
             World.setWorld(menuWorld);
             ArrayLists.solidBlocks.clear();
+            gameCamera.setyOffset(0);
+            gameCamera.setxOffset(0);
         }
     }
 
