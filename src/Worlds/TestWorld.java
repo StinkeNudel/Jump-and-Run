@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TestWorld extends World {
 
@@ -64,7 +65,12 @@ public class TestWorld extends World {
         player.tick();
         worm.tick();
         doorSaveRoom.tick();
-        schwurbel.tick();
+
+        ArrayList schwurbels = ArrayLists.schwurbels;
+        for (int w = 0; w < schwurbels.size(); w++) {
+            Schwurbel q = (Schwurbel) schwurbels.get(w);
+            q.tick();
+        }
     }
 
     /**
@@ -79,7 +85,13 @@ public class TestWorld extends World {
         worm.render(g);
         renderBlocks(g);
         player.render(g);
-        schwurbel.render(g);
+
+        ArrayList schwurbels = ArrayLists.schwurbels;
+        for (int w = 0; w < schwurbels.size(); w++) {
+            Schwurbel q = (Schwurbel) schwurbels.get(w);
+            q.render(g);
+        }
+
 
         ArrayList items = ArrayLists.items;
         for (int w = 0; w < items.size(); w++) {
@@ -176,9 +188,16 @@ public class TestWorld extends World {
     }
 
     public void schwurbelnator() {
+        ArrayList schwurbels = ArrayLists.getSchwurbels();
+        int schwurbelX = game.width/2 + 200, schwurbelY = game.height -221, idk;
 
-         for (int howToSchwurbel = 0; howToSchwurbel < 100; howToSchwurbel++) {
-             schwurbel = new Schwurbel(game, game.width / 2 + 200, game.height - 221);
+        Random random = new Random();
+
+        idk = random.nextInt(30);
+         for (int howToSchwurbel = 0; howToSchwurbel < 300; howToSchwurbel++) {
+             schwurbel = new Schwurbel(game, schwurbelX + idk, schwurbelY + idk);
+             schwurbels.add(schwurbel);
+             idk = random.nextInt(30);
          }
     }
 

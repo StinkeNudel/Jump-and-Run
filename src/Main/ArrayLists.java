@@ -12,6 +12,7 @@ public class ArrayLists {
     public static ArrayList cloud2s; //list of cloud2s
     public static ArrayList backBlocks; //list of backblocks
     public static ArrayList items; //list of items
+    public static ArrayList schwurbels; //list of schwurbels
 
 
 
@@ -25,6 +26,7 @@ public class ArrayLists {
         cloud2s = new ArrayList();
         backBlocks = new ArrayList();
         items = new ArrayList();
+        schwurbels = new ArrayList();
 
     }
 
@@ -46,4 +48,6 @@ public class ArrayLists {
     }
 
     public static ArrayList getItems() { return items;}
+
+    public static ArrayList getSchwurbels() { return schwurbels;}
 }
