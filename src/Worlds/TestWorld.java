@@ -25,7 +25,8 @@ public class TestWorld extends World {
     private Worm worm;
 
     private DoorSaveRoom doorSaveRoom;
-    private Item item, item2, item3;
+    private Item key;
+    private Item shoe;
     private Schwurbel schwurbel;
 
 
@@ -50,16 +51,16 @@ public class TestWorld extends World {
         doorSaveRoom = new DoorSaveRoom(game, game.width / 2, game.height - 225);
         game.getGameCamera().setyOffset(300);
 
-        int woop = 0;
-        for(int i = 0; i < 3; i++) {
-            item = new Item(game, game.width / 2 + 150 + woop, game.height - 180);
-            ArrayLists.items.add(item);
-            woop = woop + 100;
-        }
+        key = new Item(game, game.width / 2 + 150, game.height - 180, "key");
+        ArrayLists.items.add(key);
+
+        shoe = new Item(game, game.width / 2 + 250, game.height - 180, "shoe");
+        ArrayLists.items.add(shoe);
 
 
         saveGame();
     }
+
 
     /**
      * ticks the world

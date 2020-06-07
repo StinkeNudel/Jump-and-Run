@@ -19,9 +19,12 @@ public class Item extends Entity {
      * @param x    X-Coordinate
      * @param y    Y-Coordinate
      */
-    public Item(Game game, double x, double y) {
-        super(game, x, y);
 
+    public String type;
+
+    public Item(Game game, double x, double y, String type) {
+        super(game, x, y);
+        this.type = type;
         width = 64;
         height = 64;
     }
@@ -37,6 +40,12 @@ public class Item extends Entity {
         g.setColor(Color.blue);
         g.drawRect((int) (getBounds().x - game.getGameCamera().getxOffset()), (int) (getBounds().y - game.getGameCamera().getyOffset()), getBounds().width, getBounds().height);
 
+    }
+
+    public void pickedUp(){
+        if(type.equals("shoe")) {
+
+        }
     }
 
 

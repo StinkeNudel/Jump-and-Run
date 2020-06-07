@@ -31,6 +31,12 @@ public class Player extends Creature {
     private int animationStandLeft = 0, animationStandRight = 0;
     private int animationCounterLeft = 0, animationCounterRight = 0, animationCounterStandLeft = 0, animationCounterStandRight = 0;
 
+    boolean collectKey = false;
+    int keyY = 2*game.blockSize;
+
+    boolean collectShoe = false;
+    int shoeY = 2*game.blockSize;
+
     /**
      * Constructor
      *
@@ -81,7 +87,10 @@ public class Player extends Creature {
         //g.drawRect((int) (getBoundsLeft().x - game.getGameCamera().getxOffset()), (int) (getBoundsLeft().y - game.getGameCamera().getyOffset()), getBoundsLeft().width, getBoundsLeft().height);
         g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
         //g.drawRect((int) (getBoundsLadderDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsLadderDown().y - game.getGameCamera().getyOffset()), getBoundsLadderDown().width, getBoundsLadderDown().height);
+
+        renderItemMenu(g);
     }
+
 
     /**
      * Keyboard input
@@ -216,8 +225,30 @@ public class Player extends Creature {
             Item q = (Item) items.get(w);
             if (this.getBounds().intersects(q.getBounds())) {
                     items.remove(q);
-                    System.out.println("schwurbel");
+                    if(q.type.equals("shoe")) {
+                        collectShoe = true;
+                        if(!collectKey) { keyY = keyY + 94; }
+                    }
+                    else if(q.type.equals("key")) {
+                        collectKey = true;
+                        if(!collectShoe){ shoeY = shoeY + 94; }
+
+                    }
             }
+        }
+    }
+
+    public void renderItemMenu(Graphics g){
+
+        if(collectShoe) {
+            g.setColor(Color.MAGENTA);
+            g.fillRect(game.width - 2*game.blockSize, shoeY, 64, 64);
+        }
+
+        if(collectKey) {
+            g.setColor(Color.WHITE);
+            g.fillRect(game.width - 2*game.blockSize, keyY, 64, 64);
+
         }
     }
 
