@@ -117,8 +117,8 @@ public class MenuWorld extends World {
             loadFile();
             switch (checkpoint) {
                 case 0:
-                    Tutorial tutorial = new Tutorial(game);
-                    setWorld(tutorial);
+                    World1 world1 = new World1(game);
+                    setWorld(world1);
                     break;
                 case 1:
                     TestWorld testWorld = new TestWorld(game);

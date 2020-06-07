@@ -41,8 +41,8 @@ public class Player extends Creature {
     public Player(Game game, double x, double y) {
         super(game, x, y);
         this.game = game;
-        width = game.width / 28;
-        height = game.height / 9;
+        width = game.blockSize;
+        height = game.blockSize * 2;
         health = 10;
         healthBar = new HealthBar();
         movedRight = true;
@@ -72,14 +72,14 @@ public class Player extends Creature {
         if (movingRight || movedRight) {
             g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
         } else {
-            g.drawImage(image, (int) (x - game.getGameCamera().getxOffset() + 30), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
+            g.drawImage(image, (int) (x - game.getGameCamera().getxOffset() + game.blockSize / 2), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
         }
         healthBar.render(g);
         //g.drawRect((int) (getBoundsTop().x - game.getGameCamera().getxOffset()), (int) (getBoundsTop().y - game.getGameCamera().getyOffset()), getBoundsTop().width, getBoundsTop().height);
         //g.drawRect((int) (getBoundsDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsDown().y - game.getGameCamera().getyOffset()), getBoundsDown().width, getBoundsDown().height);
         //g.setColor(Color.GREEN);
         //g.drawRect((int) (getBoundsLeft().x - game.getGameCamera().getxOffset()), (int) (getBoundsLeft().y - game.getGameCamera().getyOffset()), getBoundsLeft().width, getBoundsLeft().height);
-        g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
+        //g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
         //g.drawRect((int) (getBoundsLadderDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsLadderDown().y - game.getGameCamera().getyOffset()), getBoundsLadderDown().width, getBoundsLadderDown().height);
     }
 
@@ -104,12 +104,12 @@ public class Player extends Creature {
 
         if (game.getKeyHandler().w) {
             if (fullLadder) {
-                y = y - 5;
+                y = y - game.blockSize * 5 / 64;
             }
         }
         if (game.getKeyHandler().s) {
             if (topLadder || topLadder) {
-                y = y + 5;
+                y = y + game.blockSize * 5 / 64;
             }
         }
 
@@ -215,8 +215,8 @@ public class Player extends Creature {
         for (Object item : items) {
             Item q = (Item) item;
             if (this.getBoundsRight().intersects(q.getBounds())) {
-                    items.remove(q);
-                    System.out.println("schwurbel");
+                items.remove(q);
+                System.out.println("schwurbel");
             }
         }
     }
@@ -244,21 +244,21 @@ public class Player extends Creature {
     private void moveCamera() {
         int xOnScreen = (int) (x - game.getGameCamera().getxOffset());
         int yOnScreen = (int) (y - game.getGameCamera().getyOffset());
-        if (yOnScreen <= 300) {
-            game.getGameCamera().move(0, -3);
+        if (yOnScreen <= game.blockSize * 4.6875) {
+            game.getGameCamera().move(0,  -game.blockSize * (float)0.046875);
         }
-        if (yOnScreen >= 700 && 900 > yOnScreen) {
-            game.getGameCamera().move(0, 3);
-        } else if (yOnScreen >= 900) {
-            game.getGameCamera().move(0, 8);
+        if (yOnScreen >= game.blockSize*10.9375 && game.blockSize*14.0625 > yOnScreen) {
+            game.getGameCamera().move(0, game.blockSize * (float)0.046875);
+        } else if (yOnScreen >= game.blockSize*14.0625) {
+            game.getGameCamera().move(0, game.blockSize/8);
         }
 
-        if (xOnScreen >= 1020) {
-            game.getGameCamera().move(5, 0);
+        if (xOnScreen >= game.blockSize*15.9375) {
+            game.getGameCamera().move(game.blockSize* (float)0.078125, 0);
 
         }
-        if (xOnScreen <= 900) {
-            game.getGameCamera().move(-5, 0);
+        if (xOnScreen <= game.blockSize*14.0625) {
+            game.getGameCamera().move(-game.blockSize* (float)0.078125, 0);
         }
     }
 
@@ -275,7 +275,7 @@ public class Player extends Creature {
         gravity();
         jump();
 
-        int speed = 5;
+        double speed = game.blockSize*0.078125;
         if (movingRight) {
             animationCounterRight++;
             if (animationCounterRight >= 3) {
@@ -330,13 +330,13 @@ public class Player extends Creature {
 
             }
             if (jumpCounter < 5) {
-                y = y - 30;
+                y = y - game.blockSize*0.46875;
             } else if (jumpCounter < 10) {
-                y = y - 20;
+                y = y - game.blockSize*0.3125;
             } else if (jumpCounter < 15) {
-                y = y - 10;
+                y = y - game.blockSize*0.15625;
             } else if (jumpCounter < 20) {
-                y = y - 5;
+                y = y - game.blockSize*0.078125;
             }
             jumpCounter++;
         }
@@ -352,7 +352,7 @@ public class Player extends Creature {
      */
     private void gravity() {
         if (falling) {
-            y = y + 8;
+            y = y + game.blockSize/8;
             if (movingRight || movedRight) {
                 fallAnimation();
                 image = ImageLoader.loadImage("/Player/jump14.png");
@@ -739,7 +739,7 @@ public class Player extends Creature {
     //HEALTHBAR CLASS
     public class HealthBar {
         private int startHealth; //Player health at the beginning
-        private int barWidth = 230; //width of the bar
+        private int barWidth = (int)(game.blockSize*3.59375); //width of the bar
         private int barFillPerLive; //width of the bar per health point
         private int barCounter = 0; //counter for the health
         private BufferedImage barImage = ImageLoader.loadImage("/HealthBar.png");
@@ -765,15 +765,15 @@ public class Player extends Creature {
          * draws the bar
          */
         public void render(Graphics g) {
-            int barHeight = 60;
+            int barHeight = game.blockSize;
             //height of the bar
-            g.drawRect(100, 100, barWidth, barHeight);
+            g.drawRect((int)(game.blockSize*1.5625), (int)(game.blockSize*1.5625), barWidth, barHeight);
             g.setColor(Color.GRAY);
-            g.fillRect(100, 100, barWidth, barHeight);
+            g.fillRect((int)(game.blockSize*1.5625), (int)(game.blockSize*1.5625), barWidth, barHeight);
             Color barRed = new Color(164, 0, 0);
             g.setColor(barRed);
-            g.fillRect(100, 100, barWidth - barCounter * barFillPerLive, barHeight);
-            g.drawImage(barImage, 70, 80, 290, 100, null);
+            g.fillRect((int)(game.blockSize*1.5625), (int)(game.blockSize*1.5625), barWidth - barCounter * barFillPerLive, barHeight);
+            g.drawImage(barImage, (int)(game.blockSize*1.09375), (int)(game.blockSize*1.25), (int)(game.blockSize*4.53125), (int)(game.blockSize*1.5625), null);
         }
 
     }
