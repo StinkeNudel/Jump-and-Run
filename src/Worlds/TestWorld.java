@@ -37,7 +37,7 @@ public class TestWorld extends World {
         super(game);
         generateBackground();
         generateBlocks();
-        generateSchwurbel();
+        schwurbelnator();
 
         player = new Player(game, game.width / 2, game.height - 221);
         ArrayLists.player.add(player);
@@ -175,11 +175,10 @@ public class TestWorld extends World {
         }
     }
 
-    public void generateSchwurbel() {
-        int schwurbelLives = 1;
-         if(schwurbelLives < 100) {
+    public void schwurbelnator() {
+
+         for (int howToSchwurbel = 0; howToSchwurbel < 100; howToSchwurbel++) {
              schwurbel = new Schwurbel(game, game.width / 2 + 200, game.height - 221);
-             schwurbelLives++;
          }
     }
 
