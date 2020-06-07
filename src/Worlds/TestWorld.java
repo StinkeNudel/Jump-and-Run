@@ -176,10 +176,9 @@ public class TestWorld extends World {
     }
 
     public void generateSchwurbel() {
-        int schwurbelLives = 1;
-         if(schwurbelLives < 100) {
+
+         for (int howToSchwurbel = 0; howToSchwurbel < 100; howToSchwurbel++) {
              schwurbel = new Schwurbel(game, game.width / 2 + 200, game.height - 221);
-             schwurbelLives++;
          }
     }
 
