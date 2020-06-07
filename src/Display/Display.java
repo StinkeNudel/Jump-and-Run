@@ -59,4 +59,8 @@ public class Display {
     public JFrame getFrame() {
         return frame;
     }
+
+    public void closeFrame(){
+        frame.dispose();
+    }
 }

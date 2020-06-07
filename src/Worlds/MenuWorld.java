@@ -67,7 +67,8 @@ public class MenuWorld extends World {
         g.setColor(Color.WHITE);
         g.drawString("Load Game", game.width / 2 - 20, game.height / 2 + 300);
 
-
+        g.setColor(Color.black);
+        g.fillRect(100, 100, (int) Game.blockSize, (int) game.blockSize);
     }
 
     /**

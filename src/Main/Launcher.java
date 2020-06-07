@@ -7,10 +7,11 @@ import Input.KeyHandler;
 import Worlds.SaveWorld;
 import Worlds.World;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-public class Game implements Runnable {
+public class Launcher implements Runnable {
 
     private Display display; //JFrame and Canvas
     public int width, height; //with and height of the game
@@ -21,16 +22,12 @@ public class Game implements Runnable {
 
     private BufferStrategy bs;
     private Graphics g;//Graphics object
-    public static int blockSize;
 
 
     public static int FPS;
 
     private KeyHandler keyHandler; //KeyListener
-    private GameCamera gameCamera;
 
-    //Worlds
-    public World menuWorld;
 
     /**
      * Constructor
@@ -39,12 +36,11 @@ public class Game implements Runnable {
      * @param width  with of the game
      * @param height height of the game
      */
-    public Game(String title, int width, int height) {
+    public Launcher(String title, int width, int height) {
         this.width = width;
         this.height = height;
         this.title = title;
         keyHandler = new KeyHandler();
-        blockSize = width / 35;
     }
 
 
@@ -76,6 +72,9 @@ public class Game implements Runnable {
         }
         g.setColor(Color.red);
         g.drawString(String.valueOf(FPS), 10, 10);
+        g.setColor(Color.black);
+        g.drawString("press A for big window", 580, 50);
+        g.drawString("press S for small window", 580, 100);
         //EndDrawing
 
         bs.show();
@@ -83,10 +82,18 @@ public class Game implements Runnable {
     }
 
     private void input() {
-        if (keyHandler.b) {
-            MenuWorld menuWorld = new MenuWorld(this);
-            World.setWorld(menuWorld);
-            ArrayLists.solidBlocks.clear();
+        if (keyHandler.a) {
+            Game game = new Game("SCHLRP",1920,1080);
+            game.start();
+            display.closeFrame();
+            this.stop();
+        }
+
+        if (keyHandler.s) {
+            Game game = new Game("SCHLRP",1280,720);
+            game.start();
+            display.closeFrame();
+            this.stop();
         }
     }
 
@@ -96,11 +103,6 @@ public class Game implements Runnable {
     private void init() {
         display = new Display(title, width, height); //creates Display
         display.getFrame().addKeyListener(keyHandler); //adds KeyListener
-        gameCamera = new GameCamera(0, 0);
-        ArrayLists arrayLists = new ArrayLists(); //creates ArrayLists object
-        menuWorld = new MenuWorld(this); //creates MenuWorld
-        World.setWorld(menuWorld); //sets World to MenuWorld
-
     }
 
     /**
@@ -136,15 +138,6 @@ public class Game implements Runnable {
             }
         }
         stop();
-    }
-
-
-    public KeyHandler getKeyHandler() {
-        return keyHandler;
-    }
-
-    public GameCamera getGameCamera() {
-        return gameCamera;
     }
 
     public synchronized void start() {
