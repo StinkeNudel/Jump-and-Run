@@ -56,7 +56,7 @@ public class MenuWorld extends World {
         g.setColor(Color.BLACK);
         g.fillRect(game.width / 2 - (int)(game.blockSize*3.125), game.height / 2 + (int)(game.blockSize*1.5625), (int)(game.blockSize*6.25), (int)(game.blockSize*1.5625));
         g.setColor(Color.WHITE);
-        g.drawString("New Game", game.width / 2 - (int)(game.blockSize*0.3125), game.height / 2 + (int)(game.blockSize*0.234375));
+        g.drawString("New Game", game.width / 2 - (int)(game.blockSize*0.3125), game.height / 2 + (int)(game.blockSize*2.34375));
 
         //render loadButton
         g.setColor(Color.BLACK);

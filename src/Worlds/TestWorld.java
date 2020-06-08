@@ -1,15 +1,12 @@
 package Worlds;
 
-import Background.*;
 import Blocks.*;
 import Entity.*;
 import Entity.Doors.DoorSaveRoom;
-import GFX.ImageLoader;
 import Main.ArrayLists;
 import Main.Game;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,6 +34,8 @@ public class TestWorld extends World {
     public TestWorld(Game game) {
         super(game);
         loadFile();
+
+        schwurbelnator();
 
         player = new Player(game, game.width / 2, game.height - (int) (Game.blockSize * 3.453125));
         ArrayLists.player.add(player);
@@ -79,8 +78,6 @@ public class TestWorld extends World {
      * @param g Graphics Object
      */
     public void render(Graphics g) {
-        g.setColor(Color.CYAN);
-        g.fillRect(0, 0, 10000, 10000);
         worm.render(g);
         doorSaveRoom.render(g);
         worm.render(g);

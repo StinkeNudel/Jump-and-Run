@@ -29,7 +29,7 @@ public class World1 extends World {
         loadFile();
         generateBackground();
         generateObjects();
-        player = new Player(game, 0 + game.blockSize, game.height - 10 * game.blockSize);
+        player = new Player(game, 0 + Game.blockSize, game.height - 10 * Game.blockSize);
         ArrayLists.player.add(player);
     }
 
@@ -47,22 +47,22 @@ public class World1 extends World {
 
     private void generateObjects() {
         {
-            int BlockX = 0 + 53 * game.blockSize, BlockY = game.height - 0 * game.blockSize;
+            int BlockX = 53 * Game.blockSize, BlockY = game.height;
 
             for (int i = 0; i < 5; i++) {
                 Ladder z = new Ladder(game, BlockX, BlockY, "ladder");
                 ArrayLists.backBlocks.add(z);
-                BlockY = BlockY + game.blockSize;
+                BlockY = BlockY + Game.blockSize;
             }
 
         }
         {
-            int BlockX = 0 + 65 * game.blockSize, BlockY = game.height - 15 * game.blockSize;
+            int BlockX = 65 * Game.blockSize, BlockY = game.height - (int) (Game.blockSize * 0.234375) * 64;
 
             for (int i = 0; i < 11; i++) {
                 Ladder z = new Ladder(game, BlockX, BlockY, "ladder");
                 ArrayLists.backBlocks.add(z);
-                BlockY = BlockY + game.blockSize;
+                BlockY = BlockY + Game.blockSize;
             }
         }
     }
@@ -102,7 +102,7 @@ public class World1 extends World {
         ArrayList backBlock = ArrayLists.getBackBlocks();
         for (int w = 0; w < backBlock.size(); w++) {
             BackBlock m = (BackBlock) backBlock.get(w);
-            if (m.x > player.x - 1100 && m.x < player.x + 1100) {
+            if (m.x > player.x - (int) (Game.blockSize * 17.1875) && m.x < player.x + (int) (Game.blockSize * 17.1875)) {
                 m.render(g);
             }
         }
@@ -110,29 +110,29 @@ public class World1 extends World {
 
     private void generateBackground() {
         int cloud1X = 0;
-        int cloud2X = 500;
+        int cloud2X = (int) (Game.blockSize * 7.8125);
         for (int i = 0; i < 20; i++) {
-            Cloud1 z = new Cloud1(game, cloud1X, game.height - 600);
+            Cloud1 z = new Cloud1(game, cloud1X, game.height - (int) (Game.blockSize * 9.375));
             ArrayLists.cloud1s.add(z);
-            cloud1X += 1000;
+            cloud1X += (int) (Game.blockSize * 17.1875);
         }
         for (int i = 0; i < 20; i++) {
-            Cloud2 c = new Cloud2(game, cloud2X, game.height - 1050);
+            Cloud2 c = new Cloud2(game, cloud2X, game.height - (int) (Game.blockSize * 16.40625));
             ArrayLists.cloud2s.add(c);
-            cloud2X += 1000;
+            cloud2X += (int) (Game.blockSize * 15.625);
         }
-        int mountainX = -3000;
+        int mountainX = -(int) (Game.blockSize * 46.875);
         for (int i = 0; i < 20; i++) {
-            Mountain u = new Mountain(game, mountainX, game.height - 400);
+            Mountain u = new Mountain(game, mountainX, game.height - (int) (Game.blockSize * 6.25));
             ArrayLists.mountains.add(u);
-            mountainX += 800;
+            mountainX += (int) (Game.blockSize * 12.5);
         }
 
-        int treeX = -2000;
+        int treeX = -(int) (Game.blockSize * 31.25);
         for (int i = 0; i < 20; i++) {
-            Tree t = new Tree(game, treeX, game.height - 100);
+            Tree t = new Tree(game, treeX, game.height - (int) (Game.blockSize * 1.5625));
             ArrayLists.trees.add(t);
-            treeX += 300;
+            treeX += (int) (Game.blockSize * 4.6875);
         }
     }
 
@@ -140,7 +140,7 @@ public class World1 extends World {
         ArrayList solidBlocks = ArrayLists.getSolidBlocks();
         for (int w = 0; w < solidBlocks.size(); w++) {
             SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
-            if (m.x > player.x - 1100 && m.x < player.x + 1100) {
+            if (m.x > player.x - (int) (Game.blockSize * 17.1875) && m.x < player.x + (int) (Game.blockSize * 17.1875)) {
                 m.render(g);
             }
         }
@@ -161,10 +161,10 @@ public class World1 extends World {
                     if (type.equals("N")) {
                         //NOTHING
                     } else if (type.equals("l") || type.equals("s") || type.equals("d")) {
-                        BackBlock b = new BackBlock(game, x * game.blockSize, y * game.blockSize, type);
+                        BackBlock b = new BackBlock(game, x * Game.blockSize, y * Game.blockSize, type);
                         ArrayLists.backBlocks.add(b);
                     } else {
-                        Block b = new Block(game, x * game.blockSize, y * game.blockSize, type);
+                        Block b = new Block(game, x * Game.blockSize, y * Game.blockSize, type);
                         ArrayLists.solidBlocks.add(b);
                     }
                 }

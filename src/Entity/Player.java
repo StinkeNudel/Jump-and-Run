@@ -1,7 +1,6 @@
 package Entity;
 
 import Blocks.BackBlock;
-import Blocks.Item;
 import Blocks.SolidBlocks;
 import GFX.ImageLoader;
 import Main.ArrayLists;
