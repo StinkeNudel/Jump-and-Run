@@ -15,6 +15,8 @@ public class MenuWorld extends World {
     private final BufferedImage loadWorldButton = ImageLoader.loadImage("/Menu/loadWorldButton.png");
     private final BufferedImage newWorldButtonSelected = ImageLoader.loadImage("/Menu/newWorldButtonSelected.png");
     private final BufferedImage loadWorldButtonSelected = ImageLoader.loadImage("/Menu/loadWorldButtonSelected.png");
+    private final BufferedImage optionsButton = ImageLoader.loadImage("/Menu/optionsButton.png");
+    private final BufferedImage optionsButtonSelected = ImageLoader.loadImage("/Menu/optionsButtonSelected.png");
     private final BufferedImage background = ImageLoader.loadImage("/Menu/MenuBackground.png");
     private BufferedImage cursor = ImageLoader.loadImage("/Menu/Cursor1.png");
 
@@ -63,19 +65,19 @@ public class MenuWorld extends World {
 
         switch (menuPosition){
             case 0:
-                g.drawImage(newWorldButtonSelected, 21 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
-                g.drawImage(loadWorldButton, 21 * Game.blockSize, 6 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
-                g.drawImage(newWorldButton, 21 * Game.blockSize, 8 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize , 2*Game.blockSize, null);
+                g.drawImage(newWorldButtonSelected, 21 * Game.blockSize, 3 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(loadWorldButton, 21 * Game.blockSize, 5 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
+                g.drawImage(optionsButton, 21 * Game.blockSize, 7 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize , 2*Game.blockSize, null);
 break;
             case 1:
-                g.drawImage(newWorldButton, 21 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
-                g.drawImage(loadWorldButtonSelected, 21 * Game.blockSize, 6 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
-                g.drawImage(newWorldButton, 21 * Game.blockSize, 8 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(newWorldButton, 21 * Game.blockSize, 3 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(loadWorldButtonSelected, 21 * Game.blockSize, 5 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
+                g.drawImage(optionsButton, 21 * Game.blockSize, 7 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize, 2*Game.blockSize, null);
                 break;
             case 2:
-                g.drawImage(newWorldButton, 21 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
-                g.drawImage(loadWorldButton, 21 * Game.blockSize, 6 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
-                g.drawImage(newWorldButtonSelected, 21 * Game.blockSize, 8 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(newWorldButton, 21 * Game.blockSize, 3 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(loadWorldButton, 21 * Game.blockSize, 5 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
+                g.drawImage(optionsButtonSelected, 21 * Game.blockSize, 7 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize, 2*Game.blockSize, null);
         }
     }
 
