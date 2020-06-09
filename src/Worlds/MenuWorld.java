@@ -16,10 +16,13 @@ public class MenuWorld extends World {
     private final BufferedImage newWorldButtonSelected = ImageLoader.loadImage("/Menu/newWorldButtonSelected.png");
     private final BufferedImage loadWorldButtonSelected = ImageLoader.loadImage("/Menu/loadWorldButtonSelected.png");
     private final BufferedImage background = ImageLoader.loadImage("/Menu/MenuBackground.png");
+    private BufferedImage cursor = ImageLoader.loadImage("/Menu/Cursor1MenuBackground.png");
 
     private int checkpoint;
     private int menuPosition = 0;
     private boolean onlyOnce = true;
+
+    private int cursorAnimation = 0;
 
 
 
@@ -137,6 +140,15 @@ break;
                     setWorld(testWorld);
                     break;
             }
+        }
+    }
+
+
+    public void cursorAnimation(){
+        switch (cursorAnimation) {
+            case 0:
+                cursor = ImageLoader.loadImage("/Menu/Cursor1MenuBackground.png");
+
         }
     }
 }
