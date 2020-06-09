@@ -20,13 +20,17 @@ public class MenuWorld extends World {
     private final BufferedImage background = ImageLoader.loadImage("/Menu/MenuBackground.png");
     private BufferedImage cursor = ImageLoader.loadImage("/Menu/Cursor1.png");
 
+    private BufferedImage player = ImageLoader.loadImage("/Player/player_right_up_openEyes.png"); // Image of the Player
+
+
     private int checkpoint;
     private int menuPosition = 0;
     private boolean onlyOnce = true;
 
     private int cursorAnimation = 0;
     int cursorAnimationCounter = 0;
-
+    int animationRight = 0;
+    int playerCounter = 0;
 
 
     /**
@@ -49,8 +53,10 @@ public class MenuWorld extends World {
      */
     @Override
     public void render(Graphics g) {
-        g.drawImage(background,0,0, game.width, game.height, null);
+        g.drawImage(background, 0, 0, game.width, game.height, null);
         renderMenu(g);
+        playerAnimationRight(g);
+
 
     }
 
@@ -58,26 +64,26 @@ public class MenuWorld extends World {
     private void renderMenu(Graphics g) {
 
         cursorAnimationCounter++;
-            cursorAnimation(g);
-            if (cursorAnimationCounter>=5){
-                cursorAnimationCounter = 0;
-            }
+        cursorAnimation(g);
+        if (cursorAnimationCounter >= 5) {
+            cursorAnimationCounter = 0;
+        }
 
-        switch (menuPosition){
+        switch (menuPosition) {
             case 0:
-                g.drawImage(newWorldButtonSelected, 21 * Game.blockSize, 3 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
-                g.drawImage(loadWorldButton, 21 * Game.blockSize, 5 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
-                g.drawImage(optionsButton, 21 * Game.blockSize, 7 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize , 2*Game.blockSize, null);
-break;
+                g.drawImage(newWorldButtonSelected, 21 * Game.blockSize, 3 * Game.blockSize, 8 * Game.blockSize, 2 * Game.blockSize, null);
+                g.drawImage(loadWorldButton, 21 * Game.blockSize, 5 * Game.blockSize + (int) (0.3 * Game.blockSize), 8 * Game.blockSize, 2 * Game.blockSize, null);
+                g.drawImage(optionsButton, 21 * Game.blockSize, 7 * Game.blockSize + (int) (0.6 * Game.blockSize), 8 * Game.blockSize, 2 * Game.blockSize, null);
+                break;
             case 1:
-                g.drawImage(newWorldButton, 21 * Game.blockSize, 3 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
-                g.drawImage(loadWorldButtonSelected, 21 * Game.blockSize, 5 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
-                g.drawImage(optionsButton, 21 * Game.blockSize, 7 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(newWorldButton, 21 * Game.blockSize, 3 * Game.blockSize, 8 * Game.blockSize, 2 * Game.blockSize, null);
+                g.drawImage(loadWorldButtonSelected, 21 * Game.blockSize, 5 * Game.blockSize + (int) (0.3 * Game.blockSize), 8 * Game.blockSize, 2 * Game.blockSize, null);
+                g.drawImage(optionsButton, 21 * Game.blockSize, 7 * Game.blockSize + (int) (0.6 * Game.blockSize), 8 * Game.blockSize, 2 * Game.blockSize, null);
                 break;
             case 2:
-                g.drawImage(newWorldButton, 21 * Game.blockSize, 3 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
-                g.drawImage(loadWorldButton, 21 * Game.blockSize, 5 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
-                g.drawImage(optionsButtonSelected, 21 * Game.blockSize, 7 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(newWorldButton, 21 * Game.blockSize, 3 * Game.blockSize, 8 * Game.blockSize, 2 * Game.blockSize, null);
+                g.drawImage(loadWorldButton, 21 * Game.blockSize, 5 * Game.blockSize + (int) (0.3 * Game.blockSize), 8 * Game.blockSize, 2 * Game.blockSize, null);
+                g.drawImage(optionsButtonSelected, 21 * Game.blockSize, 7 * Game.blockSize + (int) (0.6 * Game.blockSize), 8 * Game.blockSize, 2 * Game.blockSize, null);
         }
     }
 
@@ -149,54 +155,98 @@ break;
     }
 
 
-    public void cursorAnimation(Graphics g){
+    public void cursorAnimation(Graphics g) {
         switch (cursorAnimation) {
             case 0:
                 cursor = ImageLoader.loadImage("/Menu/Cursor1.png");
-                g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                if(cursorAnimationCounter>=5){
+                g.drawImage(cursor, 19 * Game.blockSize, (int) (3.5 * Game.blockSize) + menuPosition * (int) (2.3 * Game.blockSize), (int) (Game.blockSize * 1.3), (int) (Game.blockSize / 1.2), null);
+                if (cursorAnimationCounter >= 5) {
                     cursorAnimation++;
                 }
                 break;
             case 1:
                 cursor = ImageLoader.loadImage("/Menu/Cursor2.png");
-                g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                if(cursorAnimationCounter>=5){
+                g.drawImage(cursor, 19 * Game.blockSize, (int) (3.5 * Game.blockSize) + menuPosition * (int) (2.3 * Game.blockSize), (int) (Game.blockSize * 1.3), (int) (Game.blockSize / 1.2), null);
+                if (cursorAnimationCounter >= 5) {
                     cursorAnimation++;
                 }
                 break;
             case 2:
             case 6:
                 cursor = ImageLoader.loadImage("/Menu/Cursor3.png");
-                g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                if(cursorAnimationCounter>=5){
+                g.drawImage(cursor, 19 * Game.blockSize, (int) (3.5 * Game.blockSize) + menuPosition * (int) (2.3 * Game.blockSize), (int) (Game.blockSize * 1.3), (int) (Game.blockSize / 1.2), null);
+                if (cursorAnimationCounter >= 5) {
                     cursorAnimation++;
                 }
                 break;
             case 3:
             case 5:
                 cursor = ImageLoader.loadImage("/Menu/Cursor4.png");
-                g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                if(cursorAnimationCounter>=5){
+                g.drawImage(cursor, 19 * Game.blockSize, (int) (3.5 * Game.blockSize) + menuPosition * (int) (2.3 * Game.blockSize), (int) (Game.blockSize * 1.3), (int) (Game.blockSize / 1.2), null);
+                if (cursorAnimationCounter >= 5) {
                     cursorAnimation++;
                 }
                 break;
-            case 4: cursor = ImageLoader.loadImage("/Menu/Cursor5.png");
-                g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                if(cursorAnimationCounter>=5){
+            case 4:
+                cursor = ImageLoader.loadImage("/Menu/Cursor5.png");
+                g.drawImage(cursor, 19 * Game.blockSize, (int) (3.5 * Game.blockSize) + menuPosition * (int) (2.3 * Game.blockSize), (int) (Game.blockSize * 1.3), (int) (Game.blockSize / 1.2), null);
+                if (cursorAnimationCounter >= 5) {
                     cursorAnimation++;
                 }
                 break;
             case 7:
                 cursor = ImageLoader.loadImage("/Menu/Cursor2.png");
-                g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                if(cursorAnimationCounter>=5){
-                    cursorAnimation=0;
+                g.drawImage(cursor, 19 * Game.blockSize, (int) (3.5 * Game.blockSize) + menuPosition * (int) (2.3 * Game.blockSize), (int) (Game.blockSize * 1.3), (int) (Game.blockSize / 1.2), null);
+                if (cursorAnimationCounter >= 5) {
+                    cursorAnimation = 0;
                 }
                 break;
 
 
         }
+    }
+
+    private void playerAnimationRight(Graphics g) {
+        playerCounter++;
+        switch (animationRight) {
+            case 0:
+                player = ImageLoader.loadImage("/Player/player_right_up_openEyes.png");
+                if (playerCounter > 12) {
+                    animationRight++;
+                    playerCounter = 0;
+                }
+                break;
+            case 1:
+                player = ImageLoader.loadImage("/Player/player_right_down_openEyes.png");
+                if (playerCounter > 12) {
+                    animationRight++;
+                    playerCounter = 0;
+                }
+                break;
+            case 2:
+            case 4:
+                player = ImageLoader.loadImage("/Player/player_right_up_halfClosedEyes.png");
+                if (playerCounter > 12) {
+                    animationRight++;
+                    playerCounter = 0;
+                }
+                break;
+            case 3:
+                player = ImageLoader.loadImage("/Player/player_down_noEyes.png");
+                if (playerCounter > 12) {
+                    animationRight++;
+                    playerCounter = 0;
+                }
+                break;
+            case 5:
+                player = ImageLoader.loadImage("/Player/player_right_down_openEyes.png");
+                if (playerCounter > 12) {
+                    animationRight = 0;
+                    playerCounter = 0;
+                }
+                break;
+        }
+        g.drawImage(player, 11 * Game.blockSize, 8 * Game.blockSize, 2 * Game.blockSize, 4 * Game.blockSize, null);
     }
 }
 
