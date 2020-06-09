@@ -163,31 +163,37 @@ break;
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
                 if(cursorAnimationCounter>=5){
                     cursorAnimation++;
-                }                break;
+                }
+                break;
             case 2:
             case 6:
                 cursor = ImageLoader.loadImage("/Menu/Cursor3.png");
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
                 if(cursorAnimationCounter>=5){
                     cursorAnimation++;
-                }                break;
+                }
+                break;
             case 3:
             case 5:
                 cursor = ImageLoader.loadImage("/Menu/Cursor4.png");
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
                 if(cursorAnimationCounter>=5){
                     cursorAnimation++;
-                }                break;
+                }
+                break;
             case 4: cursor = ImageLoader.loadImage("/Menu/Cursor5.png");
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                cursorAnimation++;
+                if(cursorAnimationCounter>=5){
+                    cursorAnimation++;
+                }
                 break;
             case 7:
                 cursor = ImageLoader.loadImage("/Menu/Cursor2.png");
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
                 if(cursorAnimationCounter>=5){
                     cursorAnimation=0;
-                }                break;
+                }
+                break;
 
 
         }
