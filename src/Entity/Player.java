@@ -139,7 +139,6 @@ public class Player extends Creature {
 
         if (game.getKeyHandler().e) {
             collectItem();
-            System.out.println("schwurbelSCHWURBEL");
         }
     }
 
