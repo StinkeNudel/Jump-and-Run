@@ -17,6 +17,8 @@ import java.util.ArrayList;
 public class MenuWorld extends World {
     private BufferedImage newWorldButton = ImageLoader.loadImage("/Menu/newWorldButton.png");
     private BufferedImage loadWorldButton = ImageLoader.loadImage("/Menu/loadWorldButton.png");
+    private BufferedImage newWorldButtonSelected = ImageLoader.loadImage("/Menu/newWorldButtonSelected.png");
+    private BufferedImage loadWorldButtonSelected = ImageLoader.loadImage("/Menu/loadWorldButtonSelected.png");
     private int checkpoint;
     private int menuPosition = 0;
     private boolean onlyOnce = true;
@@ -47,11 +49,21 @@ public class MenuWorld extends World {
 
     private void renderMenu(Graphics g) {
         g.fillRect(13 * Game.blockSize, 4 * Game.blockSize + menuPosition * 2 * Game.blockSize, Game.blockSize, Game.blockSize);
-        g.drawImage(newWorldButton, 15 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
-        g.drawImage(loadWorldButton, 15 * Game.blockSize, 6 * Game.blockSize, 8 * Game.blockSize,2*Game.blockSize, null);
+        switch (menuPosition){
+            case 0:
+                g.drawImage(newWorldButtonSelected, 15 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(loadWorldButton, 15 * Game.blockSize, 6 * Game.blockSize, 8 * Game.blockSize,2*Game.blockSize, null);
+break;
+            case 1:
+                g.drawImage(newWorldButton, 15 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(loadWorldButtonSelected, 15 * Game.blockSize, 6 * Game.blockSize, 8 * Game.blockSize,2*Game.blockSize, null);
+                break;
+            case 2:
+                g.drawImage(newWorldButton, 15 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(loadWorldButton, 15 * Game.blockSize, 6 * Game.blockSize, 8 * Game.blockSize,2*Game.blockSize, null);
 
-        g.drawString("New Game", 15 * Game.blockSize, 4 * Game.blockSize + (int) (0.5 * Game.blockSize));
-        g.drawString("Load Game", 15 * Game.blockSize, 6 * Game.blockSize + (int) (0.5 * Game.blockSize));
+        }
+
         g.drawString("Test World", 15 * Game.blockSize, 8 * Game.blockSize + (int) (0.5 * Game.blockSize));
     }
 
@@ -72,11 +84,11 @@ public class MenuWorld extends World {
      */
     public void input() {
         if (onlyOnce) {
-            if (game.getKeyHandler().down) {
+            if (game.getKeyHandler().down && menuPosition < 2) {
                 menuPosition++;
                 onlyOnce = false;
             }
-            if (game.getKeyHandler().up) {
+            if (game.getKeyHandler().up && menuPosition > 0) {
                 menuPosition--;
                 onlyOnce = false;
             }
