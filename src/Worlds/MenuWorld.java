@@ -1,9 +1,6 @@
 package Worlds;
 
-import Blocks.SolidBlocks;
-import Entity.Player;
 import GFX.ImageLoader;
-import Input.MouseHandler;
 import Main.ArrayLists;
 import Main.Game;
 
@@ -12,16 +9,19 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
 
 public class MenuWorld extends World {
     private BufferedImage newWorldButton = ImageLoader.loadImage("/Menu/newWorldButton.png");
     private BufferedImage loadWorldButton = ImageLoader.loadImage("/Menu/loadWorldButton.png");
     private BufferedImage newWorldButtonSelected = ImageLoader.loadImage("/Menu/newWorldButtonSelected.png");
     private BufferedImage loadWorldButtonSelected = ImageLoader.loadImage("/Menu/loadWorldButtonSelected.png");
+    private BufferedImage background = ImageLoader.loadImage("/Menu/MenuBackground.png");
+
     private int checkpoint;
     private int menuPosition = 0;
     private boolean onlyOnce = true;
+
+
 
     /**
      * Constructor
@@ -43,7 +43,9 @@ public class MenuWorld extends World {
      */
     @Override
     public void render(Graphics g) {
+        g.drawImage(background,0,0, game.width, game.height, null);
         renderMenu(g);
+
     }
 
 
