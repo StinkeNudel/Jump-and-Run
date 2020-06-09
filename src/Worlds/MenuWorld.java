@@ -2,6 +2,7 @@ package Worlds;
 
 import Blocks.SolidBlocks;
 import Entity.Player;
+import GFX.ImageLoader;
 import Input.MouseHandler;
 import Main.ArrayLists;
 import Main.Game;
@@ -14,10 +15,11 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class MenuWorld extends World {
-
-    private Player player;
-    private MouseHandler mouseHandler;
+    private BufferedImage newWorldButton = ImageLoader.loadImage("/Menu/newWorldButton.png");
+    private BufferedImage loadWorldButton = ImageLoader.loadImage("/Menu/loadWorldButton.png");
     private int checkpoint;
+    private int menuPosition = 0;
+    private boolean onlyOnce = true;
 
     /**
      * Constructor
@@ -39,33 +41,18 @@ public class MenuWorld extends World {
      */
     @Override
     public void render(Graphics g) {
+        renderMenu(g);
+    }
 
-        ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-        for (int w = 0; w < solidBlocks.size(); w++) {
-            SolidBlocks m = (SolidBlocks) solidBlocks.get(w);
-            m.render(g);
-        }
 
-        //render startButton
-        g.setColor(Color.BLACK);
-        g.fillRect(game.width / 2 - (int)(game.blockSize*3.125), game.height / 2 - (int)(game.blockSize*0.78125), (int)(game.blockSize*6.25), (int)(game.blockSize*1.5625));
-        g.setColor(Color.WHITE);
-        g.drawString("TestWorld", game.width / 2 - (int)(game.blockSize*0.3125), game.height / 2);
+    private void renderMenu(Graphics g) {
+        g.fillRect(13 * Game.blockSize, 4 * Game.blockSize + menuPosition * 2 * Game.blockSize, Game.blockSize, Game.blockSize);
+        g.drawImage(newWorldButton, 15 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
+        g.drawImage(loadWorldButton, 15 * Game.blockSize, 6 * Game.blockSize, 8 * Game.blockSize,2*Game.blockSize, null);
 
-        //render newGameButton
-        g.setColor(Color.BLACK);
-        g.fillRect(game.width / 2 - (int)(game.blockSize*3.125), game.height / 2 + (int)(game.blockSize*1.5625), (int)(game.blockSize*6.25), (int)(game.blockSize*1.5625));
-        g.setColor(Color.WHITE);
-        g.drawString("New Game", game.width / 2 - (int)(game.blockSize*0.3125), game.height / 2 + (int)(game.blockSize*2.34375));
-
-        //render loadButton
-        g.setColor(Color.BLACK);
-        g.fillRect(game.width / 2 - (int)(game.blockSize*3.125), game.height / 2 + (int)(game.blockSize*3.90625), (int)(game.blockSize*6.25), (int)(game.blockSize*1.5625));
-        g.setColor(Color.WHITE);
-        g.drawString("Load Game", game.width / 2 - (int)(game.blockSize*0.3125), game.height / 2 + (int)(game.blockSize*4.6875));
-
-        g.setColor(Color.black);
-        g.fillRect((int)(game.blockSize*1.5625), (int)(game.blockSize*1.5625), (int) Game.blockSize, (int) game.blockSize);
+        g.drawString("New Game", 15 * Game.blockSize, 4 * Game.blockSize + (int) (0.5 * Game.blockSize));
+        g.drawString("Load Game", 15 * Game.blockSize, 6 * Game.blockSize + (int) (0.5 * Game.blockSize));
+        g.drawString("Test World", 15 * Game.blockSize, 8 * Game.blockSize + (int) (0.5 * Game.blockSize));
     }
 
     /**
@@ -75,7 +62,6 @@ public class MenuWorld extends World {
         try {
             BufferedReader br = new BufferedReader(new FileReader("src\\SaveFile"));
             checkpoint = Integer.parseInt(br.readLine());
-            System.out.println("yo" + checkpoint);
             br.close();
         } catch (Exception e) {
         }
@@ -85,44 +71,54 @@ public class MenuWorld extends World {
      * KeyInput
      */
     public void input() {
-
-        if (MouseHandler.clickX > game.width / 2 - (int)(game.blockSize*3.125) && MouseHandler.clickX < game.width / 2 + (int)(game.blockSize*3.125) && MouseHandler.clickY > game.height / 2 - 50 && MouseHandler.clickY < game.height / 2 + (int)(game.blockSize*0.78125)) {
-            ArrayLists.trees.clear();
-            ArrayLists.cloud1s.clear();
-            ArrayLists.cloud2s.clear();
-            ArrayLists.mountains.clear();
-            TestWorld testWorld = new TestWorld(game);
-            setWorld(testWorld);
-            MouseHandler.resetClicks();
+        if (onlyOnce) {
+            if (game.getKeyHandler().down) {
+                menuPosition++;
+                onlyOnce = false;
+            }
+            if (game.getKeyHandler().up) {
+                menuPosition--;
+                onlyOnce = false;
+            }
+        } else if (!game.getKeyHandler().up && !game.getKeyHandler().down) {
+            onlyOnce = true;
         }
-
-        if (MouseHandler.clickX > game.width / 2 - (int)(game.blockSize*3.125) && MouseHandler.clickX < game.width / 2 + (int)(game.blockSize*3.125) && MouseHandler.clickY > game.height / 2 + (int)(game.blockSize*1.5625) && MouseHandler.clickY < game.height / 2 + (int)(game.blockSize*3.125)) {
-            ArrayLists.trees.clear();
-            ArrayLists.cloud1s.clear();
-            ArrayLists.cloud2s.clear();
-            ArrayLists.mountains.clear();
-            World1 tutorial = new World1(game);
-            setWorld(tutorial);
-            MouseHandler.resetClicks();
-        }
-
-        if (MouseHandler.clickX > game.width / 2 - (int)(game.blockSize*3.125) && MouseHandler.clickX < game.width / 2 +(int)(game.blockSize*3.125) && MouseHandler.clickY > game.height / 2 + (int)(game.blockSize*3.90625) && MouseHandler.clickY < game.height / 2 + (int)(game.blockSize*5.46875)) {
-            ArrayLists.trees.clear();
-            ArrayLists.cloud1s.clear();
-            ArrayLists.cloud2s.clear();
-            ArrayLists.mountains.clear();
-            loadFile();
-            switch (checkpoint) {
-                case 0:
-                    World1 world1 = new World1(game);
-                    setWorld(world1);
+        if (game.getKeyHandler().enter) {
+            switch (menuPosition) {
+                case 0://New Game
+                    ArrayLists.trees.clear();
+                    ArrayLists.cloud1s.clear();
+                    ArrayLists.cloud2s.clear();
+                    ArrayLists.mountains.clear();
+                    World1 tutorial = new World1(game);
+                    setWorld(tutorial);
                     break;
-                case 1:
+                case 1: //Load Game
+                    ArrayLists.trees.clear();
+                    ArrayLists.cloud1s.clear();
+                    ArrayLists.cloud2s.clear();
+                    ArrayLists.mountains.clear();
+                    loadFile();
+                    switch (checkpoint) {
+                        case 0:
+                            World1 world1 = new World1(game);
+                            setWorld(world1);
+                            break;
+                        case 1:
+                            TestWorld testWorld = new TestWorld(game);
+                            setWorld(testWorld);
+                            break;
+                    }
+                    break;
+                case 2: //Options
+                    ArrayLists.trees.clear();
+                    ArrayLists.cloud1s.clear();
+                    ArrayLists.cloud2s.clear();
+                    ArrayLists.mountains.clear();
                     TestWorld testWorld = new TestWorld(game);
                     setWorld(testWorld);
                     break;
             }
-            MouseHandler.resetClicks();
         }
     }
 }
