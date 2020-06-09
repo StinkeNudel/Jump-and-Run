@@ -50,7 +50,7 @@ public class MenuWorld extends World {
 
 
     private void renderMenu(Graphics g) {
-        g.fillRect(19 * Game.blockSize, 4 * Game.blockSize + menuPosition * 2 * Game.blockSize, Game.blockSize, Game.blockSize);
+        g.fillRect(19 * Game.blockSize, (int)(4.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), Game.blockSize, Game.blockSize);
         switch (menuPosition){
             case 0:
                 g.drawImage(newWorldButtonSelected, 21 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
@@ -66,11 +66,7 @@ break;
                 g.drawImage(newWorldButton, 21 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
                 g.drawImage(loadWorldButton, 21 * Game.blockSize, 6 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
                 g.drawImage(newWorldButtonSelected, 21 * Game.blockSize, 8 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize, 2*Game.blockSize, null);
-
-
         }
-
-        g.drawString("Test World", 21 * Game.blockSize, 8 * Game.blockSize + (int) (0.5 * Game.blockSize));
     }
 
     /**
