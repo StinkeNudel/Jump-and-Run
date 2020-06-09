@@ -11,11 +11,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class MenuWorld extends World {
-    private BufferedImage newWorldButton = ImageLoader.loadImage("/Menu/newWorldButton.png");
-    private BufferedImage loadWorldButton = ImageLoader.loadImage("/Menu/loadWorldButton.png");
-    private BufferedImage newWorldButtonSelected = ImageLoader.loadImage("/Menu/newWorldButtonSelected.png");
-    private BufferedImage loadWorldButtonSelected = ImageLoader.loadImage("/Menu/loadWorldButtonSelected.png");
-    private BufferedImage background = ImageLoader.loadImage("/Menu/MenuBackground.png");
+    private final BufferedImage newWorldButton = ImageLoader.loadImage("/Menu/newWorldButton.png");
+    private final BufferedImage loadWorldButton = ImageLoader.loadImage("/Menu/loadWorldButton.png");
+    private final BufferedImage newWorldButtonSelected = ImageLoader.loadImage("/Menu/newWorldButtonSelected.png");
+    private final BufferedImage loadWorldButtonSelected = ImageLoader.loadImage("/Menu/loadWorldButtonSelected.png");
+    private final BufferedImage background = ImageLoader.loadImage("/Menu/MenuBackground.png");
 
     private int checkpoint;
     private int menuPosition = 0;
@@ -50,23 +50,27 @@ public class MenuWorld extends World {
 
 
     private void renderMenu(Graphics g) {
-        g.fillRect(13 * Game.blockSize, 4 * Game.blockSize + menuPosition * 2 * Game.blockSize, Game.blockSize, Game.blockSize);
+        g.fillRect(19 * Game.blockSize, 4 * Game.blockSize + menuPosition * 2 * Game.blockSize, Game.blockSize, Game.blockSize);
         switch (menuPosition){
             case 0:
-                g.drawImage(newWorldButtonSelected, 15 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
-                g.drawImage(loadWorldButton, 15 * Game.blockSize, 6 * Game.blockSize, 8 * Game.blockSize,2*Game.blockSize, null);
+                g.drawImage(newWorldButtonSelected, 21 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(loadWorldButton, 21 * Game.blockSize, 6 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
+                g.drawImage(newWorldButton, 21 * Game.blockSize, 8 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize , 2*Game.blockSize, null);
 break;
             case 1:
-                g.drawImage(newWorldButton, 15 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
-                g.drawImage(loadWorldButtonSelected, 15 * Game.blockSize, 6 * Game.blockSize, 8 * Game.blockSize,2*Game.blockSize, null);
+                g.drawImage(newWorldButton, 21 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(loadWorldButtonSelected, 21 * Game.blockSize, 6 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
+                g.drawImage(newWorldButton, 21 * Game.blockSize, 8 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize, 2*Game.blockSize, null);
                 break;
             case 2:
-                g.drawImage(newWorldButton, 15 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
-                g.drawImage(loadWorldButton, 15 * Game.blockSize, 6 * Game.blockSize, 8 * Game.blockSize,2*Game.blockSize, null);
+                g.drawImage(newWorldButton, 21 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
+                g.drawImage(loadWorldButton, 21 * Game.blockSize, 6 * Game.blockSize + (int)(0.3* Game.blockSize), 8 * Game.blockSize,2*Game.blockSize, null);
+                g.drawImage(newWorldButtonSelected, 21 * Game.blockSize, 8 * Game.blockSize + (int)(0.6* Game.blockSize), 8 * Game.blockSize, 2*Game.blockSize, null);
+
 
         }
 
-        g.drawString("Test World", 15 * Game.blockSize, 8 * Game.blockSize + (int) (0.5 * Game.blockSize));
+        g.drawString("Test World", 21 * Game.blockSize, 8 * Game.blockSize + (int) (0.5 * Game.blockSize));
     }
 
     /**
