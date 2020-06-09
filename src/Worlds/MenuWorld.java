@@ -23,6 +23,7 @@ public class MenuWorld extends World {
     private boolean onlyOnce = true;
 
     private int cursorAnimation = 0;
+    int cursorAnimationCounter = 0;
 
 
 
@@ -53,7 +54,13 @@ public class MenuWorld extends World {
 
 
     private void renderMenu(Graphics g) {
-        cursorAnimation(g);
+
+        cursorAnimationCounter++;
+            cursorAnimation(g);
+            if (cursorAnimationCounter>=5){
+                cursorAnimationCounter = 0;
+            }
+
         switch (menuPosition){
             case 0:
                 g.drawImage(newWorldButtonSelected, 21 * Game.blockSize, 4 * Game.blockSize, 8 * Game.blockSize, 2*Game.blockSize, null);
@@ -145,25 +152,30 @@ break;
             case 0:
                 cursor = ImageLoader.loadImage("/Menu/Cursor1.png");
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                cursorAnimation++;
+                if(cursorAnimationCounter>=5){
+                    cursorAnimation++;
+                }
                 break;
             case 1:
                 cursor = ImageLoader.loadImage("/Menu/Cursor2.png");
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                cursorAnimation++;
-                break;
+                if(cursorAnimationCounter>=5){
+                    cursorAnimation++;
+                }                break;
             case 2:
             case 6:
                 cursor = ImageLoader.loadImage("/Menu/Cursor3.png");
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                cursorAnimation++;
-                break;
+                if(cursorAnimationCounter>=5){
+                    cursorAnimation++;
+                }                break;
             case 3:
             case 5:
                 cursor = ImageLoader.loadImage("/Menu/Cursor4.png");
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                cursorAnimation++;
-                break;
+                if(cursorAnimationCounter>=5){
+                    cursorAnimation++;
+                }                break;
             case 4: cursor = ImageLoader.loadImage("/Menu/Cursor5.png");
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
                 cursorAnimation++;
@@ -171,8 +183,9 @@ break;
             case 7:
                 cursor = ImageLoader.loadImage("/Menu/Cursor2.png");
                 g.drawImage(cursor, 19 * Game.blockSize, (int)(3.5 * Game.blockSize) + menuPosition * (int)(2.3 * Game.blockSize), (int)(Game.blockSize*1.3), (int)(Game.blockSize/1.2), null);
-                cursorAnimation = 0;
-                break;
+                if(cursorAnimationCounter>=5){
+                    cursorAnimation=0;
+                }                break;
 
 
         }
