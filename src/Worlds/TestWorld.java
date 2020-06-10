@@ -22,7 +22,7 @@ public class TestWorld extends World {
 
     private final DoorSaveRoom doorSaveRoom;
     private final Item key;
-    private final Item shoe;
+    private final Item axe;
     private Schwurbel schwurbel;
 
 
@@ -50,8 +50,8 @@ public class TestWorld extends World {
         key = new Item(game, game.width / 2 + (int) (Game.blockSize * 2.34375), game.height - (int) (Game.blockSize * 2.8125), "key");
         ArrayLists.items.add(key);
 
-        shoe = new Item(game, game.width / 2 + (int) (Game.blockSize * 3.90625), game.height - (int) (Game.blockSize * 2.8125), "shoe");
-        ArrayLists.items.add(shoe);
+        axe = new Item(game, game.width / 2 + (int) (Game.blockSize * 3.90625), game.height - (int) (Game.blockSize * 2.8125), "axe");
+        ArrayLists.items.add(axe);
 
         saveGame();
     }

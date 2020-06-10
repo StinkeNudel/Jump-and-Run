@@ -14,7 +14,8 @@ import java.util.ArrayList;
 
 public class Player extends Creature {
     private BufferedImage image = ImageLoader.loadImage("/Player/player_right_up_openEyes.png"); // Image of the Player
-    private HealthBar healthBar; // HealthBar of the Player
+
+    private final HealthBar healthBar; // HealthBar of the Player
     private boolean falling = false; //decides if the Player is falling or not
     private boolean jump = false; //shows if the Player is jumping atm (not including the fall after the jump)
     private boolean movingRight, movingLeft; //the direction the player is moving at
@@ -31,10 +32,13 @@ public class Player extends Creature {
     private int animationCounterLeft = 0, animationCounterRight = 0, animationCounterStandLeft = 0, animationCounterStandRight = 0;
 
     boolean collectKey = false;
-    int keyY = 2*game.blockSize;
+    int keyY = 2 * Game.blockSize;
 
     boolean collectShoe = false;
-    int shoeY = 2*game.blockSize;
+    int shoeY = 2 * Game.blockSize;
+
+    boolean collectAxe = false;
+    int axeY = 2 * Game.blockSize;
 
     /**
      * Constructor
@@ -46,8 +50,8 @@ public class Player extends Creature {
     public Player(Game game, double x, double y) {
         super(game, x, y);
         this.game = game;
-        width = game.blockSize;
-        height = game.blockSize * 2;
+        width = Game.blockSize;
+        height = Game.blockSize * 2;
         health = 10;
         healthBar = new HealthBar();
         movedRight = true;
@@ -74,12 +78,17 @@ public class Player extends Creature {
      * @param g Graphics Object
      */
     public void render(Graphics g) {
+        renderPlayer(g);
+        healthBar.render(g);
+        renderItemMenu(g);
+    }
+
+    private void renderPlayer(Graphics g) {
         if (movingRight || movedRight) {
             g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
         } else {
-            g.drawImage(image, (int) (x - game.getGameCamera().getxOffset() + game.blockSize / 2), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
+            g.drawImage(image, (int) (x - game.getGameCamera().getxOffset() + Game.blockSize / 2), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
         }
-        healthBar.render(g);
         //g.drawRect((int) (getBoundsTop().x - game.getGameCamera().getxOffset()), (int) (getBoundsTop().y - game.getGameCamera().getyOffset()), getBoundsTop().width, getBoundsTop().height);
         //g.drawRect((int) (getBoundsDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsDown().y - game.getGameCamera().getyOffset()), getBoundsDown().width, getBoundsDown().height);
         //g.setColor(Color.GREEN);
@@ -87,7 +96,6 @@ public class Player extends Creature {
         //g.drawRect((int) (getBoundsRight().x - game.getGameCamera().getxOffset()), (int) (getBoundsRight().y - game.getGameCamera().getyOffset()), getBoundsRight().width, getBoundsRight().height);
         //g.drawRect((int) (getBoundsLadderDown().x - game.getGameCamera().getxOffset()), (int) (getBoundsLadderDown().y - game.getGameCamera().getyOffset()), getBoundsLadderDown().width, getBoundsLadderDown().height);
 
-        renderItemMenu(g);
     }
 
 
@@ -112,12 +120,12 @@ public class Player extends Creature {
 
         if (game.getKeyHandler().w) {
             if (fullLadder) {
-                y = y - game.blockSize * 5 / 64;
+                y = y - Game.blockSize * 5 / 64;
             }
         }
         if (game.getKeyHandler().s) {
-            if (topLadder || topLadder) {
-                y = y + game.blockSize * 5 / 64;
+            if (topLadder) {
+                y = y + Game.blockSize * 5 / 64;
             }
         }
 
@@ -222,31 +230,55 @@ public class Player extends Creature {
         for (int w = 0; w < items.size(); w++) {
             Item q = (Item) items.get(w);
             if (this.getBounds().intersects(q.getBounds())) {
-                    items.remove(q);
-                    if(q.type.equals("shoe")) {
+                items.remove(q);
+                switch (q.type) {
+                    case "shoe":
                         collectShoe = true;
-                        if(!collectKey) { keyY = keyY + 94; }
-                    }
-                    else if(q.type.equals("key")) {
+                        if (!collectKey) {
+                            keyY += 94;
+                        }
+                        if (!collectAxe) {
+                            axeY += 94;
+                        }
+                        break;
+                    case "key":
                         collectKey = true;
-                        if(!collectShoe){ shoeY = shoeY + 94; }
+                        if (!collectShoe) {
+                            shoeY += 94;
+                        }
+                        if (!collectAxe) {
+                            axeY += 94;
+                        }
 
-                    }
+                        break;
+                    case "axe":
+                        collectAxe = true;
+                        if (!collectShoe) {
+                            shoeY += 94;
+                        }
+                        if (!collectKey) {
+                            keyY += 94;
+                        }
+                        break;
+                }
+
             }
         }
     }
 
-    public void renderItemMenu(Graphics g){
+    public void renderItemMenu(Graphics g) {
+         BufferedImage key = ImageLoader.loadImage("/Items/key.png");
+         BufferedImage axe = ImageLoader.loadImage("/Items/axe.png");
 
-        if(collectShoe) {
+        if (collectShoe) {
             g.setColor(Color.MAGENTA);
-            g.fillRect(game.width - 2*game.blockSize, shoeY, 64, 64);
+            g.fillRect(game.width - 2 * Game.blockSize, shoeY, 64, 64);
         }
-
-        if(collectKey) {
-            g.setColor(Color.WHITE);
-            g.fillRect(game.width - 2*game.blockSize, keyY, 64, 64);
-
+        if (collectKey) {
+            g.drawImage(key, game.width - 4 * Game.blockSize, keyY, 3 * Game.blockSize, Game.blockSize, null);
+        }
+        if (collectAxe) {
+            g.drawImage(axe, game.width - 2 * Game.blockSize, axeY, Game.blockSize, 3 * Game.blockSize, null);
         }
     }
 
@@ -273,21 +305,21 @@ public class Player extends Creature {
     private void moveCamera() {
         int xOnScreen = (int) (x - game.getGameCamera().getxOffset());
         int yOnScreen = (int) (y - game.getGameCamera().getyOffset());
-        if (yOnScreen <= game.blockSize * 4.6875) {
-            game.getGameCamera().move(0,  -game.blockSize * (float)0.046875);
+        if (yOnScreen <= Game.blockSize * 4.6875) {
+            game.getGameCamera().move(0, -Game.blockSize * (float) 0.046875);
         }
-        if (yOnScreen >= game.blockSize*10.9375 && game.blockSize*14.0625 > yOnScreen) {
-            game.getGameCamera().move(0, game.blockSize * (float)0.046875);
-        } else if (yOnScreen >= game.blockSize*14.0625) {
-            game.getGameCamera().move(0, game.blockSize/8);
+        if (yOnScreen >= Game.blockSize * 10.9375 && Game.blockSize * 14.0625 > yOnScreen) {
+            game.getGameCamera().move(0, Game.blockSize * (float) 0.046875);
+        } else if (yOnScreen >= Game.blockSize * 14.0625) {
+            game.getGameCamera().move(0, Game.blockSize / 8);
         }
 
-        if (xOnScreen >= game.blockSize*15.9375) {
-            game.getGameCamera().move(game.blockSize* (float)0.078125, 0);
+        if (xOnScreen >= Game.blockSize * 15.9375) {
+            game.getGameCamera().move(Game.blockSize * (float) 0.078125, 0);
 
         }
-        if (xOnScreen <= game.blockSize*14.0625) {
-            game.getGameCamera().move(-game.blockSize* (float)0.078125, 0);
+        if (xOnScreen <= Game.blockSize * 14.0625) {
+            game.getGameCamera().move(-Game.blockSize * (float) 0.078125, 0);
         }
     }
 
@@ -304,7 +336,7 @@ public class Player extends Creature {
         gravity();
         jump();
 
-        double speed = game.blockSize*0.078125;
+        double speed = Game.blockSize * 0.078125;
         if (movingRight) {
             animationCounterRight++;
             if (animationCounterRight >= 3) {
@@ -352,20 +384,20 @@ public class Player extends Creature {
                 if (movingRight || movedRight) {
                     jumpAnimation();
                     //image = ImageLoader.loadImage("/Player/jump9.png");
-                } else if (movingLeft || !movedRight) {
+                } else {
                     jumpAnimationLeft();
                     //image = ImageLoader.loadImage("/Player/jump9Left.png");
                 }
 
             }
             if (jumpCounter < 5) {
-                y = y - game.blockSize*0.46875;
+                y = y - Game.blockSize * 0.46875;
             } else if (jumpCounter < 10) {
-                y = y - game.blockSize*0.3125;
+                y = y - Game.blockSize * 0.3125;
             } else if (jumpCounter < 15) {
-                y = y - game.blockSize*0.15625;
+                y = y - Game.blockSize * 0.15625;
             } else if (jumpCounter < 20) {
-                y = y - game.blockSize*0.078125;
+                y = y - Game.blockSize * 0.078125;
             }
             jumpCounter++;
         }
@@ -381,11 +413,11 @@ public class Player extends Creature {
      */
     private void gravity() {
         if (falling) {
-            y = y + game.blockSize/8;
+            y = y + (double) (Game.blockSize / 8);
             if (movingRight || movedRight) {
                 fallAnimation();
                 image = ImageLoader.loadImage("/Player/jump14.png");
-            } else if (movingLeft || !movedRight) {
+            } else {
                 fallAnimationLeft();
                 image = ImageLoader.loadImage("/Player/jump14Left.png");
             }
@@ -767,11 +799,11 @@ public class Player extends Creature {
 
     //HEALTHBAR CLASS
     public class HealthBar {
-        private int startHealth; //Player health at the beginning
-        private int barWidth = (int)(game.blockSize*3.59375); //width of the bar
-        private int barFillPerLive; //width of the bar per health point
+        private final int startHealth; //Player health at the beginning
+        private final int barWidth = (int) (Game.blockSize * 3.59375); //width of the bar
+        private final int barFillPerLive; //width of the bar per health point
         private int barCounter = 0; //counter for the health
-        private BufferedImage barImage = ImageLoader.loadImage("/HealthBar.png");
+        private final BufferedImage barImage = ImageLoader.loadImage("/HealthBar.png");
 
         /**
          * Constructor
@@ -794,15 +826,15 @@ public class Player extends Creature {
          * draws the bar
          */
         public void render(Graphics g) {
-            int barHeight = game.blockSize;
+            int barHeight = Game.blockSize;
             //height of the bar
-            g.drawRect((int)(game.blockSize*1.5625), (int)(game.blockSize*1.5625), barWidth, barHeight);
+            g.drawRect((int) (Game.blockSize * 1.5625), (int) (Game.blockSize * 1.5625), barWidth, barHeight);
             g.setColor(Color.GRAY);
-            g.fillRect((int)(game.blockSize*1.5625), (int)(game.blockSize*1.5625), barWidth, barHeight);
+            g.fillRect((int) (Game.blockSize * 1.5625), (int) (Game.blockSize * 1.5625), barWidth, barHeight);
             Color barRed = new Color(164, 0, 0);
             g.setColor(barRed);
-            g.fillRect((int)(game.blockSize*1.5625), (int)(game.blockSize*1.5625), barWidth - barCounter * barFillPerLive, barHeight);
-            g.drawImage(barImage, (int)(game.blockSize*1.09375), (int)(game.blockSize*1.25), (int)(game.blockSize*4.53125), (int)(game.blockSize*1.5625), null);
+            g.fillRect((int) (Game.blockSize * 1.5625), (int) (Game.blockSize * 1.5625), barWidth - barCounter * barFillPerLive, barHeight);
+            g.drawImage(barImage, (int) (Game.blockSize * 1.09375), (int) (Game.blockSize * 1.25), (int) (Game.blockSize * 4.53125), (int) (Game.blockSize * 1.5625), null);
         }
 
     }
