@@ -111,20 +111,13 @@ public class TestWorld extends World {
 
 
     public void input() {
-        if(player.getBounds().intersects(doorSaveRoom.getBounds())) {
-
-            System.out.println("rechteck");
+        if(player.getBounds().intersects(doorSaveRoom.getBounds()) && game.getKeyHandler().e) {
             //WorldShifter worldShifter = new WorldShifter(game, 0,0);
             //worldShifter.shift = true;
-
-            if(game.getKeyHandler().e) {
-                System.out.println("e");
-
                 ArrayList solidBlocks = ArrayLists.getSolidBlocks();
                 solidBlocks.clear();
                 SaveWorld saveWorld = new SaveWorld(game);
                 World.setWorld(saveWorld);
-            }
 
         }
 
