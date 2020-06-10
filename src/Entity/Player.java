@@ -119,6 +119,7 @@ public class Player extends Creature {
         }
 
         if (game.getKeyHandler().w) {
+            image = ImageLoader.loadImage("/player_back-1.png.png");
             if (fullLadder) {
                 y = y - Game.blockSize * 5 / 64;
             }

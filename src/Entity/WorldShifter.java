@@ -7,8 +7,10 @@ import java.awt.*;
 public class WorldShifter extends Entity{
 
     private int r = 255, n = 255, b = 255;
+            double a = 0.0;
 
     public boolean shift = false;
+    public boolean shift2 = false;
 
 
     /**
@@ -33,28 +35,33 @@ public class WorldShifter extends Entity{
     public void render(Graphics g) {
         System.out.println("Hey Im there");
 
-        if(shift) {
-            worldShift(g);
-        }
+        worldShift(g);
+
     }
 
     public void worldShift(Graphics g) {
-        g.setColor(new Color (r,n,b));
+        g.setColor(Color.black);
         g.fillRect(0, 0, game.width, game.height);
 
-        if(r <=255 && n <=255 && b <=255) {
-            r--;
-            n--;
-            b--;
-            /**if (r >=0 && n >=0 && b >=0) {
-                r++;
-                n++;
-                b++;
-                shift = false;
-            } */
+        if(r <=255 && n <=255 && b <=255 && shift) {
+            r -= 2;
+            n -= 2;
+            b -= 2;
+            shift = false;
+            shift2 = true;
         }
-        System.out.println("r" + r);
+
+            if (r >=0 && n >=0 && b >=0 && shift2) {
+                r+=2;
+                n+=2;
+                b+=2;
+                shift2 = false;
+            }
+
+            System.out.println("r" + r);
         System.out.println("n"+n);
         System.out.println("b"+b);
-    }
+        }
+
+
 }

@@ -25,6 +25,8 @@ public class TestWorld extends World {
     private int textCount;
     private boolean onlyOnceText = true;
 
+    public WorldShifter worldShifter;
+
 
     /**
      * Constructor
@@ -34,6 +36,8 @@ public class TestWorld extends World {
     public TestWorld(Game game) {
         super(game);
         loadFile();
+
+        worldShifter = new WorldShifter(game, 0,0);
 
         schwurbelnator();
 
@@ -84,6 +88,7 @@ public class TestWorld extends World {
         worm.render(g);
         player.render(g);
         renderBlocks(g);
+        //worldShifter.render(g);
 
         ArrayList schwurbels = ArrayLists.schwurbels;
         for (int w = 0; w < schwurbels.size(); w++) {
@@ -102,10 +107,10 @@ public class TestWorld extends World {
     private void renderText(Graphics g) {
         switch (textCount) {
             case 1:
-                TextPrinter.addText("Hello There", 3 * game.blockSize, 6 * game.blockSize, g);
+                TextPrinter.addText("Hello There", 3 * Game.blockSize, 6 * Game.blockSize, g);
                 break;
             case 2:
-                TextPrinter.addText("General Kenobi", 3 * game.blockSize, 6 * game.blockSize, g);
+                TextPrinter.addText("General Kenobi", 3 * Game.blockSize, 6 * Game.blockSize, g);
                 break;
         }
         if (game.getKeyHandler().e && onlyOnceText) {
@@ -140,15 +145,13 @@ public class TestWorld extends World {
             solidBlocks.clear();
             SaveWorld saveWorld = new SaveWorld(game);
             World.setWorld(saveWorld);
-
         }
-
     }
 
 
     public void schwurbelnator() {
         ArrayList schwurbels = ArrayLists.getSchwurbels();
-        int schwurbelX = game.width / 2 + (int) (game.blockSize * 3.125), schwurbelY = game.height - (int) (game.blockSize * 3.453125), idk;
+        int schwurbelX = game.width / 2 + (int) (Game.blockSize * 3.125), schwurbelY = game.height - (int) (Game.blockSize * 3.453125), idk;
 
         Random random = new Random();
 
