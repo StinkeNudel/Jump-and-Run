@@ -34,8 +34,7 @@ public class DoorSaveRoom extends Entity {
     }
 
     private void openMe() {
-        if (x < MouseHandler.clickX + game.getGameCamera().getxOffset() && x + doorWidth > MouseHandler.clickX + game.getGameCamera().getxOffset()) {
-            if (y < MouseHandler.clickY + game.getGameCamera().getyOffset() && y + doorHeight > MouseHandler.clickY + game.getGameCamera().getyOffset()) {
+        if (game.getKeyHandler().e) {
                 ArrayList solidBlocks = ArrayLists.getSolidBlocks();
                 solidBlocks.clear();
                 SaveWorld saveWorld = new SaveWorld(game);
@@ -43,5 +42,5 @@ public class DoorSaveRoom extends Entity {
                 MouseHandler.resetClicks();
             }
         }
-    }
+
 }
