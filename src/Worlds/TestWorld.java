@@ -25,6 +25,8 @@ public class TestWorld extends World {
     private final Item shoe;
     private Schwurbel schwurbel;
 
+    public WorldShifter worldShifter;
+
 
     /**
      * Constructor
@@ -34,6 +36,8 @@ public class TestWorld extends World {
     public TestWorld(Game game) {
         super(game);
         loadFile();
+
+        worldShifter = new WorldShifter(game, 0,0);
 
         schwurbelnator();
 
@@ -84,6 +88,7 @@ public class TestWorld extends World {
         worm.render(g);
         player.render(g);
         renderBlocks(g);
+        //worldShifter.render(g);
 
         ArrayList schwurbels = ArrayLists.schwurbels;
         for (int w = 0; w < schwurbels.size(); w++) {
@@ -112,13 +117,14 @@ public class TestWorld extends World {
 
     public void input() {
         if(player.getBounds().intersects(doorSaveRoom.getBounds()) && game.getKeyHandler().e) {
-            //WorldShifter worldShifter = new WorldShifter(game, 0,0);
-            //worldShifter.shift = true;
-                ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+            worldShifter.shift = true;
+
+            /**
+            ArrayList solidBlocks = ArrayLists.getSolidBlocks();
                 solidBlocks.clear();
                 SaveWorld saveWorld = new SaveWorld(game);
                 World.setWorld(saveWorld);
-
+*/
         }
 
     }
