@@ -33,9 +33,9 @@ public class DoorLevel1 extends Entity {
         g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), doorWidth, doorHeight, null);
     }
 
+
     private void openMe() {
-        if (x < MouseHandler.clickX + game.getGameCamera().getxOffset() && x + doorWidth > MouseHandler.clickX + game.getGameCamera().getxOffset()) {
-            if (y < MouseHandler.clickY + game.getGameCamera().getyOffset() && y + doorHeight > MouseHandler.clickY + game.getGameCamera().getyOffset()) {
+        if (game.getKeyHandler().e){
                 ArrayList solidBlocks = ArrayLists.getSolidBlocks();
                 solidBlocks.clear();
                 SaveWorld saveWorld = new SaveWorld(game);
@@ -43,7 +43,6 @@ public class DoorLevel1 extends Entity {
                 game.getGameCamera().setxOffset(0);
                 game.getGameCamera().setyOffset(0);
                 MouseHandler.resetClicks();
-            }
         }
     }
 }
