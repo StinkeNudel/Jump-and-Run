@@ -5,12 +5,10 @@ import Entity.*;
 import Entity.Doors.DoorSaveRoom;
 import Main.ArrayLists;
 import Main.Game;
+import Main.TextPrinter;
 
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -24,6 +22,8 @@ public class TestWorld extends World {
     private final Item key;
     private final Item axe;
     private Schwurbel schwurbel;
+    private int textCount;
+    private boolean onlyOnceText = true;
 
 
     /**
@@ -96,6 +96,30 @@ public class TestWorld extends World {
             Item q = (Item) items.get(w);
             q.render(g);
         }
+        renderText(g);
+    }
+
+    private void renderText(Graphics g) {
+        switch (textCount) {
+            case 1:
+                TextPrinter.addText("Hello There", 3 * game.blockSize, 6 * game.blockSize, g);
+                break;
+            case 2:
+                TextPrinter.addText("General Kenobi", 3 * game.blockSize, 6 * game.blockSize, g);
+                break;
+        }
+        if (game.getKeyHandler().e && onlyOnceText) {
+            textCount++;
+            if(textCount >=3){
+                textCount = 0;
+            }
+            TextPrinter.clearText();
+            onlyOnceText = false;
+        }
+        else if(!game.getKeyHandler().e){
+            onlyOnceText = true;
+        }
+
     }
 
     private void renderBlocks(Graphics g) {
@@ -108,23 +132,14 @@ public class TestWorld extends World {
         }
     }
 
-
-
     public void input() {
-        if(player.getBounds().intersects(doorSaveRoom.getBounds())) {
-
-            System.out.println("rechteck");
+        if (player.getBounds().intersects(doorSaveRoom.getBounds()) && game.getKeyHandler().e) {
             //WorldShifter worldShifter = new WorldShifter(game, 0,0);
             //worldShifter.shift = true;
-
-            if(game.getKeyHandler().e) {
-                System.out.println("e");
-
-                ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-                solidBlocks.clear();
-                SaveWorld saveWorld = new SaveWorld(game);
-                World.setWorld(saveWorld);
-            }
+            ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+            solidBlocks.clear();
+            SaveWorld saveWorld = new SaveWorld(game);
+            World.setWorld(saveWorld);
 
         }
 
@@ -133,7 +148,7 @@ public class TestWorld extends World {
 
     public void schwurbelnator() {
         ArrayList schwurbels = ArrayLists.getSchwurbels();
-        int schwurbelX = game.width / 2 + (int)(game.blockSize*3.125), schwurbelY = game.height - (int)(game.blockSize*3.453125), idk;
+        int schwurbelX = game.width / 2 + (int) (game.blockSize * 3.125), schwurbelY = game.height - (int) (game.blockSize * 3.453125), idk;
 
         Random random = new Random();
 
