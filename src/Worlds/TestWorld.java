@@ -64,6 +64,7 @@ public class TestWorld extends World {
         player.tick();
         worm.tick();
         doorSaveRoom.tick();
+        input();
 
         ArrayList schwurbels = ArrayLists.schwurbels;
         for (int w = 0; w < schwurbels.size(); w++) {
@@ -106,6 +107,29 @@ public class TestWorld extends World {
             }
         }
     }
+
+
+
+    public void input() {
+        if(player.getBounds().intersects(doorSaveRoom.getBounds())) {
+
+            System.out.println("rechteck");
+            //WorldShifter worldShifter = new WorldShifter(game, 0,0);
+            //worldShifter.shift = true;
+
+            if(game.getKeyHandler().e) {
+                System.out.println("e");
+
+                ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+                solidBlocks.clear();
+                SaveWorld saveWorld = new SaveWorld(game);
+                World.setWorld(saveWorld);
+            }
+
+        }
+
+    }
+
 
     public void schwurbelnator() {
         ArrayList schwurbels = ArrayLists.getSchwurbels();
