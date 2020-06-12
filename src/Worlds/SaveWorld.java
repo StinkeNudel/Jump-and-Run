@@ -20,6 +20,7 @@ public class SaveWorld extends World {
 
     private Player player;
     private DoorSaveRoom doorSaveRoom;
+    private int startAlpha = 254;
 
     /**
      * Constructor
@@ -47,16 +48,18 @@ public class SaveWorld extends World {
         doorSaveRoom.tick();
     }
 
+
     /**
      * renders the world
      *
      * @param g Graphics Object
      */
     public void render(Graphics g) {
-        g.drawImage(image, -1000 - (int) (game.getGameCamera().getxOffset()), -1000- (int) (game.getGameCamera().getyOffset()), 6000, 6000, null);
+        g.drawImage(image, -1000 - (int) (game.getGameCamera().getxOffset()), -1000 - (int) (game.getGameCamera().getyOffset()), 6000, 6000, null);
         doorSaveRoom.render(g);
         player.render(g);
         renderBlocks(g);
+        startBlackScreen(g);
     }
 
     private void renderBlocks(Graphics g) {
@@ -66,6 +69,15 @@ public class SaveWorld extends World {
             if (m.x > player.x - 1100 && m.x < player.x + 1000) {
                 m.render(g);
             }
+        }
+    }
+
+    private void startBlackScreen(Graphics g) {
+        if (startAlpha > 1) {
+            Color color = new Color(0, 0, 0, startAlpha);
+            g.setColor(color);
+            g.fillRect(0, 0, game.width, game.height);
+            startAlpha -= 2;
         }
     }
 

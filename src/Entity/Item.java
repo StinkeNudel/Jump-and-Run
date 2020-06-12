@@ -1,6 +1,5 @@
 package Entity;
 
-import Entity.Entity;
 import GFX.ImageLoader;
 import Main.Game;
 
@@ -9,7 +8,8 @@ import java.awt.image.BufferedImage;
 
 public class Item extends Entity {
 
-    private BufferedImage item = ImageLoader.loadImage("/noodle.jpg");
+    private BufferedImage key = ImageLoader.loadImage("/Items/key.png");
+    private BufferedImage axe = ImageLoader.loadImage("/Items/axe.png");
 
 
     /**
@@ -35,7 +35,12 @@ public class Item extends Entity {
 
     @Override
     public void render(Graphics g) {
-        //g.drawImage(item, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), 64, 64, null);
+        if(type.equals("key")) {
+            g.drawImage(key, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), (int)(1.5*game.blockSize), (int)(0.5*game.blockSize), null);
+        }
+        else if(type.equals("axe")){
+            g.drawImage(axe, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), (int)(1*game.blockSize), (int)(3*game.blockSize), null);
+        }
         g.setColor(Color.blue);
         g.drawRect((int) (getBounds().x - game.getGameCamera().getxOffset()), (int) (getBounds().y - game.getGameCamera().getyOffset()), getBounds().width, getBounds().height);
 

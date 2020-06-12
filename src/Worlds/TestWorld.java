@@ -5,12 +5,10 @@ import Entity.*;
 import Entity.Doors.DoorSaveRoom;
 import Main.ArrayLists;
 import Main.Game;
+import Main.TextPrinter;
 
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -22,10 +20,15 @@ public class TestWorld extends World {
 
     private final DoorSaveRoom doorSaveRoom;
     private final Item key;
-    private final Item shoe;
+    private final Item axe;
     private Schwurbel schwurbel;
+    private int textCount;
+    private boolean onlyOnceText = true;
+    int worldChangeAlpha = 1;
+    private boolean worldChange = false;
 
     public WorldShifter worldShifter;
+    private int startAlpha = 254;
 
 
     /**
@@ -37,7 +40,7 @@ public class TestWorld extends World {
         super(game);
         loadFile();
 
-        worldShifter = new WorldShifter(game, 0,0);
+        worldShifter = new WorldShifter(game, 0, 0);
 
         schwurbelnator();
 
@@ -54,8 +57,8 @@ public class TestWorld extends World {
         key = new Item(game, game.width / 2 + (int) (Game.blockSize * 2.34375), game.height - (int) (Game.blockSize * 2.8125), "key");
         ArrayLists.items.add(key);
 
-        shoe = new Item(game, game.width / 2 + (int) (Game.blockSize * 3.90625), game.height - (int) (Game.blockSize * 2.8125), "shoe");
-        ArrayLists.items.add(shoe);
+        axe = new Item(game, game.width / 2 + (int) (Game.blockSize * 3.90625), game.height - (int) (Game.blockSize * 2.8125), "axe");
+        ArrayLists.items.add(axe);
 
         saveGame();
     }
@@ -88,7 +91,6 @@ public class TestWorld extends World {
         worm.render(g);
         player.render(g);
         renderBlocks(g);
-        //worldShifter.render(g);
 
         ArrayList schwurbels = ArrayLists.schwurbels;
         for (int w = 0; w < schwurbels.size(); w++) {
@@ -101,6 +103,31 @@ public class TestWorld extends World {
             Item q = (Item) items.get(w);
             q.render(g);
         }
+        renderText(g);
+        worldChange(g);
+        startBlackScreen(g);
+    }
+
+    private void renderText(Graphics g) {
+        switch (textCount) {
+            case 1:
+                TextPrinter.addText("Hello There", 3 * Game.blockSize, 6 * Game.blockSize, g);
+                break;
+            case 2:
+                TextPrinter.addText("General Kenobi", 3 * Game.blockSize, 6 * Game.blockSize, g);
+                break;
+        }
+        if (game.getKeyHandler().e && onlyOnceText) {
+            textCount++;
+            if (textCount >= 3) {
+                textCount = 0;
+            }
+            TextPrinter.clearText();
+            onlyOnceText = false;
+        } else if (!game.getKeyHandler().e) {
+            onlyOnceText = true;
+        }
+
     }
 
     private void renderBlocks(Graphics g) {
@@ -113,26 +140,41 @@ public class TestWorld extends World {
         }
     }
 
-
-
     public void input() {
-        if(player.getBounds().intersects(doorSaveRoom.getBounds()) && game.getKeyHandler().e) {
-            worldShifter.shift = true;
+        if (player.getBounds().intersects(doorSaveRoom.getBounds()) && game.getKeyHandler().e) {
+            worldChange = true;
+        }
+    }
 
-            /**
-            ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+    private void worldChange(Graphics g) {
+        if (worldChange) {
+            if (worldChangeAlpha < 252) {
+                worldChangeAlpha += 2;
+            }
+            Color test = new Color(0, 0, 0, worldChangeAlpha);
+            g.setColor(test);
+            g.fillRect(0, 0, game.width, game.height);
+            if (worldChangeAlpha >= 252) {
+                ArrayList solidBlocks = ArrayLists.getSolidBlocks();
                 solidBlocks.clear();
                 SaveWorld saveWorld = new SaveWorld(game);
                 World.setWorld(saveWorld);
-*/
+            }
         }
-
     }
 
+    private void startBlackScreen(Graphics g) {
+        if (startAlpha > 1) {
+            Color color = new Color(0, 0, 0, startAlpha);
+            g.setColor(color);
+            g.fillRect(0, 0, game.width, game.height);
+            startAlpha -= 2;
+        }
+    }
 
     public void schwurbelnator() {
         ArrayList schwurbels = ArrayLists.getSchwurbels();
-        int schwurbelX = game.width / 2 + (int)(game.blockSize*3.125), schwurbelY = game.height - (int)(game.blockSize*3.453125), idk;
+        int schwurbelX = game.width / 2 + (int) (Game.blockSize * 3.125), schwurbelY = game.height - (int) (Game.blockSize * 3.453125), idk;
 
         Random random = new Random();
 
