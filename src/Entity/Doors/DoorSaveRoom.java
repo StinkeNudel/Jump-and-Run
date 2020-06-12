@@ -27,9 +27,6 @@ public class DoorSaveRoom extends Entity {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.black);
-        g.drawRect((int) (this.getBounds().x - game.getGameCamera().getxOffset()), (int) (this.getBounds().y - game.getGameCamera().getyOffset()), this.getBounds().width, this.getBounds().height);
-
-        //g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
+        g.drawImage(image, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
     }
 }

@@ -24,8 +24,11 @@ public class TestWorld extends World {
     private Schwurbel schwurbel;
     private int textCount;
     private boolean onlyOnceText = true;
+    int worldChangeAlpha = 1;
+    private boolean worldChange = false;
 
     public WorldShifter worldShifter;
+    private int startAlpha = 254;
 
 
     /**
@@ -37,7 +40,7 @@ public class TestWorld extends World {
         super(game);
         loadFile();
 
-        worldShifter = new WorldShifter(game, 0,0);
+        worldShifter = new WorldShifter(game, 0, 0);
 
         schwurbelnator();
 
@@ -88,7 +91,6 @@ public class TestWorld extends World {
         worm.render(g);
         player.render(g);
         renderBlocks(g);
-        //worldShifter.render(g);
 
         ArrayList schwurbels = ArrayLists.schwurbels;
         for (int w = 0; w < schwurbels.size(); w++) {
@@ -102,6 +104,8 @@ public class TestWorld extends World {
             q.render(g);
         }
         renderText(g);
+        worldChange(g);
+        startBlackScreen(g);
     }
 
     private void renderText(Graphics g) {
@@ -115,13 +119,12 @@ public class TestWorld extends World {
         }
         if (game.getKeyHandler().e && onlyOnceText) {
             textCount++;
-            if(textCount >=3){
+            if (textCount >= 3) {
                 textCount = 0;
             }
             TextPrinter.clearText();
             onlyOnceText = false;
-        }
-        else if(!game.getKeyHandler().e){
+        } else if (!game.getKeyHandler().e) {
             onlyOnceText = true;
         }
 
@@ -139,15 +142,35 @@ public class TestWorld extends World {
 
     public void input() {
         if (player.getBounds().intersects(doorSaveRoom.getBounds()) && game.getKeyHandler().e) {
-            //WorldShifter worldShifter = new WorldShifter(game, 0,0);
-            //worldShifter.shift = true;
-            ArrayList solidBlocks = ArrayLists.getSolidBlocks();
-            solidBlocks.clear();
-            SaveWorld saveWorld = new SaveWorld(game);
-            World.setWorld(saveWorld);
+            worldChange = true;
         }
     }
 
+    private void worldChange(Graphics g) {
+        if (worldChange) {
+            if (worldChangeAlpha < 252) {
+                worldChangeAlpha += 2;
+            }
+            Color test = new Color(0, 0, 0, worldChangeAlpha);
+            g.setColor(test);
+            g.fillRect(0, 0, game.width, game.height);
+            if (worldChangeAlpha >= 252) {
+                ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+                solidBlocks.clear();
+                SaveWorld saveWorld = new SaveWorld(game);
+                World.setWorld(saveWorld);
+            }
+        }
+    }
+
+    private void startBlackScreen(Graphics g) {
+        if (startAlpha > 1) {
+            Color color = new Color(0, 0, 0, startAlpha);
+            g.setColor(color);
+            g.fillRect(0, 0, game.width, game.height);
+            startAlpha -= 2;
+        }
+    }
 
     public void schwurbelnator() {
         ArrayList schwurbels = ArrayLists.getSchwurbels();

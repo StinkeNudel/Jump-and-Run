@@ -31,7 +31,9 @@ public class MenuWorld extends World {
     int cursorAnimationCounter = 0;
     int animationRight = 0;
     int playerCounter = 0;
-
+    private int worldChangeAlpha = 1;
+    private boolean worldWillChange = false;
+    private boolean changeInput = true;
 
     /**
      * Constructor
@@ -56,7 +58,7 @@ public class MenuWorld extends World {
         g.drawImage(background, 0, 0, game.width, game.height, null);
         renderMenu(g);
         playerAnimationRight(g);
-
+        renderWorldChange(g);
 
     }
 
@@ -103,57 +105,77 @@ public class MenuWorld extends World {
      * KeyInput
      */
     public void input() {
-        if (onlyOnce) {
-            if (game.getKeyHandler().down && menuPosition < 2) {
-                menuPosition++;
-                onlyOnce = false;
+        if (changeInput) {
+            if (onlyOnce) {
+                if (game.getKeyHandler().down && menuPosition < 2) {
+                    menuPosition++;
+                    onlyOnce = false;
+                }
+                if (game.getKeyHandler().up && menuPosition > 0) {
+                    menuPosition--;
+                    onlyOnce = false;
+                }
+            } else if (!game.getKeyHandler().up && !game.getKeyHandler().down) {
+                onlyOnce = true;
             }
-            if (game.getKeyHandler().up && menuPosition > 0) {
-                menuPosition--;
-                onlyOnce = false;
-            }
-        } else if (!game.getKeyHandler().up && !game.getKeyHandler().down) {
-            onlyOnce = true;
         }
         if (game.getKeyHandler().enter) {
-            switch (menuPosition) {
-                case 0://New Game
-                    ArrayLists.trees.clear();
-                    ArrayLists.cloud1s.clear();
-                    ArrayLists.cloud2s.clear();
-                    ArrayLists.mountains.clear();
-                    World1 tutorial = new World1(game);
-                    setWorld(tutorial);
-                    break;
-                case 1: //Load Game
-                    ArrayLists.trees.clear();
-                    ArrayLists.cloud1s.clear();
-                    ArrayLists.cloud2s.clear();
-                    ArrayLists.mountains.clear();
-                    loadFile();
-                    switch (checkpoint) {
-                        case 0:
-                            World1 world1 = new World1(game);
-                            setWorld(world1);
-                            break;
-                        case 1:
-                            TestWorld testWorld = new TestWorld(game);
-                            setWorld(testWorld);
-                            break;
-                    }
-                    break;
-                case 2: //Options
-                    ArrayLists.trees.clear();
-                    ArrayLists.cloud1s.clear();
-                    ArrayLists.cloud2s.clear();
-                    ArrayLists.mountains.clear();
-                    TestWorld testWorld = new TestWorld(game);
-                    setWorld(testWorld);
-                    break;
+            worldWillChange = true;
+            changeInput = true;
+        }
+    }
+
+    private void renderWorldChange(Graphics g) {
+        if (worldWillChange) {
+            if (worldChangeAlpha < 252) {
+                Color color = new Color(0, 0, 0, worldChangeAlpha);
+                g.setColor(color);
+                g.fillRect(0, 0, game.width, game.height);
+                worldChangeAlpha +=2;
+            }
+            if (worldChangeAlpha >= 252) {
+                changeWorld();
             }
         }
     }
 
+    private void changeWorld() {
+        switch (menuPosition) {
+            case 0://New Game
+                ArrayLists.trees.clear();
+                ArrayLists.cloud1s.clear();
+                ArrayLists.cloud2s.clear();
+                ArrayLists.mountains.clear();
+                World1 tutorial = new World1(game);
+                setWorld(tutorial);
+                break;
+            case 1: //Load Game
+                ArrayLists.trees.clear();
+                ArrayLists.cloud1s.clear();
+                ArrayLists.cloud2s.clear();
+                ArrayLists.mountains.clear();
+                loadFile();
+                switch (checkpoint) {
+                    case 0:
+                        World1 world1 = new World1(game);
+                        setWorld(world1);
+                        break;
+                    case 1:
+                        TestWorld testWorld = new TestWorld(game);
+                        setWorld(testWorld);
+                        break;
+                }
+                break;
+            case 2: //Options
+                ArrayLists.trees.clear();
+                ArrayLists.cloud1s.clear();
+                ArrayLists.cloud2s.clear();
+                ArrayLists.mountains.clear();
+                TestWorld testWorld = new TestWorld(game);
+                setWorld(testWorld);
+                break;
+        }
+    }
 
     public void cursorAnimation(Graphics g) {
         switch (cursorAnimation) {
