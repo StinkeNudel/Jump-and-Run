@@ -122,8 +122,8 @@ public class MenuWorld extends World {
                     ArrayLists.cloud1s.clear();
                     ArrayLists.cloud2s.clear();
                     ArrayLists.mountains.clear();
-                    World1 tutorial = new World1(game);
-                    setWorld(tutorial);
+                    Level1 level1 = new Level1(game);
+                    setWorld(level1);
                     break;
                 case 1: //Load Game
                     ArrayLists.trees.clear();
@@ -133,8 +133,8 @@ public class MenuWorld extends World {
                     loadFile();
                     switch (checkpoint) {
                         case 0:
-                            World1 world1 = new World1(game);
-                            setWorld(world1);
+                            Level1 level11 = new Level1(game);
+                            setWorld(level11);
                             break;
                         case 1:
                             TestWorld testWorld = new TestWorld(game);
