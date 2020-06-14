@@ -137,7 +137,7 @@ public class Level1 extends World {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     type = s.next();
-                    if (type.equals("N")) {
+                    if (type.equals("-")) {
                         //NOTHING
                     } else if (type.equals("l") || type.equals("s") || type.equals("d")) {
                         BackBlock b = new BackBlock(game, x * Game.blockSize, y * Game.blockSize, type);
