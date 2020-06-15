@@ -6,7 +6,9 @@ import Background.Mountain;
 import Background.Tree;
 import Blocks.BackBlock;
 import Blocks.Block;
+import Blocks.Ladder;
 import Blocks.SolidBlocks;
+import Entity.Doors.DoorSaveRoom;
 import Entity.Player;
 import Main.ArrayLists;
 import Main.Game;
@@ -20,6 +22,13 @@ import java.util.Scanner;
 public class Level1 extends World {
 
     private final Player player;
+    private DoorSaveRoom doorSaveRoom;
+
+    int worldChangeAlpha = 1;
+    private boolean worldChange = false;
+    private int startAlpha = 254;
+
+
 
 
     public Level1(Game game) {
@@ -28,7 +37,11 @@ public class Level1 extends World {
         player = new Player(game, game.width / 2, game.height - (int) (Game.blockSize * 3.453125));
         ArrayLists.player.add(player);
 
+        doorSaveRoom = new DoorSaveRoom(game, 102*game.blockSize, 27*game.blockSize);
+        game.getGameCamera().setyOffset((int) (Game.blockSize * 4.6875));
+
         generateBackground();
+        generateObjects();
 
         loadFile();
     }
@@ -36,14 +49,63 @@ public class Level1 extends World {
     @Override
     public void tick() {
         player.tick();
+        input();
     }
 
     @Override
     public void render(Graphics g) {
         renderBackground(g);
-        player.render(g);
         renderBlocks(g);
+        doorSaveRoom.render(g);
+        player.render(g);
 
+
+        worldChange(g);
+        startBlackScreen(g);
+
+    }
+
+
+    public void generateObjects() {
+         int BlockY = 14*game.blockSize;
+
+         for(int i = 0; i<10; i++) {
+             Ladder ladder = new Ladder(game, 100*game.blockSize, BlockY, "ladder");
+             ArrayLists.backBlocks.add(ladder);
+             BlockY = BlockY + game.blockSize;
+         }
+    }
+
+    public void input() {
+        if (player.getBounds().intersects(doorSaveRoom.getBounds()) && game.getKeyHandler().e) {
+            worldChange = true;
+        }
+    }
+
+    private void worldChange(Graphics g) {
+        if (worldChange) {
+            if (worldChangeAlpha < 252) {
+                worldChangeAlpha += 2;
+            }
+            Color test = new Color(0, 0, 0, worldChangeAlpha);
+            g.setColor(test);
+            g.fillRect(0, 0, game.width, game.height);
+            if (worldChangeAlpha >= 252) {
+                ArrayList solidBlocks = ArrayLists.getSolidBlocks();
+                solidBlocks.clear();
+                SaveWorld saveWorld = new SaveWorld(game);
+                World.setWorld(saveWorld);
+            }
+        }
+    }
+
+    private void startBlackScreen(Graphics g) {
+        if (startAlpha > 1) {
+            Color color = new Color(0, 0, 0, startAlpha);
+            g.setColor(color);
+            g.fillRect(0, 0, game.width, game.height);
+            startAlpha -= 2;
+        }
     }
 
     private void renderBlocks(Graphics g) {
@@ -127,7 +189,7 @@ public class Level1 extends World {
 
     private void loadFile() {
         File file = new File("res\\Worlds\\Level1");
-        width = 96;
+        width = 111;
         height = 32;
         String type;
         Scanner s;
