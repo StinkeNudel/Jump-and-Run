@@ -8,7 +8,7 @@ import Blocks.BackBlock;
 import Blocks.Block;
 import Blocks.Ladder;
 import Blocks.SolidBlocks;
-import Entity.Doors.DoorSaveRoom;
+import Entity.Doors.Door;
 import Entity.Player;
 import Main.ArrayLists;
 import Main.Game;
@@ -22,7 +22,7 @@ import java.util.Scanner;
 public class Level1 extends World {
 
     private final Player player;
-    private DoorSaveRoom doorSaveRoom;
+    private Door door;
 
     int worldChangeAlpha = 1;
     private boolean worldChange = false;
@@ -37,7 +37,7 @@ public class Level1 extends World {
         player = new Player(game, game.width / 2, game.height - (int) (Game.blockSize * 3.453125));
         ArrayLists.player.add(player);
 
-        doorSaveRoom = new DoorSaveRoom(game, 102*game.blockSize, 27*game.blockSize);
+        door = new Door(game, 102*game.blockSize, 27*game.blockSize, "GraveDoor");
         game.getGameCamera().setyOffset((int) (Game.blockSize * 4.6875));
 
         generateBackground();
@@ -56,7 +56,7 @@ public class Level1 extends World {
     public void render(Graphics g) {
         renderBackground(g);
         renderBlocks(g);
-        doorSaveRoom.render(g);
+        door.render(g);
         player.render(g);
 
 
@@ -77,7 +77,7 @@ public class Level1 extends World {
     }
 
     public void input() {
-        if (player.getBounds().intersects(doorSaveRoom.getBounds()) && game.getKeyHandler().e) {
+        if (player.getBounds().intersects(door.getBounds()) && game.getKeyHandler().e) {
             worldChange = true;
         }
     }

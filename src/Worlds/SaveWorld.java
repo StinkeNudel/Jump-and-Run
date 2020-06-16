@@ -2,7 +2,7 @@ package Worlds;
 
 import Blocks.SolidBlocks;
 import Blocks.StoneBlock;
-import Entity.Doors.DoorSaveRoom;
+import Entity.Doors.Door;
 import Entity.Player;
 import GFX.ImageLoader;
 import Main.ArrayLists;
@@ -19,7 +19,7 @@ public class SaveWorld extends World {
     private BufferedImage image = ImageLoader.loadImage("/Blocks/DirtBlock.png");
 
     private Player player;
-    private DoorSaveRoom doorSaveRoom;
+    private Door door;
     private int startAlpha = 254;
 
     /**
@@ -35,7 +35,7 @@ public class SaveWorld extends World {
         ArrayLists.player.add(player);
 
 
-        doorSaveRoom = new DoorSaveRoom(game, game.width / 2 + 500, game.height - 225);
+        door = new Door(game, game.width / 2 + 500, game.height - 225);
         game.getGameCamera().setyOffset(300);
         saveGame();
     }
@@ -45,7 +45,7 @@ public class SaveWorld extends World {
      */
     public void tick() {
         player.tick();
-        doorSaveRoom.tick();
+        door.tick();
     }
 
 
@@ -56,7 +56,7 @@ public class SaveWorld extends World {
      */
     public void render(Graphics g) {
         g.drawImage(image, -1000 - (int) (game.getGameCamera().getxOffset()), -1000 - (int) (game.getGameCamera().getyOffset()), 6000, 6000, null);
-        doorSaveRoom.render(g);
+        door.render(g);
         player.render(g);
         renderBlocks(g);
         startBlackScreen(g);
