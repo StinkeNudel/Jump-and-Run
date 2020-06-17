@@ -2,7 +2,7 @@ package Worlds;
 
 import Blocks.*;
 import Entity.*;
-import Entity.Doors.DoorSaveRoom;
+import Entity.Doors.Door;
 import Main.ArrayLists;
 import Main.Game;
 import Main.TextPrinter;
@@ -18,7 +18,7 @@ public class TestWorld extends World {
     private final Player player;
     private final Worm worm;
 
-    private final DoorSaveRoom doorSaveRoom;
+    private final Door door;
     private final Item key;
     private final Item axe;
     private Schwurbel schwurbel;
@@ -51,7 +51,7 @@ public class TestWorld extends World {
         ArrayLists.enemys.add(worm);
 
 
-        doorSaveRoom = new DoorSaveRoom(game, game.width / 2, game.height - (int) (Game.blockSize * 3.515625));
+        door = new Door(game, game.width / 2, game.height - (int) (Game.blockSize * 3.515625), "Door");
         game.getGameCamera().setyOffset((int) (Game.blockSize * 4.6875));
 
         key = new Item(game, game.width / 2 + (int) (Game.blockSize * 2.34375), game.height - (int) (Game.blockSize * 2.8125), "key");
@@ -70,7 +70,7 @@ public class TestWorld extends World {
     public void tick() {
         player.tick();
         worm.tick();
-        doorSaveRoom.tick();
+        door.tick();
         input();
 
         ArrayList schwurbels = ArrayLists.schwurbels;
@@ -87,7 +87,7 @@ public class TestWorld extends World {
      */
     public void render(Graphics g) {
         worm.render(g);
-        doorSaveRoom.render(g);
+        door.render(g);
         worm.render(g);
         player.render(g);
         renderBlocks(g);
@@ -141,7 +141,7 @@ public class TestWorld extends World {
     }
 
     public void input() {
-        if (player.getBounds().intersects(doorSaveRoom.getBounds()) && game.getKeyHandler().e) {
+        if (player.getBounds().intersects(door.getBounds()) && game.getKeyHandler().e) {
             worldChange = true;
         }
     }
