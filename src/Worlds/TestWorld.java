@@ -157,8 +157,8 @@ public class TestWorld extends World {
             if (worldChangeAlpha >= 252) {
                 ArrayList solidBlocks = ArrayLists.getSolidBlocks();
                 solidBlocks.clear();
-                SaveWorld saveWorld = new SaveWorld(game);
-                World.setWorld(saveWorld);
+                Level2 level2 = new Level2(game);
+                World.setWorld(level2);
             }
         }
     }
@@ -198,7 +198,7 @@ public class TestWorld extends World {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     type = s.next();
-                    if (type.equals("N")) {
+                    if (type.equals("-")) {
                         //NOTHING
                     } else if (type.equals("l") || type.equals("s") || type.equals("d")) {
                         BackBlock b = new BackBlock(game, x * Game.blockSize, y * Game.blockSize, type);

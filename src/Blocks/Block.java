@@ -13,6 +13,8 @@ public class Block extends SolidBlocks {
     private BufferedImage leave = ImageLoader.loadImage("/Blocks/LeaveBlock.png");
     private BufferedImage wood = ImageLoader.loadImage("/Blocks/WoodBlock.png");
     private BufferedImage platform = ImageLoader.loadImage("/Blocks/PlatformBlock.png");
+    private BufferedImage stoneBrick = ImageLoader.loadImage("/Blocks/stoneBrick.png");
+    private BufferedImage stoneRubble = ImageLoader.loadImage("/Blocks/stoneRubble.png");
 
     public String type;
 
@@ -52,5 +54,9 @@ public class Block extends SolidBlocks {
             g.drawImage(wood, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
         if (type.equals("P"))
             g.drawImage(platform, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
+        if (type.equals("B"))
+            g.drawImage(stoneBrick, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
+        if (type.equals("R"))
+            g.drawImage(stoneRubble, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
     }
 }
