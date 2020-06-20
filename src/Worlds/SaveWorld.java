@@ -35,7 +35,7 @@ public class SaveWorld extends World {
         ArrayLists.player.add(player);
 
 
-        door = new Door(game, game.width / 2 + 500, game.height - 225);
+        door = new Door(game, game.width / 2 + 500, game.height - 225, "door");
         game.getGameCamera().setyOffset(300);
         saveGame();
     }
